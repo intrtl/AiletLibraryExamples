@@ -1,1 +1,1 @@
-Add ir-lib.arr into folder ir-lib.
+Add ir-lib.aar into folder ir-lib before compile.
