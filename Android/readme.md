@@ -122,7 +122,7 @@ allprojects {
 Include classes IrLibModule and IrLibPackage in android project.
 
 **IrLibPackage**
-```Java
+```java
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -152,7 +152,7 @@ public class IrLibPackage implements ReactPackage {
 
 This class describes all interactions with the IrLib library.
 
-```Java
+```java
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -218,7 +218,7 @@ public class IrLibModule extends ReactContextBaseJavaModule {
 
 Add IrLibPackage in MainApplication.
 
-```Java
+```java
 @Override
 protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
