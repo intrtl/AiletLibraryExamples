@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.intelligenceretail.www.lib.IntRtl;
@@ -40,17 +39,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 //Init IrLib
                 IntRtl.Results res = ir.init(
-                        "vsevolod.didkovskiy",
-                        "4421Vfrc0215",
+                        "username",
+                        "password",
                         "notificationID"
                 );
                 if (res == IntRtl.Results.RESULT_OK){
                     //Start IrLib camera mode (visit)
                     res = ir.start(
                             "123456789",
-                            "testVisit1");
-
-                    Log.i("","");
+                            "testVisit");
                 }
             }
         });
