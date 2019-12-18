@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //Init broadcast reciver
         shareShelfBroadcast = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -60,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("visit_id", visit_id);
                     intent.putExtra("store_id", store_id);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
-//                    startActivity(intent);
                 }
             }
         });
