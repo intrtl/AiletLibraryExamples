@@ -20,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int ACTIVITY_RESULT_START_IR_SUMMARYREPORT = 3;
     private static final String IR_PACKAGE_NAME = "com.intelligenceretail.www.pilot";
     private static final String user = "";
-    private static final String password = "12345678";
+    private static final String password = "";
+    private static final String user_id = null;
     private static final String visit_id = "1";
+    private static final String visit_id2 = "2";
     private static final String store_id = "123456789";
+    private static final String store_id2 = "5555";
     private BroadcastReceiver shareShelfBroadcast;
 
     @Override
@@ -55,8 +58,28 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("method", "visit");
                     intent.putExtra("login", user);
                     intent.putExtra("password", password);
+                    intent.putExtra("id", user_id);
                     intent.putExtra("visit_id", visit_id);
                     intent.putExtra("store_id", store_id);
+                    startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
+                }
+            }
+        });
+
+        findViewById(R.id.btVisit2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = getPackageManager().getLaunchIntentForPackage(IR_PACKAGE_NAME);
+                if (intent != null) {
+                    intent.setAction(Intent.ACTION_RUN);
+                    intent.setFlags(0);
+                    intent.putExtra("method", "visit");
+                    intent.putExtra("login", user);
+                    intent.putExtra("password", password);
+                    intent.putExtra("id", user_id);
+                    intent.putExtra("visit_id", visit_id2);
+                    intent.putExtra("store_id", store_id2);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
                 }
             }
@@ -73,12 +96,30 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("method", "report");
                     intent.putExtra("login", user);
                     intent.putExtra("password", password);
+                    intent.putExtra("id", user_id);
                     intent.putExtra("visit_id", visit_id);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_REPORT);
                 }
             }
         });
 
+        findViewById(R.id.btReport2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = getPackageManager().getLaunchIntentForPackage(IR_PACKAGE_NAME);
+                if (intent != null) {
+                    intent.setAction(Intent.ACTION_RUN);
+                    intent.setFlags(0);
+                    intent.putExtra("method", "report");
+                    intent.putExtra("login", user);
+                    intent.putExtra("password", password);
+                    intent.putExtra("id", user_id);
+                    intent.putExtra("visit_id", visit_id2);
+                    startActivityForResult(intent, ACTIVITY_RESULT_START_IR_REPORT);
+                }
+            }
+        });
 
         findViewById(R.id.btSummaryReport).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +132,26 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("method", "summaryReport");
                     intent.putExtra("login", user);
                     intent.putExtra("password", password);
+                    intent.putExtra("id", user_id);
                     intent.putExtra("visit_id", visit_id);
+                    startActivityForResult(intent, ACTIVITY_RESULT_START_IR_SUMMARYREPORT);
+                }
+            }
+        });
+
+        findViewById(R.id.btSummaryReport2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = getPackageManager().getLaunchIntentForPackage(IR_PACKAGE_NAME);
+                if (intent != null) {
+                    intent.setAction(Intent.ACTION_RUN);
+                    intent.setFlags(0);
+                    intent.putExtra("method", "summaryReport");
+                    intent.putExtra("login", user);
+                    intent.putExtra("password", password);
+                    intent.putExtra("id", user_id);
+                    intent.putExtra("visit_id", visit_id2);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_SUMMARYREPORT);
                 }
             }

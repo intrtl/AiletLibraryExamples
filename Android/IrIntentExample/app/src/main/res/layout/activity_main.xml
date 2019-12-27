@@ -33,4 +33,32 @@
         app:layout_constraintStart_toEndOf="@+id/btReport"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <Button
+        android:id="@+id/btVisit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Visit2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btVisit" />
+
+    <Button
+        android:id="@+id/btReport2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Reports2"
+        app:layout_constraintStart_toEndOf="@+id/btVisit2"
+        app:layout_constraintTop_toTopOf="@+id/btVisit2" />
+
+    <Button
+        android:id="@+id/btSummaryReport2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Summary Report2"
+        app:layout_constraintStart_toEndOf="@+id/btReport2"
+        app:layout_constraintTop_toTopOf="@+id/btVisit2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
