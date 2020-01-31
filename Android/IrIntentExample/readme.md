@@ -106,6 +106,8 @@ status  | Статус выполнения метода | всегда
 Статус  | Описание
 ------------- | -------------
 RESULT_OK | Успешно
+RESULT_EMPTY | Пустой отчет
+RESULT_INPROGRESS | Данные в обработке
 ERROR | Ошибка
 ERROR_TOKEN | Ошибка токена
 ERROR_STORE_ID_INCORRECT | Некорректный ИД торновой точки
@@ -114,7 +116,5 @@ ERROR_NOVISIT | Визита не существует
 ERROR_STORES_EMPTY | Справочник торговых точек пустой
 ERROR_INCORRECT_INPUT_PARAMS | Неверные входные параметры
 ERROR_INCORRECT_METHOD | Неверный метод
-RESULT_EMPTY | Пустой отчет
-RESULT_INPROGRESS | Данные в обработке
 ERROR_AUTH | Ошибка авторизации
 ERROR_NO_INET | Отсутствие интернета
