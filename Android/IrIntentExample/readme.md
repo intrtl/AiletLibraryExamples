@@ -8,19 +8,26 @@
     - [Пример вызова метода](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b2%d1%8b%d0%b7%d0%be%d0%b2%d0%b0-%d0%bc%d0%b5%d1%82%d0%be%d0%b4%d0%b0)
   - [Ответ](#%d0%9e%d1%82%d0%b2%d0%b5%d1%82)
     - [Формат поля json](#%d0%a4%d0%be%d1%80%d0%bc%d0%b0%d1%82-%d0%bf%d0%be%d0%bb%d1%8f-json)
-      - [Пример ответа](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%b0)
-      - [Пример обработки ответа](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%b0)
-      - [Статусы](#%d0%a1%d1%82%d0%b0%d1%82%d1%83%d1%81%d1%8b)
+    - [Пример поля json](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%bf%d0%be%d0%bb%d1%8f-json)
+    - [Статусы](#%d0%a1%d1%82%d0%b0%d1%82%d1%83%d1%81%d1%8b)
+    - [Пример обработки ответа](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%b0)
+  - [Broadcast-сообщение](#broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d0%b5)
+    - [Содержимое broadcast-сообщения](#%d0%a1%d0%be%d0%b4%d0%b5%d1%80%d0%b6%d0%b8%d0%bc%d0%be%d0%b5-broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d1%8f)
+    - [Пример обработки broadcast-сообщения](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d1%8f)
 
-## Вызов 
+## Вызов
+
 ### Методы
-Метод  | Описание 
+
+Метод  | Описание
 ------------- | -------------
-visit  |Создание/редактирование визита (activity)   
-report |Отчет по визиту (json)
-summaryReport |Сводный отчет по визиту (activity)
+visit  | Создание/редактирование визита (activity)
+report | Отчет по визиту (json)
+summaryReport | Сводный отчет по визиту (activity)
+sync | Запуск фонового процесса передачи фото и получения результатов
 
 ### Параметры вызова
+
 Поле  | Описание | Обязательно для методов
 ------------- | ------------- | -------------
 method  | Метод | для всех
@@ -63,7 +70,7 @@ nonValidPhotosCounter  | Количество некачественных и н
 report  | Отчет (формат отчета в документации) | при status == RESULT_OK
 status  | Статус выполнения метода | всегда
 
-#### Пример ответа
+### Пример поля json
 ```json
 {
     "photosCounter": 1,
@@ -76,33 +83,7 @@ status  | Статус выполнения метода | всегда
 }
 ```
 
-#### Пример обработки ответа
-```java
-@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case (ACTIVITY_RESULT_START_IR_VISIT):
-                    if (data.getExtras() != null) {
-                    try {
-                        addlog(data.getExtras().getString("json"));
-                        JSONObject json = new JSONObject(data.getExtras().getString("json"));
-                        Toast.makeText(getBaseContext(), mode + " " + json.getString("status"), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } else {
-            if (data.getExtras() != null)
-                Toast.makeText(getBaseContext(), "ERROR_ACTIVITY_RESULT " + data.getExtras().getString("error"), Toast.LENGTH_LONG).show();
-        }
-    }
-```
-
-#### Статусы 
+### Статусы 
 Статус  | Описание
 ------------- | -------------
 RESULT_OK | Успешно
@@ -118,3 +99,58 @@ ERROR_INCORRECT_INPUT_PARAMS | Неверные входные параметр�
 ERROR_INCORRECT_METHOD | Неверный метод
 ERROR_AUTH | Ошибка авторизации
 ERROR_NO_INET | Отсутствие интернета
+
+### Пример обработки ответа
+```java
+@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case (ACTIVITY_RESULT_START_IR_VISIT):
+                    if (data.getExtras() != null) {
+                    try {
+                        JSONObject json = new JSONObject(data.getExtras().getString("json"));
+                        Toast.makeText(getBaseContext(), mode + " " + json.getString("status"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            if (data.getExtras() != null)
+                Toast.makeText(getBaseContext(), "ERROR_ACTIVITY_RESULT " + data.getExtras().getString("error"), Toast.LENGTH_LONG).show();
+        }
+    }
+```
+
+## Broadcast-сообщение
+При вызове метода visit и создании фото запускается фоновый процесс передачи фото и получения отчетов, который по завершении формирует broadcast сообщение IR_BROADCAST_SHARESHELF.
+
+### Содержимое broadcast-сообщения
+Поле  | Описание
+------------- | -------------
+VISIT_ID  | Внутренний ИД визита
+EXTERNAL_VISIT_ID | ИД визита
+json | Ответ в формате, описанном выше
+
+### Пример обработки broadcast-сообщения
+```java
+shareShelfBroadcast = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            try {
+                JSONObject json = new JSONObject(extras.getString("json"));
+                Toast.makeText(getBaseContext(), "BROADCAST_SHARESHELF " + json.getString("status"), Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+};
+
+this.registerReceiver(shareShelfBroadcast, new IntentFilter("IR_BROADCAST_SHARESHELF"));
+```
