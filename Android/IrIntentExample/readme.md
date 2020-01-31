@@ -60,7 +60,7 @@ scenesCounter  | Количество сцен | при status != ошибке
 notDetectedPhotosCounter  | Количество фото, по которым не получены данные | при status != ошибке
 notDetectedScenesCounter  | Количество сцен, по которым не получены данные | при status != ошибке
 nonValidPhotosCounter  | Количество некачественных и не принятых пользователем фото | при status != ошибке
-report  | Отчет (формат отчета в документации) | только при status == RESULT_OK
+report  | Отчет (формат отчета в документации) | при status == RESULT_OK
 status  | Статус выполнения метода | всегда
 
 #### Пример ответа
