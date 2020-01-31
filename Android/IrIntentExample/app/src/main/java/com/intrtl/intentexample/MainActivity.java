@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -37,9 +38,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Bundle extras = intent.getExtras();
-                String visit_id = extras.getString("VISIT_ID", "-empty-");
-                String external_visit_id = extras.getString("EXTERNAL_VISIT_ID", "-visit_id not set-");
-                Toast.makeText(getBaseContext(), "Visit " + external_visit_id + " finished!", Toast.LENGTH_LONG).show();
+                if (extras != null) {
+                    try {
+                        addlog("BROADCAST_SHARESHELF:" + extras.getString("json"));
+                        JSONObject json = new JSONObject(extras.getString("json"));
+                        Toast.makeText(getBaseContext(), "BROADCAST_SHARESHELF " + json.getString("status"), Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
 
@@ -164,30 +171,30 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+            String mode = "";
             switch (requestCode) {
 
                 case (ACTIVITY_RESULT_START_IR_REPORT):
-                    if (data.getExtras() != null) {
-                        try {
-                            JSONObject json = new JSONObject(data.getExtras().getString("json"));
-                            Toast.makeText(getBaseContext(), "ACTIVITY_RESULT_START_IR_REPORT " + json, Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    mode = "reports";
                     break;
 
                 case (ACTIVITY_RESULT_START_IR_VISIT):
-                    if (data.getExtras() != null) {
-                        Toast.makeText(getBaseContext(), "ACTIVITY_RESULT_START_IR_VISIT " + data.getExtras().getString("error"), Toast.LENGTH_LONG).show();
-                    }
+                    mode = "visit";
                     break;
 
                 case (ACTIVITY_RESULT_START_IR_SUMMARYREPORT):
-                    if (data.getExtras() != null) {
-                        Toast.makeText(getBaseContext(), "ACTIVITY_RESULT_START_IR_SUMMARYREPORT " + data.getExtras().getString("error"), Toast.LENGTH_LONG).show();
-                    }
+                    mode = "summaryReport";
                     break;
+            }
+
+            if (data.getExtras() != null) {
+                try {
+                    addlog(data.getExtras().getString("json"));
+                    JSONObject json = new JSONObject(data.getExtras().getString("json"));
+                    Toast.makeText(getBaseContext(), mode + " " + json.getString("status"), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             if (data.getExtras() != null)
@@ -195,4 +202,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void addlog(String text){
+        EditText logEditText = findViewById(R.id.logEditText);
+        logEditText.setText(text);
+
+    }
 }

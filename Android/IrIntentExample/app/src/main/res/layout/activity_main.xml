@@ -61,4 +61,29 @@
         app:layout_constraintStart_toEndOf="@+id/btReport2"
         app:layout_constraintTop_toTopOf="@+id/btVisit2" />
 
+    <ScrollView
+        android:layout_marginTop="150dp"
+        app:layout_constraintTop_toBottomOf="@+id/btSummaryReport2"
+        android:background="#eee"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:id="@+id/logEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+        </RelativeLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

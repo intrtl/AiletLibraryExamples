@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.intelligenceretail.www.lib.IntRtl;
+import com.intrtl.lib.IntRtl;
 
 public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver brShareShelf;
@@ -38,9 +38,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btStart).setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 //Init IrLib
+                ir.setDevEnv(true);
                 IntRtl.Results res = ir.init(
-                        "username",
-                        "password",
+                        "vsevolod.didkovskiy",
+                        "12345678",
                         "notificationID"
                 );
                 if (res == IntRtl.Results.RESULT_OK){
