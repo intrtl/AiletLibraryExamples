@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,19 +39,33 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btStart).setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 //Init IrLib
-                ir.setDevEnv(true);
-                IntRtl.Results res = ir.init(
-                        "vsevolod.didkovskiy",
-                        "12345678",
-                        "notificationID"
-                );
-                if (res == IntRtl.Results.RESULT_OK){
-                    //Start IrLib camera mode (visit)
-                    res = ir.start(
-                            "123456789",
-                            "testVisit");
-                }
+//                strictAccess();
+                ir.setDevEnv(false);
+
+                Thread startThread = new Thread(new Runnable() {
+                    public void run() {
+                        IntRtl.Results res = ir.init(
+                                "",
+                                "",
+                                "notificationID"
+                        );
+                        if (res == IntRtl.Results.RESULT_OK){
+                            //Start IrLib camera mode (visit)
+                            res = ir.start(
+                                    "123456789",
+                                    "testVisit");
+                        }
+                    }
+                });
+                startThread.start();
+
             }
         });
     }
+
+    public static void strictAccess() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+    }
 }
+

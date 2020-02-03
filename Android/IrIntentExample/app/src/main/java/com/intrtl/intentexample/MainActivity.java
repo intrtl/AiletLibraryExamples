@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int ACTIVITY_RESULT_START_IR_VISIT = 2;
     private static final int ACTIVITY_RESULT_START_IR_SUMMARYREPORT = 3;
     private static final String IR_PACKAGE_NAME = "com.intelligenceretail.www.pilot";
-    private static final String user = "";
-    private static final String password = "";
+    private static final String user = "vsevolod.didkovskiy";
+    private static final String password = "4421Vfrc0215";
     private static final String user_id = null;
     private static final String visit_id = "1";
     private static final String visit_id2 = "2";
