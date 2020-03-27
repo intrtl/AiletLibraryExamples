@@ -1,18 +1,27 @@
+# Table of contents
+- [Table of contents](#table-of-contents)
+- [Changelog](#changelog)
+- [For native Android project](#for-native-android-project)
+- [Integrate IrLib in React Native project](#integrate-irlib-in-react-native-project)
+  - [Include libraries](#include-libraries)
+  - [Configure android project](#configure-android-project)
+    - [In build.gradle (app)](#in-buildgradle-app)
+    - [In build.gradle (android)](#in-buildgradle-android)
+  - [Android Bridge](#android-bridge)
+  - [Use IrLib in React Native project (Apps.js)](#use-irlib-in-react-native-project-appsjs)
+
+# Changelog
+Version :
+- Need add AppCenter library 
+```gradle
+implementation "com.microsoft.appcenter:appcenter-analytics:2.5.1"
+implementation "com.microsoft.appcenter:appcenter-crashes:2.5.1"
+```
+
 # For native Android project
 Add ir-lib.aar into folder ir-lib before compile.
 
 # Integrate IrLib in React Native project
-
-## Table of contents
-- [For native Android project](#For-native-Android-project)
-- [Integrate IrLib in React Native project](#Integrate-IrLib-in-React-Native-project)
-  - [Table of contents](#Table-of-contents)
-  - [Include libraries](#Include-libraries)
-  - [Configure android project](#Configure-android-project)
-    - [In build.gradle (app)](#In-buildgradle-app)
-    - [In build.gradle (android)](#In-buildgradle-android)
-  - [Android Bridge](#Android-Bridge)
-  - [Use IrLib in React Native project (Apps.js)](#Use-IrLib-in-React-Native-project-Appsjs)
 
 ## Include libraries
 Copy libraries ir-lib.aar and openCVLibrary320.aar to the folder android/app/libs.

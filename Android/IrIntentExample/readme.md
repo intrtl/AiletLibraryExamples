@@ -89,6 +89,7 @@ status  | Статус выполнения метода | всегда
 RESULT_OK | Успешно
 RESULT_EMPTY | Пустой отчет
 RESULT_INPROGRESS | Данные в обработке
+RESULT_INPROGRESS_OFFLINE | Данные в обработке (приложение в режиме оффлайн)
 ERROR | Ошибка
 ERROR_TOKEN | Ошибка токена
 ERROR_STORE_ID_INCORRECT | Некорректный ИД торновой точки
