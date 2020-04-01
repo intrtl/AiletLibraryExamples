@@ -6,6 +6,7 @@
   - [Include OpenCV](#include-opencv)
   - [Required dependencies](#required-dependencies)
   - [If project use androidX](#if-project-use-androidx)
+  - [Export local base functionality](#export-local-base-functionality)
 
 ## Include irLib using Maven
 
@@ -47,4 +48,29 @@ Update gradle.properties with
 ```gradle
 android.useAndroidX=true
 android.enableJetifier=true
+```
+
+## Export local base functionality
+
+If you need export base (for IR support) please add next lines into *Manifest*
+
+```xml
+<provider
+  android:name="android.support.v4.content.FileProvider"
+  android:authorities="${applicationId}.provider"
+  android:exported="false"
+  android:grantUriPermissions="true">
+    <meta-data
+      android:name="android.support.FILE_PROVIDER_PATHS"
+      android:resource="@xml/provider_paths"/>
+</provider>
+```
+
+and create file *provider_paths* in **res/xml** folder
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="external_files" path="."/>
+</paths>
 ```
