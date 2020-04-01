@@ -1,12 +1,13 @@
 # Integrate irLib into project
 
 - [Integrate irLib into project](#integrate-irlib-into-project)
-  - [Using Maven](#using-maven)
-  - [Manual](#manual)
+  - [Include irLib using Maven](#include-irlib-using-maven)
+  - [Manual include irLib](#manual-include-irlib)
+  - [Include OpenCV](#include-opencv)
   - [Required dependencies](#required-dependencies)
   - [If project use androidX](#if-project-use-androidx)
 
-## Using Maven
+## Include irLib using Maven
 
 Update build.gradle (Project) with
 
@@ -20,9 +21,13 @@ Update build.gradle (App level) with
 implementation 'com.intrtl:lib:+'
 ```
 
-## Manual
+## Manual include irLib
 
-In Android Studio open **File - Project Structure - Dependencies**, press **+** and select **Import .JAR/.AAR Package**, import .aar libraries (*ir-lib* and *OpenCV*). Then in **Declared Dependencies** press **+** and select **3. Module Dependency**, select *ir-lib* and *OpenCV*, then **Apply** changes or press **OK**.
+In Android Studio open **File - Project Structure - Dependencies**, press **+** and select **Import .JAR/.AAR Package**, import *ir-lib.aar*. Then in **Declared Dependencies** press **+** and select **3. Module Dependency**, select *ir-lib*, then **Apply** changes or press **OK**.
+
+## Include OpenCV
+
+In Android Studio open **File - Project Structure - Dependencies**, press **+** and select **Import .JAR/.AAR Package**, import *OpenCV.aar* library. Then in **Declared Dependencies** press **+** and select **3. Module Dependency**, select *OpenCV*, then **Apply** changes or press **OK**.
 
 ## Required dependencies
 
