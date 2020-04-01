@@ -1,69 +1,22 @@
-# Integrate irLib into project
-- [Integrate irLib into project](#integrate-irlib-into-project)
-  - [For native Android project](#for-native-android-project)
-    - [Using Maven](#using-maven)
-    - [Manual](#manual)
-    - [Required dependencies](#required-dependencies)
-    - [If project using androidX](#if-project-using-androidx)
-  - [Integrate IrLib in React Native project](#integrate-irlib-in-react-native-project)
-    - [Include libraries](#include-libraries)
-    - [Configure android project](#configure-android-project)
-      - [In build.gradle (app)](#in-buildgradle-app)
-      - [In build.gradle (android)](#in-buildgradle-android)
-    - [Android Bridge](#android-bridge)
-      - [IrLibPackage](#irlibpackage)
-      - [IrLibModule](#irlibmodule)
-    - [Use IrLib in React Native project (Apps.js)](#use-irlib-in-react-native-project-appsjs)
+# Integrate irLib into React Native project
 
-## For native Android project
+- [Integrate irLib into React Native project](#integrate-irlib-into-react-native-project)
+  - [Include libraries](#include-libraries)
+  - [Configure android project](#configure-android-project)
+    - [In build.gradle (app)](#in-buildgradle-app)
+    - [In build.gradle (android)](#in-buildgradle-android)
+  - [Android Bridge](#android-bridge)
+    - [IrLibPackage](#irlibpackage)
+    - [IrLibModule](#irlibmodule)
+  - [Use IrLib in React Native project (Apps.js)](#use-irlib-in-react-native-project-appsjs)
 
-### Using Maven
-
-Update build.gradle (Project) with
-
-```gradle
-maven { url "https://maven.intrtl.com/artifactory/irlib" }
-```
-
-Update build.gradle (App level) with
-
-```gradle
-implementation 'com.intrtl:lib:+'
-```
-
-### Manual
-
-In Android Studio open **File - Project Structure - Dependencies**, press **+** and select **Import .JAR/.AAR Package**, import .aar libraries (*ir-lib* and *OpenCV*). Then in **Declared Dependencies** press **+** and select **3. Module Dependency**, select *ir-lib* and *OpenCV*, then **Apply** changes or press **OK**.
-
-### Required dependencies
-
-```gradle
-implementation 'com.google.android.gms:play-services-location:16.0.0'
-implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-implementation 'com.github.PhilJay:MPAndroidChart:3.0.2'    
-implementation 'com.squareup.picasso:picasso:2.5.2'
-implementation "com.microsoft.appcenter:appcenter-analytics:2.5.1"
-implementation "com.microsoft.appcenter:appcenter-crashes:2.5.1"
-```
-
-### If project using androidX
-
-Update gradle.properties with
-
-```gradle
-android.useAndroidX=true
-android.enableJetifier=true
-```
-
-## Integrate IrLib in React Native project
-
-### Include libraries
+## Include libraries
 
 Copy libraries ir-lib.aar and openCVLibrary320.aar to the folder android/app/libs.
 
-### Configure android project
+## Configure android project
 
-#### In build.gradle (app)
+### In build.gradle (app)
 
 ```gradle
 apply plugin: 'realm-android'
@@ -97,7 +50,7 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.aar"])
     implementation "com.facebook.react:react-native:+"
-    implementation files('libs/ir-lib.aar') 
+    implementation files('libs/ir-lib.aar')
     implementation files('libs/openCVLibrary320.aar')
 
     implementation 'com.android.support:multidex:1.0.3'
@@ -126,7 +79,7 @@ dependencies {
 }
 ```
 
-#### In build.gradle (android) 
+### In build.gradle (android)
 
 ```gradle
 buildscript {
@@ -144,7 +97,7 @@ buildscript {
     dependencies {
         classpath('com.android.tools.build:gradle:3.4.1')
         classpath "io.realm:realm-gradle-plugin:5.3.1"
-        classpath 'com.google.gms:google-services:4.0.0'        
+        classpath 'com.google.gms:google-services:4.0.0'
     }
 }
 
@@ -153,9 +106,9 @@ allprojects {
         mavenLocal()
         google()
         jcenter()
-        maven {            
+        maven {
             url "$rootDir/../node_modules/react-native/android"
-        }   
+        }
 
         maven {
             url 'https://maven.google.com/'
@@ -164,11 +117,11 @@ allprojects {
 }
 ```
 
-### Android Bridge
+## Android Bridge
 
 Include classes IrLibModule and IrLibPackage in android project.
 
-#### IrLibPackage
+### IrLibPackage
 
 ```java
 import com.facebook.react.ReactPackage;
@@ -189,14 +142,14 @@ public class IrLibPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(
             ReactApplicationContext reactContext) {
-        List<NativeModule> modules = new ArrayList<>();        
+        List<NativeModule> modules = new ArrayList<>();
         modules.add(new IrLibModule(reactContext));
         return modules;
     }
 }
 ```
 
-#### IrLibModule
+### IrLibModule
 
 This class describes all interactions with the IrLib library.
 
@@ -212,14 +165,14 @@ import org.json.JSONObject;
 public class IrLibModule extends ReactContextBaseJavaModule {
 
     public IrLibModule(ReactApplicationContext reactContext) {
-        super(reactContext); 
+        super(reactContext);
     }
 
-    @Override    
+    @Override
     public String getName() {
         return "IrModule";
     }
-    
+
     @ReactMethod
     public IntRtl.Results start(String user_name,
                                 String password,
@@ -276,18 +229,18 @@ protected List<ReactPackage> getPackages() {
 }
 ```
 
-### Use IrLib in React Native project (Apps.js)
+## Use IrLib in React Native project (Apps.js)
 
 ```js
 import {NativeModules} from 'react-native';
 var IrModule = NativeModules.IrModule;
- 
+
 type Props = {};
 export default class App extends Component<Props> {
   test() {
     IrModule.reports("tp1");
   }
- 
+
   render() {
     return (
       <View style={styles.container}>
