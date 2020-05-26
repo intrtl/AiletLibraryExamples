@@ -44,6 +44,7 @@
     //Init IrView with user name, password and notification identificator
     long res = [IrView init:@"username"
                    password:@"password"
+                 guestToken:@"your-guest-token"
                notification:@"broadcast"];
     
     if (res == IR_RESULT_OK){//If result ok do...

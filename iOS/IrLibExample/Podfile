@@ -1,12 +1,14 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/intrtl/specs'
+
 target 'IrLibExample' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for Test3
-  pod 'Realm'
-  pod 'Charts', '~> 3.2.2'
+  pod 'IRLib'
 
 end

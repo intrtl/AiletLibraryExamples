@@ -1,24 +1,49 @@
 PODS:
+  - AppCenter (1.2.0):
+    - AppCenter/Analytics (= 1.2.0)
+    - AppCenter/Crashes (= 1.2.0)
+  - AppCenter/Analytics (1.2.0):
+    - AppCenter/Core
+  - AppCenter/Core (1.2.0)
+  - AppCenter/Crashes (1.2.0):
+    - AppCenter/Core
   - Charts (3.2.2):
     - Charts/Core (= 3.2.2)
   - Charts/Core (3.2.2)
-  - Realm (3.17.0):
-    - Realm/Headers (= 3.17.0)
-  - Realm/Headers (3.17.0)
+  - IRLib (1.0.170):
+    - AppCenter (~> 1.2.0)
+    - Charts (~> 3.2.2)
+    - IrLibSwift (~> 1.0.3)
+    - OpenCV2 (~> 3.4.6)
+    - Realm (~> 4.3.0)
+  - IrLibSwift (1.0.3):
+    - Realm (~> 4.3.0)
+  - OpenCV2 (3.4.10)
+  - Realm (4.3.2):
+    - Realm/Headers (= 4.3.2)
+  - Realm/Headers (4.3.2)
 
 DEPENDENCIES:
-  - Charts (~> 3.2.2)
-  - Realm
+  - IRLib
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
+    - AppCenter
     - Charts
+    - OpenCV2
     - Realm
+  https://github.com/intrtl/specs:
+    - IRLib
+    - IrLibSwift
 
 SPEC CHECKSUMS:
+  AppCenter: d0b68b2a7a87ac0aed78e66f36d87fd321d0a29c
   Charts: f69cf0518b6d1d62608ca504248f1bbe0b6ae77e
-  Realm: b30db41ff34fc858ffc25ba8d44a82c164e7ccd0
+  IRLib: ad0bd208a1a7120a78ab556d3e382efe23463b71
+  IrLibSwift: 8f4e1af2d32201b4d18a662bb540646dec5193ab
+  OpenCV2: 508d6c0ce3bb343591ef2375036ea60511cbd187
+  Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
 
-PODFILE CHECKSUM: 90a91c9108ab3b3c0913aa57a2fcd9ba0c15812d
+PODFILE CHECKSUM: 4b822c048b15c0c899e7057bacbdaf2365ba335f
 
-COCOAPODS: 1.7.2
+COCOAPODS: 1.9.1

@@ -13,24 +13,8 @@
 		A0E7D89122D397F3005ACCF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0E7D89022D397F3005ACCF5 /* Assets.xcassets */; };
 		A0E7D89422D397F3005ACCF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E7D89222D397F3005ACCF5 /* LaunchScreen.storyboard */; };
 		A0E7D89722D397F3005ACCF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E7D89622D397F3005ACCF5 /* main.m */; };
-		A0E7D89F22D39881005ACCF5 /* IrLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0E7D89D22D39852005ACCF5 /* IrLib.framework */; };
-		A0E7D8A022D39881005ACCF5 /* IrLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A0E7D89D22D39852005ACCF5 /* IrLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A722EFFFB049627C1E2B4F9F /* Pods_IrLibExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B543FD0A82EC70BC07FCC22E /* Pods_IrLibExample.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A0E7D8A122D39881005ACCF5 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A0E7D8A022D39881005ACCF5 /* IrLib.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0FD8BFE54BD169AFB24D1884 /* Pods-Test3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test3.release.xcconfig"; path = "Target Support Files/Pods-Test3/Pods-Test3.release.xcconfig"; sourceTree = "<group>"; };
@@ -56,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0E7D89F22D39881005ACCF5 /* IrLib.framework in Frameworks */,
 				A722EFFFB049627C1E2B4F9F /* Pods_IrLibExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,7 +113,6 @@
 				A0E7D88122D397F2005ACCF5 /* Frameworks */,
 				A0E7D88222D397F2005ACCF5 /* Resources */,
 				DB2F64232F5C18E0ADDA5C24 /* [CP] Embed Pods Frameworks */,
-				A0E7D8A122D39881005ACCF5 /* Embed Frameworks */,
 				A098F44D22E5DD23006C8230 /* Before publish */,
 			);
 			buildRules = (
@@ -399,6 +381,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YXQ7AM6FKX;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -421,6 +404,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YXQ7AM6FKX;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
