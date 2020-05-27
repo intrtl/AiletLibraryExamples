@@ -81,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
                 if (intent != null) {
                     intent.setAction(Intent.ACTION_RUN);
                     intent.setFlags(0);
-                    intent.putExtra("method", "visit");
+                    intent.putExtra("method", "sync");
                     intent.putExtra("login", user);
                     intent.putExtra("password", password);
                     intent.putExtra("id", user_id);
-                    intent.putExtra("visit_id", visit_id2);
-                    intent.putExtra("store_id", store_id2);
+                    intent.putExtra("visit_id", visit_id);
+                    intent.putExtra("store_id", store_id);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
                 }
             }
