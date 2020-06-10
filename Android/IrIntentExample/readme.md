@@ -1,4 +1,5 @@
 # Взаимодействие через Интенты
+
 Позволяет использовать приложение IR без интеграции библиотеки, достаточно что бы приложение IR было устновлено на устройстве.
 
 - [Взаимодействие через Интенты](#%d0%92%d0%b7%d0%b0%d0%b8%d0%bc%d0%be%d0%b4%d0%b5%d0%b9%d1%81%d1%82%d0%b2%d0%b8%d0%b5-%d1%87%d0%b5%d1%80%d0%b5%d0%b7-%d0%98%d0%bd%d1%82%d0%b5%d0%bd%d1%82%d1%8b)
@@ -38,6 +39,7 @@ visit_id | ИД визита | visit, report, summaryReport
 store_id | ИД торговой точки | visit
 
 ### Пример вызова метода
+
 ```java
 Intent intent = getPackageManager().getLaunchIntentForPackage("com.intelligenceretail.www.pilot");
                 if (intent != null) {
@@ -54,12 +56,16 @@ Intent intent = getPackageManager().getLaunchIntentForPackage("com.intelligencer
 ```
 
 ## Ответ
+
+Для возврата результата используется FileProvider, intent в атрибуте data содержит Uri файла с данными.
+
 Поле  | Описание
 ------------- | -------------
 error  | Ошибка, при resultCode == RESULT_CANCELED
-json | Результат операции
+data | Uri с файлом результата операции
 
 ### Формат поля json
+
 Поле  | Описание | Наличие в ответе
 ------------- | ------------- | -------------
 photosCounter  | Количество сделанных фото | при status != ошибке
@@ -71,6 +77,7 @@ report  | Отчет (формат отчета в документации) | �
 status  | Статус выполнения метода | всегда
 
 ### Пример поля json
+
 ```json
 {
     "photosCounter": 1,
@@ -84,6 +91,7 @@ status  | Статус выполнения метода | всегда
 ```
 
 ### Статусы 
+
 Статус  | Описание
 ------------- | -------------
 RESULT_OK | Успешно
@@ -103,21 +111,21 @@ ERROR_AUTH | Ошибка авторизации
 ERROR_NO_INET | Отсутствие интернета
 
 ### Пример обработки ответа
+
 ```java
-@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case (ACTIVITY_RESULT_START_IR_VISIT):
-                    if (data.getExtras() != null) {
-                    try {
-                        JSONObject json = new JSONObject(data.getExtras().getString("json"));
-                        Toast.makeText(getBaseContext(), mode + " " + json.getString("status"), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            if (data.getData() != null) {
+                String result = readFromUri(data.getData());                
+                try {
+                    JSONObject json = new JSONObject(result);                    
+                    addlog(json.toString());
+                    Toast.makeText(getBaseContext(), mode + " " + json.getString("status"), Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
         } else {
@@ -125,12 +133,33 @@ ERROR_NO_INET | Отсутствие интернета
                 Toast.makeText(getBaseContext(), "ERROR_ACTIVITY_RESULT " + data.getExtras().getString("error"), Toast.LENGTH_LONG).show();
         }
     }
+
+    private String readFromUri(Uri uri){
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            InputStreamReader isReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isReader);
+            StringBuffer sb = new StringBuffer();
+            String str;
+            while((str = reader.readLine())!= null){
+                sb.append(str);
+            }
+
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
+    }
 ```
 
 ## Broadcast-сообщение
+
 При вызове метода visit и создании фото запускается фоновый процесс передачи фото и получения отчетов, который по завершении формирует broadcast сообщение IR_BROADCAST_SHARESHELF.
 
 ### Содержимое broadcast-сообщения
+
 Поле  | Описание
 ------------- | -------------
 VISIT_ID  | Внутренний ИД визита
@@ -138,6 +167,7 @@ EXTERNAL_VISIT_ID | ИД визита
 json | Ответ в формате, описанном выше
 
 ### Пример обработки broadcast-сообщения
+
 ```java
 shareShelfBroadcast = new BroadcastReceiver() {
     @Override

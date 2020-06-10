@@ -6,7 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,19 +16,28 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int ACTIVITY_RESULT_START_IR_REPORT = 1;
     private static final int ACTIVITY_RESULT_START_IR_VISIT = 2;
     private static final int ACTIVITY_RESULT_START_IR_SUMMARYREPORT = 3;
     private static final String IR_PACKAGE_NAME = "com.intelligenceretail.www.pilot";
-    private static final String user = "vsevolod.didkovskiy";
-    private static final String password = "4421Vfrc0215";
+    private static final String user = "test";
+    private static final String password = "test";
     private static final String user_id = null;
     private static final String visit_id = "1";
     private static final String visit_id2 = "2";
     private static final String store_id = "123456789";
-    private static final String store_id2 = "5555";
+    private static final String store_id2 = "281475002911331";
     private BroadcastReceiver shareShelfBroadcast;
 
     @Override
@@ -37,16 +48,7 @@ public class MainActivity extends AppCompatActivity {
         shareShelfBroadcast = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Bundle extras = intent.getExtras();
-                if (extras != null) {
-                    try {
-                        addlog("BROADCAST_SHARESHELF:" + extras.getString("json"));
-                        JSONObject json = new JSONObject(extras.getString("json"));
-                        Toast.makeText(getBaseContext(), "BROADCAST_SHARESHELF " + json.getString("status"), Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                addlog("BROADCAST_SHARESHELF");
             }
         };
 
@@ -81,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
                 if (intent != null) {
                     intent.setAction(Intent.ACTION_RUN);
                     intent.setFlags(0);
-                    intent.putExtra("method", "sync");
+                    intent.putExtra("method", "visit");
                     intent.putExtra("login", user);
                     intent.putExtra("password", password);
                     intent.putExtra("id", user_id);
-                    intent.putExtra("visit_id", visit_id);
-                    intent.putExtra("store_id", store_id);
+                    intent.putExtra("visit_id", visit_id2);
+                    intent.putExtra("store_id", store_id2);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
                 }
             }
@@ -187,10 +189,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
 
-            if (data.getExtras() != null) {
+            if (data.getData() != null) {
+                String result = readFromUri(data.getData());
+                Log.i("", result);
+
                 try {
-                    addlog(data.getExtras().getString("json"));
-                    JSONObject json = new JSONObject(data.getExtras().getString("json"));
+                    JSONObject json = new JSONObject(result);
+                    json.put("report", "To many report data...");
+                    addlog("Mode: " + mode + "\n" + json.toString());
+
                     Toast.makeText(getBaseContext(), mode + " " + json.getString("status"), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -206,5 +213,24 @@ public class MainActivity extends AppCompatActivity {
         EditText logEditText = findViewById(R.id.logEditText);
         logEditText.setText(text);
 
+    }
+
+    private String readFromUri(Uri uri){
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            InputStreamReader isReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isReader);
+            StringBuffer sb = new StringBuffer();
+            String str;
+            while((str = reader.readLine())!= null){
+                sb.append(str);
+            }
+
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return null;
+        }
     }
 }
