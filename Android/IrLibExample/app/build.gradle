@@ -39,12 +39,14 @@ repositories {
     maven {
         url "https://s3.amazonaws.com/repo.commonsware.com"
     }
+
+    maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases' }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     
-    implementation 'com.intrtl:lib:+'
+    implementation 'com.intrtl:lib:1.112'
 //    implementation project(path: ':ir-lib')
     implementation project(path: ':openCVLibrary320')
 
@@ -66,6 +68,11 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+
+    implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.4'
+
+    implementation 'com.ufreedom.kit:safejobintentservice:1.0.1'
 
 //    *** Optional ***
 //    implementation 'com.android.support:recyclerview-v7:28.0.0'
