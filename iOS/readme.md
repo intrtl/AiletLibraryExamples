@@ -1,1 +1,0 @@
-Add IrLib.framework in project directory and open IrLibExample.xcworkspace.
