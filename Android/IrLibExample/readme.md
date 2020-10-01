@@ -7,6 +7,10 @@
   - [Required dependencies](#required-dependencies)
   - [If project use androidX](#if-project-use-androidx)
   - [Export local base functionality](#export-local-base-functionality)
+  - [Using Multiportal functionality](#using-multiportal-functionality)
+    - [Init](#init)
+    - [Switch portal](#switch-portal)
+    - [setPortal results](#setportal-results)
 
 ## Include irLib using Maven
 
@@ -77,3 +81,25 @@ and create file *provider_paths* in **res/xml** folder
     <external-path name="external_files" path="."/>
 </paths>
 ```
+
+## Using Multiportal functionality
+
+### Init
+If you need using more than one portal, set to **true** multiportal parameter in init:
+```java
+ir.init("user", "pass", "notificationID", true);
+```
+### Switch portal
+For change portal use **setPortal** funcrion, with portal ID as parameter:
+```java
+ir.setPortal("demoPortal");
+```
+
+### setPortal results
+
+| Result | Description |
+|---|---|
+| RESULT_OK | Switch portal success |
+| ERROR_NOT_MULTIPORTAL_MODE  | Set portal ID in non multiportal mode |
+| ERROR_PORTAL_INCORRECT  | Incorrect portal ID or portal not associated with user |
+| ERROR_PORTAL_INCORRECT  | Portal ID is null and using multiportal mode |
