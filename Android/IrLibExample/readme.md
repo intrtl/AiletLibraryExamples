@@ -90,7 +90,7 @@ If you need using more than one portal, set to **true** multiportal parameter in
 ir.init("user", "pass", "notificationID", true);
 ```
 ### Switch portal
-For change portal use **setPortal** funcrion, with portal ID as parameter:
+For switch portal use **setPortal** function with portal ID as parameter:
 ```java
 ir.setPortal("demoPortal");
 ```
@@ -102,4 +102,4 @@ ir.setPortal("demoPortal");
 | RESULT_OK | Switch portal success |
 | ERROR_NOT_MULTIPORTAL_MODE  | Set portal ID in non multiportal mode |
 | ERROR_PORTAL_INCORRECT  | Incorrect portal ID or portal not associated with user |
-| ERROR_PORTAL_INCORRECT  | Portal ID is null and using multiportal mode |
+| ERROR_EMPTY_PORTAL  | Portal ID is null and using multiportal mode |
