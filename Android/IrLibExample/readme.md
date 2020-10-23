@@ -40,7 +40,6 @@ In Android Studio open **File - Project Structure - Dependencies**, press **+** 
 implementation 'com.google.android.gms:play-services-location:16.0.0'
 implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 implementation 'com.github.PhilJay:MPAndroidChart:3.0.2'
-implementation 'com.squareup.picasso:picasso:2.5.2'
 implementation "com.microsoft.appcenter:appcenter-analytics:2.5.1"
 implementation "com.microsoft.appcenter:appcenter-crashes:2.5.1"
 implementation 'com.google.code.gson:gson:2.8.5'
