@@ -47,7 +47,7 @@ implementation 'com.google.code.gson:gson:2.8.5'
 implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 implementation 'com.ufreedom.kit:safejobintentservice:1.0.1'
 
-/// For version 960 and higher
+/// For version 1.115 (960) and higher
 implementation 'com.bugfender.sdk:android:3.+'
 ```
 
