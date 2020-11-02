@@ -36,6 +36,7 @@ login | Логин пользователя | для всех
 password | Пароль пользователя | для всех
 id | ИД пользователя | для всех, если используется технический пользователь
 visit_id | ИД визита | visit, report, summaryReport
+task_id | ИД задачи | visit, report, summaryReport
 store_id | ИД торговой точки | visit
 
 ### Пример вызова метода
@@ -51,6 +52,7 @@ Intent intent = getPackageManager().getLaunchIntentForPackage("com.intelligencer
                     intent.putExtra("id", user_id);
                     intent.putExtra("visit_id", visit_id);
                     intent.putExtra("store_id", store_id);
+                    intent.putExtra("task_id", task_id);
                     startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
                 }
 ```
