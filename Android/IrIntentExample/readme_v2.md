@@ -69,13 +69,17 @@ data | Uri с файлом результата операции
 ### Формат данных ответа
 Поле  | Описание | Наличие в ответе
 ------------- | ------------- | -------------
-photosCounter  | Количество сделанных фото | при status != ошибке
-scenesCounter  | Количество сцен | при status != ошибке
-notDetectedPhotosCounter  | Количество фото, по которым не получены данные | при status != ошибке
-notDetectedScenesCounter  | Количество сцен, по которым не получены данные | при status != ошибке
-nonValidPhotosCounter  | Количество некачественных и не принятых пользователем фото | при status != ошибке
-report  | Отчет (формат отчета в документации) | при status == RESULT_OK
-status  | Статус выполнения метода | всегда
+status | Статус выполнения метода | всегда
+user_id | внешний идентификатор пользователя | всегда
+store_id | внешний идентификатор магазина | всегда
+task_id | внешний идентификатор задачи | всегда
+visit_id | внешний идентификатор визита | всегда
+local_visit_id | внутренний идентификатор визита | всегда
+photosCounter | Количество сделанных фото | при status != ошибке
+scenesCounter | Количество сцен | при status != ошибке
+notDetectedPhotosCounter | Количество фото, по которым не получены данные | при status != ошибке
+notDetectedScenesCounter | Количество сцен, по которым не получены данные | при status != ошибке
+report | Отчет (формат отчета в документации) | при status == RESULT_OK
 
 ### Пример данных ответа
 
@@ -84,8 +88,7 @@ status  | Статус выполнения метода | всегда
     "photosCounter": 1,
     "scenesCounter": 1,
     "notDetectedPhotosCounter": 0,
-    "notDetectedScenesCounter": 0,
-    "nonValidPhotosCounter": 0,
+    "notDetectedScenesCounter": 0,    
     "report": {...},
     "status": "RESULT_OK"
 }
