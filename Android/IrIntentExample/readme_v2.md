@@ -2,19 +2,19 @@
 
 Позволяет использовать приложение IR без интеграции библиотеки, достаточно что бы приложение IR было устновлено на устройстве.
 
-- [Взаимодействие через Интенты](#%d0%92%d0%b7%d0%b0%d0%b8%d0%bc%d0%be%d0%b4%d0%b5%d0%b9%d1%81%d1%82%d0%b2%d0%b8%d0%b5-%d1%87%d0%b5%d1%80%d0%b5%d0%b7-%d0%98%d0%bd%d1%82%d0%b5%d0%bd%d1%82%d1%8b)
-  - [Вызов](#%d0%92%d1%8b%d0%b7%d0%be%d0%b2)
-    - [Методы](#%d0%9c%d0%b5%d1%82%d0%be%d0%b4%d1%8b)
-    - [Параметры вызова](#%d0%9f%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b-%d0%b2%d1%8b%d0%b7%d0%be%d0%b2%d0%b0)
-    - [Пример вызова метода](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b2%d1%8b%d0%b7%d0%be%d0%b2%d0%b0-%d0%bc%d0%b5%d1%82%d0%be%d0%b4%d0%b0)
-  - [Ответ](#%d0%9e%d1%82%d0%b2%d0%b5%d1%82)
-    - [Формат поля json](#%d0%a4%d0%be%d1%80%d0%bc%d0%b0%d1%82-%d0%bf%d0%be%d0%bb%d1%8f-json)
-    - [Пример поля json](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%bf%d0%be%d0%bb%d1%8f-json)
-    - [Статусы](#%d0%a1%d1%82%d0%b0%d1%82%d1%83%d1%81%d1%8b)
-    - [Пример обработки ответа](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%b0)
-  - [Broadcast-сообщение](#broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d0%b5)
-    - [Содержимое broadcast-сообщения](#%d0%a1%d0%be%d0%b4%d0%b5%d1%80%d0%b6%d0%b8%d0%bc%d0%be%d0%b5-broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d1%8f)
-    - [Пример обработки broadcast-сообщения](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d1%8f)
+- [Взаимодействие через Интенты](#взаимодействие-через-интенты)
+  - [Вызов](#вызов)
+    - [Методы](#методы)
+    - [Параметры вызова](#параметры-вызова)
+    - [Пример вызова метода](#пример-вызова-метода)
+  - [Ответ](#ответ)
+    - [Формат данных ответа](#формат-данных-ответа)
+    - [Статусы](#статусы)
+    - [Пример обработки ответа](#пример-обработки-ответа)
+  - [Broadcast-сообщение](#broadcast-сообщение)
+    - [Содержимое broadcast-сообщения](#содержимое-broadcast-сообщения)
+    - [Пример обработки broadcast-сообщения](#пример-обработки-broadcast-сообщения)
+  - [Пример отчета (поле result в broadcast и getData() в onActivityResult)](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
 
 ## Вызов
 
@@ -22,10 +22,10 @@
 
 Метод  | Описание
 ------------- | -------------
-com.intrtl.lib2.ACTION_VISIT  | Создание/редактирование визита (activity)
-com.intrtl.lib2.ACTION_REPORT | Отчет по визиту (json)
-com.intrtl.lib2.ACTION_SUMMARY_REPORT | Сводный отчет по визиту (activity)
-com.intrtl.lib2.ACTION_SYNC | Запуск фонового процесса передачи фото и получения результатов
+com.intrtl.app.ACTION_VISIT  | Создание/редактирование визита (activity)
+com.intrtl.app.ACTION_REPORT | Отчет по визиту (json)
+com.intrtl.app.ACTION_SUMMARY_REPORT | Сводный отчет по визиту (activity)
+com.intrtl.app.ACTION_SYNC | Запуск фонового процесса передачи фото и получения результатов
 
 ### Параметры вызова
 
@@ -38,7 +38,7 @@ login | Логин пользователя | для всех
 password | Пароль пользователя | для всех
 id | ИД пользователя | для всех, если используется технический пользователь
 visit_id | ИД визита | visit, report, summaryReport
-task_id | ИД задачи | visit, report, summaryReport
+task_id | ИД задачи | visit
 store_id | ИД торговой точки | visit
 
 ### Пример вызова метода
@@ -67,102 +67,22 @@ error  | Ошибка, при resultCode == RESULT_CANCELED
 data | Uri с файлом результата операции
 
 ### Формат данных ответа
+
+[Пример](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
+
 Поле  | Описание | Наличие в ответе
 ------------- | ------------- | -------------
 status | Статус выполнения метода | всегда
-user_id | Идентификатор пользователя | всегда
-store_id | Идентификатор магазина | всегда
-task_id | Идентификатор задачи | всегда
-visit_id | Идентификатор визита | всегда
-local_visit_id | Внутренний идентификатор визита | всегда
-photosCounter | Количество сделанных фото | при status != ошибке
-scenesCounter | Количество сцен | при status != ошибке
-notDetectedPhotosCounter | Количество фото, по которым не получены данные | при status != ошибке
-notDetectedScenesCounter | Количество сцен, по которым не получены данные | при status != ошибке
-report | Отчет (формат отчета в документации) | при status == RESULT_OK
-
-### Пример данных ответа
-
-```json
-{
-    "photosCounter": 1,
-    "scenesCounter": 1,
-    "notDetectedPhotosCounter": 0,
-    "notDetectedScenesCounter": 0,    
-    "report": {...},
-    "status": "RESULT_OK"
-}
-```
-### Пример report
-
-```json
-{
-    "photos": {
-        "5fb53a19025de-2083-PHOTO-000001": {
-            "error": {
-                "code": "RESULT_OK",
-                "codeInt": 1,
-                "message": "Успешно обработан"
-            },
-            "products": [],
-            "scene_id": "5fb53a19025de-2083-SCENE-000001",
-            "scene_type": "Холодильник Данон",
-            "image_path": "\\/data\\/user\\/0\\/com.intrtl.app\\/app_Images\\/5fb53a19025de-2083-PHOTO-000001-ROTATED.jpg"
-        },
-        "5fb53a19025de-2083-PHOTO-000003": {
-            "error": {
-                "code": "IR_ERROR_PHOTO",
-                "codeInt": 37,
-                "message": "Ошибка: ERROR"
-            },
-            "products": [],
-            "scene_id": "5fb53a19025de-2083-SCENE-000003",
-            "scene_type": "Напольное оборудование (стойки,железные торцы)",
-            "image_path": "\\/data\\/user\\/0\\/com.intrtl.app\\/app_Images\\/5fb53a19025de-2083-PHOTO-000003-ROTATED.jpg"
-        }
-    },
-    "assortment_achievement": [
-        {
-            "facing_fact": 5,
-            "facing_plan": 0,
-            "facing_real": 5,
-            "id": "1e2d809f-6421-11e7-965b-000d3a250e47",
-            "price": "0",
-            "price_type": "0",
-            "name": "Другой продукт, Бутылка, .310",
-            "category_name": "молочная продукция"
-        },
-        {
-            "facing_fact": 1,
-            "facing_plan": 0,
-            "facing_real": 1,
-            "id": "c1770468-122d-4693-97ea-a6c8042fb0fa",
-            "price": "69",
-            "price_type": "1",
-            "name": "Other Традиционная мол прод, Бутылка, .680",
-            "category_name": "молочная продукция"
-        }
-    ],
-    "share_shelf": {
-        "share_shelf_by_visit": [
-            {
-                "value": 0,
-                "value_previous": 0
-            }
-        ],
-        "share_shelf_by_brands": [],
-        "share_shelf_by_categories": []
-    },
-    "result": {
-        "visit_id": "1",
-        "total_photos": 2,
-        "sended_photos": 2,
-        "code": "RESULT_OK",
-        "codeInt": 1,
-        "message": "Успешно обработан"
-    }
-}
-```
+user_id | Идентификатор пользователя | кроме метода ACTION_SYNC
+store_id | Идентификатор магазина | кроме метода ACTION_SYNC
+task_id | Идентификатор задачи | кроме метода ACTION_SYNC
+visit_id | Идентификатор визита | кроме метода ACTION_SYNC
+local_visit_id | Внутренний идентификатор визита | кроме метода ACTION_SYNC
+photosCounter | Количество сделанных фото | при status != ошибке и методе != ACTION_SYNC
+scenesCounter | Количество сцен | при status != ошибке и методе != ACTION_SYNC
+notDetectedPhotosCounter | Количество фото, по которым не получены данные | при status != ошибке и методе != ACTION_SYNC
+notDetectedScenesCounter | Количество сцен, по которым не получены данные | при status != ошибке и методе != ACTION_SYNC
+report | Отчет | при status == RESULT_OK и методе != ACTION_SYNC
 
 ### Статусы 
 
@@ -178,6 +98,7 @@ ERROR_VISIT_ID_INCORRECT | Неорректный ИД визита
 ERROR_AUTH | Ошибка авторизации
 ERROR_VISIT_ID_INCORRECT | Неорректный ИД визита
 ERROR_PHOTO | Фото с ошибкой
+ERROR_BUSY | Метод уже выполняется
 
 ### Пример обработки ответа
 
@@ -213,26 +134,141 @@ ERROR_PHOTO | Фото с ошибкой
                 }
             }
         } else {
-            if (data.getExtras() != null)
-                Toast.makeText(getBaseContext(), "ERROR_ACTIVITY_RESULT " + data.getExtras().getString("error"), Toast.LENGTH_LONG).show();
+            //On Error
         }
     }
 
-    private String readFromUri(Uri uri){
+    private String readFromUri(Uri uri) {
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
-            InputStreamReader isReader = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(isReader);
-            StringBuffer sb = new StringBuffer();
-            String str;
-            while((str = reader.readLine())!= null){
-                sb.append(str);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            String string;
+            while ((string = reader.readLine()) != null) {
+                stringBuffer.append(string);
             }
-
-            return sb.toString();
+            reader.close();
+            inputStreamReader.close();
+            inputStream.close();
+            return stringBuffer.toString();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 ```
+
+## Broadcast-сообщение
+
+При вызове метода visit и создании фото запускается фоновый процесс передачи фото и получения отчетов, который по завершении формирует broadcast сообщение IR_BROADCAST_SHARESHELF.
+
+### Содержимое broadcast-сообщения
+
+Поле  | Описание
+------------- | -------------
+visit_id | ИД визита
+local_visit_id | внутренний ИД визита
+user_id | ИД пользователя
+store_id | ИД торговой точки
+task_id | ИД задачи
+total_photos | общее количество фото (не входят фото плохого качества)
+completed_photos | количество обработанных фото
+result | URI (строка) файла с [отчетом](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
+
+### Пример обработки broadcast-сообщения
+
+```java
+new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            try {
+                String reportString = readFromUri(new Uri().parse(extras.getString("result")))
+                JSONObject reportJson = new JSONObject(reportString);                
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+};
+
+this.registerReceiver(shareShelfBroadcast, new IntentFilter("com.intrtl.app.BROADCAST_VISIT_COMPLETED"));
+```
+
+## Пример отчета (поле result в broadcast и getData() в onActivityResult)
+
+```json
+{
+    "photosCounter": 1,
+    "scenesCounter": 1,
+    "notDetectedPhotosCounter": 0,
+    "notDetectedScenesCounter": 0,
+    "local_visit_id": "5fba8e1114ed8-7381",
+    "visit_id": "VISITID1",
+    "store_id": "1",
+    "user_id": "USERID1",
+    "report": {
+        "photos": {
+            "5fba8e1114ed8-7381-PHOTO-000001": {
+                "error": {
+                    "code": "RESULT_OK",
+                    "codeInt": 1,
+                    "message": "Успешно обработан"
+                },
+                "products": [],
+                "scene_id": "5fba8e1114ed8-7381-SCENE-000001",
+                "task_id": "TASKID1",
+                "scene_type": "TG",
+                "image_path": "/data/user/0/com.intrtl.app/app_Images/5fba8e1114ed8-7381-PHOTO-000001-ROTATED.jpg"
+            }
+        },
+        "assortment_achievement": [
+            {
+                "external_id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
+                "facing_fact": 0,
+                "facing_plan": 1,
+                "facing_real": 0,
+                "id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
+                "price": "",
+                "price_type": "",
+                "name": "Activia Пит с дыней и земляникой, Бутылка, .290",
+                "category_name": "Питьевой йогурт"
+            },        
+            {
+                "external_id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
+                "facing_fact": 0,
+                "facing_plan": 1,
+                "facing_real": 0,
+                "id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
+                "price": "",
+                "price_type": "",
+                "name": "Activia Пит злаки-семена, Стакан, .250",
+                "category_name": "Питьевой йогурт"
+            }
+        ],
+        "share_shelf": {
+            "share_shelf_by_visit": [
+                {
+                    "value": 0,
+                    "value_previous": 0
+                }
+            ],
+            "share_shelf_by_brands": [],
+            "share_shelf_by_categories": []
+        },
+        "result": {
+            "visit_id": "VISITID1",
+            "total_photos": 1,
+            "sended_photos": 1,
+            "code": "RESULT_OK",
+            "codeInt": 1,
+            "message": "Успешно обработан"
+        }
+    },
+    "status": "RESULT_OK"
+}
+```
+
+##
