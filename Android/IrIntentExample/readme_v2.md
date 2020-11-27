@@ -46,7 +46,7 @@ store_id | ИД торговой точки | visit
 ```java
 Intent intent = new Intent();
 if (intent != null) {
-    intent.setAction("com.intrtl.lib2.ACTION_VISIT");
+    intent.setAction("com.intrtl.app.ACTION_VISIT");
     intent.setFlags(0);                    
     intent.putExtra("login", user);
     intent.putExtra("password", password);
