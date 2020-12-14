@@ -179,7 +179,7 @@ result | URI (строка) файла с [отчетом](#пример-отч�
 ### Пример обработки broadcast-сообщения
 
 ```java
-new BroadcastReceiver() {
+BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle extras = intent.getExtras();
@@ -194,7 +194,7 @@ new BroadcastReceiver() {
     }
 };
 
-this.registerReceiver(shareShelfBroadcast, new IntentFilter("com.intrtl.app.BROADCAST_VISIT_COMPLETED"));
+this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADCAST_VISIT_COMPLETED"));
 ```
 
 ## Пример отчета (поле result в broadcast и getData() в onActivityResult)
