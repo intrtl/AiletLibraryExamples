@@ -161,7 +161,7 @@ ERROR_BUSY | Метод уже выполняется
 
 ## Broadcast-сообщение
 
-При вызове метода visit и создании фото запускается фоновый процесс передачи фото и получения отчетов, который по завершении формирует broadcast сообщение IR_BROADCAST_SHARESHELF.
+При вызове метода visit и создании фото запускается фоновый процесс передачи фото и получения отчетов, который по завершении формирует broadcast сообщение **com.intrtl.app.BROADCAST_VISIT_COMPLETED**.
 
 ### Содержимое broadcast-сообщения
 
@@ -271,4 +271,3 @@ this.registerReceiver(shareShelfBroadcast, new IntentFilter("com.intrtl.app.BROA
 }
 ```
 
-##
