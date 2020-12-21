@@ -20,7 +20,7 @@ Update build.gradle (Project) with
 maven { url "https://maven.intrtl.com/artifactory/irlib" }
 ```
 
-Update build.gradle (App level) with
+Update build.gradle (App) with
 
 ```gradle
 implementation 'com.intrtl:lib:+'
@@ -36,7 +36,11 @@ In Android Studio open **File - Project Structure - Dependencies**, press **+** 
 
 ## Required dependencies
 
+build.gradle (App) 
+
 ```gradle
+apply plugin: 'realm-android'
+...
 implementation 'com.google.android.gms:play-services-location:16.0.0'
 implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 implementation 'com.github.PhilJay:MPAndroidChart:3.0.2'
@@ -45,9 +49,19 @@ implementation "com.microsoft.appcenter:appcenter-crashes:2.5.1"
 implementation 'com.google.code.gson:gson:2.8.5'
 implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 implementation 'com.ufreedom.kit:safejobintentservice:1.0.1'
+```
 
-/// For version 1.115 (960) and higher
-implementation 'com.bugfender.sdk:android:3.+'
+build.gradle (Project)
+
+```gradle
+buildscript {
+    ...
+    dependencies {
+        ...
+        classpath "io.realm:realm-gradle-plugin:5.14.0"
+    }
+}
+
 ```
 
 ## If project use androidX

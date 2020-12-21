@@ -93,12 +93,14 @@ RESULT_INPROGRESS | Данные в обработке
 RESULT_INPROGRESS_OFFLINE | Данные в обработке (приложение в режиме оффлайн)
 RESULT_EMPTY | Пустой отчет
 ERROR_NOVISIT | Визита не существует
+ERROR_READONLY_VISIT | Визита только для чтения
 ERROR_INCORRECT_INPUT_PARAMS | Неверные входные параметры
 ERROR_VISIT_ID_INCORRECT | Неорректный ИД визита
 ERROR_AUTH | Ошибка авторизации
 ERROR_VISIT_ID_INCORRECT | Неорректный ИД визита
 ERROR_PHOTO | Фото с ошибкой
 ERROR_BUSY | Метод уже выполняется
+ERROR_CANT_LOAD_VISIT | Невозможно загрузить визит, так как отсуствует интернет
 
 ### Пример обработки ответа
 
