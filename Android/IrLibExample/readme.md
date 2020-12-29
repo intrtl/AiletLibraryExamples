@@ -47,23 +47,22 @@ build.gradle (App)
 ```gradle
 apply plugin: 'realm-android'
 ...
-implementation 'com.intrtl:lib:1.119'
-    implementation project(path: ':openCVLibrary320')
+implementation project(path: ':openCVLibrary320')
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
-    implementation 'com.github.PhilJay:MPAndroidChart:3.0.2'
-    implementation "com.microsoft.appcenter:appcenter-analytics:2.5.1"
-    implementation "com.microsoft.appcenter:appcenter-crashes:2.5.1"
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.4'
-    implementation 'com.bugfender.sdk:android:3.+'
+implementation 'com.android.support:appcompat-v7:28.0.0'
+implementation 'com.android.support:design:28.0.0'
+implementation 'com.android.support:support-v4:28.0.0'
+implementation 'com.google.android.gms:play-services-location:16.0.0'
+implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+implementation 'com.github.PhilJay:MPAndroidChart:3.0.2'
+implementation "com.microsoft.appcenter:appcenter-analytics:2.5.1"
+implementation "com.microsoft.appcenter:appcenter-crashes:2.5.1"
+implementation 'com.google.code.gson:gson:2.8.5'
+implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.4'
+implementation 'com.bugfender.sdk:android:3.+'
 ```
 
 build.gradle (Project)
