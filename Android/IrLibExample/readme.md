@@ -40,8 +40,8 @@ In Android Studio open **File - Project Structure - Dependencies**, press **+** 
 
 In Android Studio open **File - Project Structure - Dependencies**, in **Modules** press **+** (New Module) and select **Import .JAR/.AAR Package**, import *openCVLibrary320.aar* library.
 
-![Add openCV module](https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_1.png)
-![Add openCV module](https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_2.png)
+<img src="https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_1.png" width="1024"><br/>
+<img src="https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_2.png" width="1024">
 
 Add this line in build.gradle in app level module in dependency section
 
