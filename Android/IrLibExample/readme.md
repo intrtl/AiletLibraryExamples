@@ -42,8 +42,7 @@ In Android Studio open **File - Project Structure - Dependencies**, in **Modules
 
 <img src="https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_1.png" width="600">
 
-![Add openCV module](https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_2.png =400x400)
-
+<img src="https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_2.png" width="600">
 
 Add this line in build.gradle in app level module in dependency section
 
