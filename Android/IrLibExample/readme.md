@@ -38,7 +38,7 @@ In Android Studio open **File - Project Structure - Dependencies**, press **+** 
 
 ## Include OpenCV
 
-In Android Studio open **File - Project Structure - Dependencies**, press **+** (New Module) and select **Import .JAR/.AAR Package**, import *openCVLibrary320.aar* library.
+In Android Studio open **File - Project Structure - Dependencies**, in **Modules** press **+** (New Module) and select **Import .JAR/.AAR Package**, import *openCVLibrary320.aar* library.
 
 ![Add openCV module](images/add_opencv_1.png)
 ![Add openCV module](images/add_opencv_2.png)
