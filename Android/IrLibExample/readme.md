@@ -38,7 +38,17 @@ In Android Studio open **File - Project Structure - Dependencies**, press **+** 
 
 ## Include OpenCV
 
-In Android Studio open **File - Project Structure - Dependencies**, press **+** and select **Import .JAR/.AAR Package**, import *OpenCV.aar* library. Then in **Declared Dependencies** press **+** and select **3. Module Dependency**, select *OpenCV*, then **Apply** changes or press **OK**.
+In Android Studio open **File - Project Structure - Dependencies**, press **+** (New Module) and select **Import .JAR/.AAR Package**, import *openCVLibrary320.aar* library.
+
+![Add openCV module](images/add_opencv_1.png)
+![Add openCV module](images/add_opencv_2.png)
+
+
+Add this line in build.gradle in app level module in dependency section
+
+```gradle
+implementation project(path: ':openCVLibrary320')
+```
 
 ## Required dependencies
 
@@ -88,6 +98,7 @@ allprojects {
         maven { url 'https://maven.google.com/' }
         maven { url 'https://jitpack.io' }
         maven { url "https://maven.intrtl.com/artifactory/irlib" }
+        maven { url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases' }
     }
 }
 ```
