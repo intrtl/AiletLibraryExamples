@@ -198,17 +198,17 @@ this.registerReceiver(shareShelfBroadcast, new IntentFilter("IR_BROADCAST_SHARES
 
 - понизить targetSdkVersion до версии 29
 - добавить QUERY_ALL_PACKAGES в AndroidManifest 
-  ```manifest
+  ```xml
    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
   ```
 - добавить queries в AndroidManifest 
-  ```
+  ```xml
     <queries>
         <package android:name="com.intelligenceretail.www.pilot" />
     </queries>
   ```
 - добавить queries в AndroidManifest 
-  ```
+  ```xml
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
