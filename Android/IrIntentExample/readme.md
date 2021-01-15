@@ -196,16 +196,15 @@ this.registerReceiver(shareShelfBroadcast, new IntentFilter("IR_BROADCAST_SHARES
 
 Если в проекте используется targetSdkVersion 30, то может возникнуть проблема с вызовом приложение IR, для ее решения есть несколько сопособов:
 
-- понизить targetSdkVersion до версии 29
-- добавить QUERY_ALL_PACKAGES в AndroidManifest 
-  ```xml
-   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-  ```
-- добавить queries в AndroidManifest 
+- добавить queries в AndroidManifest (предпочтительный вариант)
   ```xml
     <queries>
         <package android:name="com.intelligenceretail.www.pilot" />
     </queries>
+  ```
+- добавить QUERY_ALL_PACKAGES в AndroidManifest 
+  ```xml
+   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
   ```
 - добавить queries в AndroidManifest 
   ```xml
@@ -218,3 +217,4 @@ this.registerReceiver(shareShelfBroadcast, new IntentFilter("IR_BROADCAST_SHARES
         </intent>
     </queries>
   ```
+- понизить targetSdkVersion до версии 29
