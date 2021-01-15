@@ -2,19 +2,21 @@
 
 Позволяет использовать приложение IR без интеграции библиотеки, достаточно что бы приложение IR было устновлено на устройстве.
 
-- [Взаимодействие через Интенты](#%d0%92%d0%b7%d0%b0%d0%b8%d0%bc%d0%be%d0%b4%d0%b5%d0%b9%d1%81%d1%82%d0%b2%d0%b8%d0%b5-%d1%87%d0%b5%d1%80%d0%b5%d0%b7-%d0%98%d0%bd%d1%82%d0%b5%d0%bd%d1%82%d1%8b)
-  - [Вызов](#%d0%92%d1%8b%d0%b7%d0%be%d0%b2)
-    - [Методы](#%d0%9c%d0%b5%d1%82%d0%be%d0%b4%d1%8b)
-    - [Параметры вызова](#%d0%9f%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d1%8b-%d0%b2%d1%8b%d0%b7%d0%be%d0%b2%d0%b0)
-    - [Пример вызова метода](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%b2%d1%8b%d0%b7%d0%be%d0%b2%d0%b0-%d0%bc%d0%b5%d1%82%d0%be%d0%b4%d0%b0)
-  - [Ответ](#%d0%9e%d1%82%d0%b2%d0%b5%d1%82)
-    - [Формат поля json](#%d0%a4%d0%be%d1%80%d0%bc%d0%b0%d1%82-%d0%bf%d0%be%d0%bb%d1%8f-json)
-    - [Пример поля json](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%bf%d0%be%d0%bb%d1%8f-json)
-    - [Статусы](#%d0%a1%d1%82%d0%b0%d1%82%d1%83%d1%81%d1%8b)
-    - [Пример обработки ответа](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-%d0%be%d1%82%d0%b2%d0%b5%d1%82%d0%b0)
-  - [Broadcast-сообщение](#broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d0%b5)
-    - [Содержимое broadcast-сообщения](#%d0%a1%d0%be%d0%b4%d0%b5%d1%80%d0%b6%d0%b8%d0%bc%d0%be%d0%b5-broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d1%8f)
-    - [Пример обработки broadcast-сообщения](#%d0%9f%d1%80%d0%b8%d0%bc%d0%b5%d1%80-%d0%be%d0%b1%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%ba%d0%b8-broadcast-%d1%81%d0%be%d0%be%d0%b1%d1%89%d0%b5%d0%bd%d0%b8%d1%8f)
+- [Взаимодействие через Интенты](#взаимодействие-через-интенты)
+  - [Вызов](#вызов)
+    - [Методы](#методы)
+    - [Параметры вызова](#параметры-вызова)
+    - [Пример вызова метода](#пример-вызова-метода)
+  - [Ответ](#ответ)
+    - [Формат поля json](#формат-поля-json)
+    - [Пример поля json](#пример-поля-json)
+    - [Статусы](#статусы)
+    - [Пример обработки ответа](#пример-обработки-ответа)
+  - [Broadcast-сообщение](#broadcast-сообщение)
+    - [Содержимое broadcast-сообщения](#содержимое-broadcast-сообщения)
+    - [Пример обработки broadcast-сообщения](#пример-обработки-broadcast-сообщения)
+  - [Возможные проблемы при интеграции](#возможные-проблемы-при-интеграции)
+    - [Особенности Android 11](#особенности-android-11)
 
 ## Вызов
 
@@ -187,3 +189,32 @@ shareShelfBroadcast = new BroadcastReceiver() {
 
 this.registerReceiver(shareShelfBroadcast, new IntentFilter("IR_BROADCAST_SHARESHELF"));
 ```
+
+## Возможные проблемы при интеграции
+
+### Особенности Android 11
+
+Если в проекте используется targetSdkVersion 30, то может возникнуть проблема с вызовом приложение IR, для ее решения есть несколько сопособов:
+
+- понизить targetSdkVersion до версии 29
+- добавить QUERY_ALL_PACKAGES в AndroidManifest 
+  ```manifest
+   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+  ```
+- добавить queries в AndroidManifest 
+  ```
+    <queries>
+        <package android:name="com.intelligenceretail.www.pilot" />
+    </queries>
+  ```
+- добавить queries в AndroidManifest 
+  ```
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.RUN" />
+        </intent>
+    </queries>
+  ```
