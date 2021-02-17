@@ -1,0 +1,13 @@
+/* 
+  Localization.strings
+  IntegrationTestApp
+
+  Created by Alexander Shmakov on 15.05.2020.
+  Copyright © 2020 IntelligenceRetail. All rights reserved.
+*/
+
+"START_VISIT_BUTTON" = "Начать визит";
+"REPORT_BUTTON" = "Получить результат отчетов";
+"SUMMARY_REPORT_BUTTON" = "Показать сводный отчет";
+"SYNC_BUTTON" = "Синхронизация";
+"RESULT" = "Результат:";
