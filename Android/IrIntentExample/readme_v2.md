@@ -171,10 +171,9 @@ ERROR_CANT_LOAD_VISIT | Невозможно загрузить визит, та
 Поле  | Описание
 ------------- | -------------
 visit_id | ИД визита
-local_visit_id | внутренний ИД визита
+internal_visit_id | внутренний ИД визита
 user_id | ИД пользователя
 store_id | ИД торговой точки
-task_id | ИД задачи
 total_photos | общее количество фото (не входят фото плохого качества)
 completed_photos | количество обработанных фото
 result | URI (строка) файла с [отчетом](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
