@@ -30,7 +30,7 @@ Set **Requires full screen** flag to True.
 
 ### Init
 If you need using more than one portal, set to **YES** isMultiportal parameter in init:
-```objC
+```objectivec
 long res = [IrView init:@"username"
                password:@"password"
              guestToken:@"your-guest-token"
@@ -39,7 +39,7 @@ long res = [IrView init:@"username"
 ```
 ### Switch portal
 For switch portal use **setPortal** function with portal ID as parameter:
-```objC
+```objectivec
 [IrView setPortal: @"demoPortal"];
 ```
 
