@@ -15,6 +15,7 @@
     - [Содержимое broadcast-сообщения](#содержимое-broadcast-сообщения)
     - [Пример обработки broadcast-сообщения](#пример-обработки-broadcast-сообщения)
   - [Пример отчета (поле result в broadcast и getData() в onActivityResult)](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
+  - [Пример взаимодействия](#пример-взаимодействия)
 
 ## Вызов
 
@@ -272,4 +273,12 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
     "status": "RESULT_OK"
 }
 ```
+
+## Пример взаимодействия
+
+- Вызовать приложение IR с методом visit 
+- Выполнить визит с несколькими фото
+- Выйти из приложения IR 
+- Проверить результат, если RESULT_INPROGRESS, то необходимо ожидать бродкаст сообщение о готовности, если RESULT_OK, то отчет содержит готовые данные
+- При получении бродкаста со статусом RESULT_OK обработать отчет, он содержит готовые данные, так же можно вызвать приложение IR с методом report или summaryReport
 
