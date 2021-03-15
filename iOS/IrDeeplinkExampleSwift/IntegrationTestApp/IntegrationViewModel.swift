@@ -18,6 +18,7 @@ class IntegrationViewModel: ObservableObject {
     @Published var userId: String = ""
     @Published var storeId: String = ""
     @Published var visitId: String = ""
+    @Published var taskId: String = ""
 
     init() {
         print("IntegrationViewModel inited")
@@ -62,6 +63,7 @@ class IntegrationViewModel: ObservableObject {
         // "visit_id" - required for visit, report, summaryReport request
         // "back_url_scheme" - required for report request. Your application custom URL scheme, located in Info.plist. Intelligence Retail app will open url with the scheme and "report" parameter. Handle it in AppDelegate(<iOS 13.0) or SceneDelegate(>=iOS 13.0).
 
+
         var components = URLComponents()
         components.scheme = "intelligenceretail"
         components.queryItems = [URLQueryItem(name: "method", value: methodName),
@@ -71,7 +73,9 @@ class IntegrationViewModel: ObservableObject {
                                  URLQueryItem(name: "store_id", value: storeId),
                                  URLQueryItem(name: "visit_id", value: visitId),
                                  URLQueryItem(name: "back_url_scheme", value: "integrationtestapp")]
-
+        if (!taskId.isEmpty){
+            components.queryItems?.append(URLQueryItem(name: "task_id", value: taskId))
+        }
         let url = components.url!
 
         // Open URL
