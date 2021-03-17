@@ -12,8 +12,8 @@
     - [Для iOS13 и SwiftUI:](#для-ios13-и-swiftui)
     - [Для iOS ниже 13-й версии или без SwiftUI:](#для-ios-ниже-13-й-версии-или-без-swiftui)
   - [Примеры отчета](#примеры-отчета)
-    - [Без использования task_id](#без-использования-task_id)
-    - [С использованием task_id](#с-использованием-task_id)
+    - [Без task_id](#без-task_id)
+    - [С task_id](#с-task_id)
 
 ## Вызов метода
 ### Создание URL
@@ -129,7 +129,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 ```
 ## Примеры отчета
 
-### Без использования task_id
+### Без task_id
 
 ```json
 {
@@ -248,7 +248,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 }
 ```
 
-### С использованием task_id
+### С task_id
 
 ```json
 {
