@@ -174,7 +174,7 @@ ERROR | Ошибка выполнения метода
 externalStoreId | String | + | Идентификатор магазина 
 externalVisitId | String | + | Идентификатор визита
 externalSessionId | String | | Идентификатор сессии
-externalSessionName | String | | Название сессии
+externalSessionName | String | | Название сессии (выводится в интерфейсе съемки)
 externalSceneGroup | String | | Идентификатор группы сцен
 
 Результат | Описание
