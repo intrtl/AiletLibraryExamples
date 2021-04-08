@@ -173,8 +173,8 @@ ERROR | Ошибка выполнения метода
 --- | :-: | :-: | ---
 externalStoreId | String | + | Идентификатор магазина 
 externalVisitId | String | + | Идентификатор визита
-externalSessionId | String | | Идентификатор сессии
-externalSessionName | String | | Название сессии (выводится в интерфейсе съемки)
+externalSessionId | String | | Идентификатор задачи
+externalSessionName | String | | Название задачи (выводится в интерфейсе съемки)
 externalSceneGroup | String | | Идентификатор группы сцен
 
 Результат | Описание
@@ -184,8 +184,8 @@ ERROR_BUSY  | Метод уже выполняется
 ERROR_EMPTY_PORTAL  | Если не был установлен портал в мультипортальном режиме 
 ERROR_VISIT_ID_INCORRECT | Пустой идентификатор визита
 ERROR_STORE_ID_INCORRECT | Пустой идентификатор торговой точки
-ERROR_EMPTY_SESSION_ID  | Отсутствует идентификтор сессии при устновленом названии сессии (externalSessionName)
-ERROR_INCORRECT_SESSION_NAME  | Название сессии не совпадает с ранее указанным
+ERROR_EMPTY_SESSION_ID  | Отсутствует идентификтор задачи при устновленом названии задачи (externalSessionName)
+ERROR_INCORRECT_SESSION_NAME  | Название задачи не совпадает с ранее указанным
 ERROR_TOKEN | Отсутствует токен (пользователь не авторизован)
 ERROR | Ошибка выполнения метода
 
