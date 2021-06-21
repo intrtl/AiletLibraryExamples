@@ -9,6 +9,7 @@
     - [Пример вызова метода](#пример-вызова-метода)
   - [Ответ](#ответ)
     - [Формат данных ответа](#формат-данных-ответа)
+    - [Получение изображений из report](#получение-изображений-из-report)
     - [Статусы](#статусы)
     - [Пример обработки ответа](#пример-обработки-ответа)
   - [Broadcast-сообщение](#broadcast-сообщение)
@@ -85,6 +86,34 @@ scenesCounter | Количество сцен | при status != ERROR_VISIT_ID_
 notDetectedPhotosCounter | Количество фото, по которым не получены данные | при status != ERROR_VISIT_ID_INCORRECT и методе != ACTION_SYNC
 notDetectedScenesCounter | Количество сцен, по которым не получены данные | при status != ERROR_VISIT_ID_INCORRECT и методе != ACTION_SYNC
 report | Отчет | при status == RESULT_OK и методе != ACTION_SYNC
+
+### Получение изображений из report
+
+В новых версиях ОС Android (9 и новее) для получения пути файла изображения вместо image_path необходимо использовать image_uri. 
+Пример получения изображение:
+
+```kotlin
+private fun readBitmapFromUri(uri: Uri): Bitmap? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val source = ImageDecoder.createSource(this.contentResolver, uri)
+        ImageDecoder.decodeBitmap(source)
+    } else {
+        MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+    }
+}
+```
+
+```kotlin
+val photosJSON = json.getJSONObject("report").getJSONObject("photos")
+val photoNamesList = ArrayList<String>()
+for ( i in 0 until photosJSON.length()) {
+    photoNamesList.add(photosJSON.names()[i] as String)
+}
+val arrayOfBitmap = photoNamesList.map {
+    val photoUri = Uri.parse(photosJSON.getString(it))
+    readBitmapFromUri(photoUri)
+}
+```
 
 ### Статусы 
 
