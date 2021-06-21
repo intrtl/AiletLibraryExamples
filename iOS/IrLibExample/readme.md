@@ -1,14 +1,14 @@
 # Integrate irLib into project
 
 - [Integrate irLib into project](#integrate-irlib-into-project)
-  - [Include irLib using Cocapods](#include-irlib-using-cocapods)
+  - [Include irLib using Cocoapods](#include-irlib-using-cocoapods)
   - [Configure target](#configure-target)
   - [Using Multiportal functionality](#using-multiportal-functionality)
     - [Init](#init)
     - [Switch portal](#switch-portal)
     - [setPortal results](#setportal-results)
 
-## Include irLib using Cocapods
+## Include irLib using Cocoapods
 
 Add in podfile header:
 
