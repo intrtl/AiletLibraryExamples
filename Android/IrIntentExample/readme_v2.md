@@ -283,13 +283,149 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
         "share_shelf": {
             "share_shelf_by_visit": [
                 {
-                    "value": 0,
-                    "value_previous": 0
+                    "value": 10,
+                    "value_previous": 10
                 }
             ],
-            "share_shelf_by_brands": [],
-            "share_shelf_by_categories": []
+            "share_shelf_by_macrocategories": [
+                {
+                    "product_macro_category_id": "5e52367cb9dca-4987",
+                    "product_macro_category_name": "BABY FOOD",
+                    "value": 0,
+                    "value_previous": 0,
+                    "facing": 0
+                },
+                {
+                    "product_macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                    "product_macro_category_name": "Modern Dairy",
+                    "value": 17,
+                    "value_previous": 0,
+                    "facing": 0
+                }
+            ],
+            "share_shelf_by_categories": [
+                {
+                    "product_category_id": "5e52367cb9dca-4987",
+                    "macro_category_id": "5e52367cb9dca-4987",
+                    "product_category_name": "BABY FOOD",
+                    "value": 0,
+                    "value_previous": 0,
+                    "facing": "0"
+                },
+                {
+                    "product_category_id": "15bc3f11-4146-11e8-8479-000d3a29f071",
+                    "macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                    "product_category_name": "BABY_MD",
+                    "value": 4,
+                    "value_previous": 0,
+                    "facing": "0"
+                }
+            ],
+            "share_shelf_by_brands": [
+                {
+                    "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
+                    "product_category_id": "5e52367cb9dca-4987",
+                    "brand_name": "Агуша",
+                    "value": 0,
+                    "value_previous": 0,
+                    "facing": "0",
+                    "is_own": 0
+                },
+                {
+                    "brand_id": "86c15f23-8b3a-4dcf-a2e4-b2aba9c1041d",
+                    "product_category_id": "15bc3f11-4146-11e8-8479-000d3a29f071",
+                    "brand_name": "Tema",
+                    "value": 0,
+                    "value_previous": 0,
+                    "facing": "0",
+                    "is_own": 1
+                }
+            ],
+            "share_shelf_matrix_type": "facing",
+            "share_shelf_name": "12_1"
         },
+        "share_shelf_by_metrics": [
+            {
+                "share_shelf_by_visit": [
+                    {
+                        "value": 10,
+                        "value_previous": 10
+                    }
+                ],
+                "share_shelf_by_macrocategories": [
+                    {
+                        "product_macro_category_id": "5e52367cb9dca-4987",
+                        "product_macro_category_name": "BABY FOOD",
+                        "value": 0,
+                        "value_previous": 0,
+                        "facing": 0
+                    }
+                ],
+                "share_shelf_by_categories": [
+                    {
+                        "product_category_id": "5e52367cb9dca-4987",
+                        "macro_category_id": "5e52367cb9dca-4987",
+                        "product_category_name": "BABY FOOD",
+                        "value": 0,
+                        "value_previous": 0,
+                        "facing": "0"
+                    }
+                ],
+                "share_shelf_by_brands": [
+                    {
+                        "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
+                        "product_category_id": "5e52367cb9dca-4987",
+                        "brand_name": "Агуша",
+                        "value": 0,
+                        "value_previous": 0,
+                        "facing": "0",
+                        "is_own": 0                    
+                    }
+                ],
+                "share_shelf_matrix_type": "facing",
+                "share_shelf_name": "12_1"
+            },
+            {
+                "share_shelf_by_visit": [
+                    {
+                        "value": 0,
+                        "value_previous": 0
+                    }
+                ],
+                "share_shelf_by_macrocategories": [
+                    {
+                        "product_macro_category_id": "5e52367cb9dca-4987",
+                        "product_macro_category_name": "BABY FOOD",
+                        "value": 0,
+                        "value_previous": 0,
+                        "facing": 0
+                    }
+                ],
+                "share_shelf_by_categories": [
+                    {
+                        "product_category_id": "5e52367cb9dca-4987",
+                        "macro_category_id": "5e52367cb9dca-4987",
+                        "product_category_name": "BABY FOOD",
+                        "value": 0,
+                        "value_previous": 0,
+                        "facing": "0"
+                    }
+                ],
+                "share_shelf_by_brands": [
+                    {
+                        "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
+                        "product_category_id": "5e52367cb9dca-4987",
+                        "brand_name": "Агуша",
+                        "value": 0,
+                        "value_previous": 0,
+                        "facing": "0",
+                        "is_own": 0
+                    }
+                ],
+                "share_shelf_matrix_type": "column_cm",
+                "share_shelf_name": "ailet_metrica_stolb_sm"
+            }
+        ],
         "result": {
             "visit_id": "VISITID1",
             "total_photos": 1,
