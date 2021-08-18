@@ -341,7 +341,7 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
                     "is_own": 1
                 }
             ],
-            "share_shelf_matrix_type": "facing",
+            "share_shelf_type": "facing",
             "share_shelf_name": "12_1"
         },
         "share_shelf_by_metrics": [
@@ -382,7 +382,7 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
                         "is_own": 0                    
                     }
                 ],
-                "share_shelf_matrix_type": "facing",
+                "share_shelf_type": "facing",
                 "share_shelf_name": "12_1"
             },
             {
@@ -422,7 +422,7 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
                         "is_own": 0
                     }
                 ],
-                "share_shelf_matrix_type": "column_cm",
+                "share_shelf_type": "column_cm",
                 "share_shelf_name": "ailet_metrica_stolb_sm"
             }
         ],
