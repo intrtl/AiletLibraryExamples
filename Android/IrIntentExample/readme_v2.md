@@ -17,6 +17,8 @@
     - [Пример обработки broadcast-сообщения](#пример-обработки-broadcast-сообщения)
   - [Пример отчета (поле result в broadcast и getData() в onActivityResult)](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
   - [Пример взаимодействия](#пример-взаимодействия)
+  - [Возможные проблемы при интеграции](#возможные-проблемы-при-интеграции)
+    - [Особенности Android 11](#особенности-android-11)
 
 ## Вызов
 
@@ -441,9 +443,49 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
 
 ## Пример взаимодействия
 
-- Вызовать приложение IR с методом visit 
+- Вызовать приложение Ailet с методом visit 
 - Выполнить визит с несколькими фото
-- Выйти из приложения IR 
+- Выйти из приложения Ailet
 - Проверить результат, если RESULT_INPROGRESS, то необходимо ожидать бродкаст сообщение о готовности, если RESULT_OK, то отчет содержит готовые данные
-- При получении бродкаста со статусом RESULT_OK обработать отчет, он содержит готовые данные, так же можно вызвать приложение IR с методом report или summaryReport
+- При получении бродкаста со статусом RESULT_OK обработать отчет, он содержит готовые данные, так же можно вызвать приложение Ailet с методом report или summaryReport
 
+## Возможные проблемы при интеграции
+
+### Особенности Android 11
+
+Если в проекте используется targetSdkVersion 30, то может возникнуть проблема с вызовом приложение Ailet, для ее решения есть несколько сопособов:
+
+- добавить queries в AndroidManifest (предпочтительный вариант)
+
+    ```xml
+    <queries>
+        <package android:name="com.intrtl.app" />
+    </queries>
+    ```
+
+- добавить queries в AndroidManifest 
+
+    ```xml
+    <queries>
+        <intent>
+            <action android:name="com.intrtl.app.ACTION_VISIT" />
+        </intent>
+        <intent>
+            <action android:name="com.intrtl.app.ACTION_REPORT" />
+        </intent>
+        <intent>
+            <action android:name="com.intrtl.app.ACTION_SUMMARY_REPORT" />
+        </intent>
+        <intent>
+            <action android:name="com.intrtl.app.ACTION_SYNC" />
+        </intent>
+    </queries>
+    ```
+
+- добавить QUERY_ALL_PACKAGES в AndroidManifest 
+  
+    ```xml
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+    ```
+
+- понизить targetSdkVersion до версии 29
