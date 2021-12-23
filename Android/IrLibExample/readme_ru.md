@@ -2,7 +2,7 @@
 
 - [Integrate irLib into project](#integrate-irlib-into-project)
   - [Подключение используя Maven (GitHub)](#подключение-используя-maven-github)
-    - [Создание токена персонального доступа GitHub](#создание-токена-персонального-доступа-github)
+    - [Создание GitHub personal access token](#создание-github-personal-access-token)
   - [Подключение вручную irLib](#подключение-вручную-irlib)
   - [Подключение OpenCV](#подключение-opencv)
   - [Необходимые зависимости](#необходимые-зависимости)
@@ -26,13 +26,13 @@
  maven {
   url = 'https://maven.pkg.github.com/intrtl/irlib'
   credentials {
-    username "имя пользователя github"
-    password "токен персонального доступа GitHub"
+    username "имя пользователя GitHub"
+    password "GitHub personal access token"
   }
 }
 ```
 
-### Создание токена персонального доступа GitHub
+### Создание GitHub personal access token
 
 - В правом верхнем углу любой страницы щелкните фотографию своего профиля и нажмите «Settings» .
 - В левой боковой панели нажмите «Developer settings»
