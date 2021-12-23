@@ -2,6 +2,7 @@
 
 - [Integrate irLib into project](#integrate-irlib-into-project)
   - [Подключение используя Maven](#подключение-используя-maven)
+    - [Создание токена персонального доступа](#создание-токена-персонального-доступа)
   - [Подключение вручную irLib](#подключение-вручную-irlib)
   - [Подключение OpenCV](#подключение-opencv)
   - [Необходимые зависимости](#необходимые-зависимости)
@@ -21,9 +22,22 @@
 
 Добавте в build.gradle (Project)
 
-```gradle
-maven { url "https://maven.intrtl.com/artifactory/irlib" }
+```gradle 
+ maven {
+  url = 'https://maven.pkg.github.com/intrtl/irlib'
+  credentials {
+    username "имя пользователя github"
+    password "токен персонального доступа"
+  }
+}
 ```
+
+### Создание токена персонального доступа
+
+- В правом верхнем углу любой страницы щелкните фотографию своего профиля и нажмите «Settings» .
+- В левой боковой панели нажмите «Developer settings»
+- В левой боковой панели нажмите «Personal access tokens» и затем чтобы создать новый токен нажмите «Generate new token»
+- Задайте scope ``read:packages``
 
 Добавте в build.gradle (App)
 
@@ -34,7 +48,7 @@ implementation 'com.intrtl:lib:+'
 или
 
 ```gradle
-implementation 'com.intrtl:lib:1.119'
+implementation 'com.intrtl:lib:1.128.4'
 ```
 
 ## Подключение вручную irLib
