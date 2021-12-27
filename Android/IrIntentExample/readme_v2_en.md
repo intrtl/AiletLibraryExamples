@@ -50,7 +50,7 @@ The following methods are available for request actions from the Ailet app:
 
 ### Method Call Example
 
-```swift
+```kotlin
 Intent intent = new Intent();
 if (intent != null) {
     intent.setAction("com.intrtl.app.ACTION_VISIT");
@@ -96,7 +96,7 @@ In new versions of the Android OS (9 and later), to get the image file path, you
 
 The example of getting image:
 
-```swift
+```kotlin
 private fun readBitmapFromUri(uri: Uri): Bitmap? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         val source = ImageDecoder.createSource(this.contentResolver, uri)
@@ -107,7 +107,7 @@ private fun readBitmapFromUri(uri: Uri): Bitmap? {
 }
 ```
 
-```swift
+```kotlin
 val photosJSON = json.getJSONObject("report").getJSONObject("photos")
 val photoNamesList = ArrayList<String>()
 for ( i in 0 until photosJSON.length()) {
@@ -140,7 +140,7 @@ Possible statuses of the error response field are given below.
 
 ### Example of Processing a Response
 
-```swift
+```kotlin
 @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -218,7 +218,7 @@ photos and receiving reports is launched, which, upon completion, generates a br
 
 ### Broadcast Message Processing Example
 
-```swift
+```kotlin
 new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
