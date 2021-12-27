@@ -1,53 +1,56 @@
-# Взаимодействие через Интенты
+# Interaction with the Ailet App Using Intents
 
-Позволяет использовать приложение IR без интеграции библиотеки, достаточно что бы приложение IR было устновлено на устройстве.
+This page describes how to configure interaction through the intent mechanism for your SFA application and the Ailet app.
+- [Interaction with the Ailet App Using Intents](#interaction-with-the-ailet-app-using-intents)
+  - [Request](#request)
+    - [Methods](#methods)
+    - [Parameters](#parameters)
+    - [Method Call Example](#method-call-example)
+  - [Response](#response)
+    - [Response Data Format](#response-data-format)
+    - [Getting Images from "report"](#getting-images-from-report)
+    - [Statuses](#statuses)
+    - [Example of Processing a Response](#example-of-processing-a-response)
+  - [Broadcast Message](#broadcast-message)
+    - [Broadcast Message Content](#broadcast-message-content)
+    - [Broadcast Message Processing Example](#broadcast-message-processing-example)
+    - [Sample report](#sample-report)
+  - [Integration Examples](#integration-examples)
 
-- [Взаимодействие через Интенты](#взаимодействие-через-интенты)
-  - [Вызов](#вызов)
-    - [Методы](#методы)
-    - [Параметры вызова](#параметры-вызова)
-    - [Пример вызова метода](#пример-вызова-метода)
-  - [Ответ](#ответ)
-    - [Формат данных ответа](#формат-данных-ответа)
-    - [Получение изображений из report](#получение-изображений-из-report)
-    - [Статусы](#статусы)
-    - [Пример обработки ответа](#пример-обработки-ответа)
-  - [Broadcast-сообщение](#broadcast-сообщение)
-    - [Содержимое broadcast-сообщения](#содержимое-broadcast-сообщения)
-    - [Пример обработки broadcast-сообщения](#пример-обработки-broadcast-сообщения)
-  - [Пример отчета (поле result в broadcast и getData() в onActivityResult)](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
-  - [Пример взаимодействия](#пример-взаимодействия)
-  - [Возможные проблемы при интеграции](#возможные-проблемы-при-интеграции)
-    - [Особенности Android 11](#особенности-android-11)
+## Request
+ 
+### Methods
 
-## Вызов
+The following methods are available for request actions from the Ailet app:
 
-### Методы
+- **com.intrtl.app.ACTION_VISIT** - creating / editing a visit (activity);
 
-Метод  | Описание
-------------- | -------------
-com.intrtl.app.ACTION_VISIT  | Создание/редактирование визита (activity)
-com.intrtl.app.ACTION_REPORT | Отчет по визиту (json)
-com.intrtl.app.ACTION_SUMMARY_REPORT | Сводный отчет по визиту (activity)
-com.intrtl.app.ACTION_SYNC | Запуск фонового процесса передачи фото и получения результатов
+- **com.intrtl.app.ACTION_REPORT** - getting visit report (json);
 
-### Параметры вызова
+- **com.intrtl.app.ACTION_SUMMARY_REPORT** - getting visit summary report (activity);
 
-Поле  | Описание | Обязательно для методов | Необязательно для методов
-------------- | ------------- | ------------- | -------------
-**Параметры**  | |
-action  | Метод | 
-**Extra**  | | 
-login | Логин пользователя | для всех
-password | Пароль пользователя | для всех
-id | ИД пользователя | для всех, если используется технический пользователь
-visit_id | ИД визита | visit, report, summaryReport
-task_id | ИД задачи | | visit, report, summaryReport
-store_id | ИД торговой точки | visit
+- **com.intrtl.app.ACTION_SYNC** - starting the background process of transferring photos and obtaining results
 
-### Пример вызова метода
 
-```java
+### Parameters
+
+| **Name** | **Description** | **Required for methods** |
+|----------------|------------------------------|-----------------------------|
+| ***Parameters:*** | | |
+| **action**     | The method used.  |  |
+| | | |
+| ***Extras:***     | | |
+| **login**      | The user's login.    | All. |
+| **password**   | The user's password. | All. |
+| **id**         | The ID of the user.  | All. Only if the *technical user* is used. | |
+| **visit_id**   | The ID of the visit. | ACTION_VISIT, ACTION_REPORT, ACTION_SUMMARY_REPORT|
+| **task_id**    | The ID of the task.  | ACTION_VISIT|
+| **store_id**   | The ID of the store. | ACTION_VISIT|
+
+
+### Method Call Example
+
+```swift
 Intent intent = new Intent();
 if (intent != null) {
     intent.setAction("com.intrtl.app.ACTION_VISIT");
@@ -61,40 +64,39 @@ if (intent != null) {
 }
 ```
 
-## Ответ
+## Response
 
-Для возврата результата используется FileProvider, intent в атрибуте data содержит Uri файла с данными.
+To return the result, a **FileProvider** is used; the intent contains the Uri of the data file in the data attribute.
 
-Поле  | Описание
-------------- | -------------
-error  | Ошибка, при resultCode == RESULT_CANCELED
-data | Uri с файлом результата операции
+| **Field**     | **Description** |
+|---------------|--------------------|
+| **error**     | Error, if resultCode == RESULT_CANCELED |
+| **data**      | Uri of the file with result of the action. |
 
-### Формат данных ответа
+### Response Data Format
 
-[Пример](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
+| **Field**     | **Description** | **Availability in response** |
+|--------------------------|-----------------------|-------------------------|
+| **status**    | Method execution status. | always |
+| **user_id**   | The identifier of the user.               | except for the ACTION_SYNC method |
+| **store_id**  | The identifier of the store.   | except for the ACTION_SYNC method |
+| **task_id**   | The identifier of the task.     | except for the ACTION_SYNC method |
+| **visit_id**  | The identifier of the visit.     | except for the ACTION_SYNC method |
+| **internal_visit_id**  | The internal identifier of the visit.     | except for the ACTION_SYNC method |
+| **install_id**| The identifier of the installaition. |except for the ACTION_SYNC method |
+| **photosCounter** | The number of photos taken. | if status != error and method != ACTION_SYNC |
+| **scenesCounter** | The number of scenes.     | if status != error and method != ACTION_SYNC |
+| **notDetectedPhotosCounter** | Number of photos for which no data was received. | if status != error and method != ACTION_SYNC |
+| **notDetectedScenesCounter** | Number of scenes for which no data is received. | if status != error and method != ACTION_SYNC |
+| **report**    | Report. | if status == RESULT_OK and method != ACTION_SYNC |
 
-Поле  | Описание | Наличие в ответе
-------------- | ------------- | -------------
-status | Статус выполнения метода | всегда
-user_id | Идентификатор пользователя | кроме метода ACTION_SYNC
-store_id | Идентификатор магазина | кроме метода ACTION_SYNC
-task_id | Идентификатор задачи | кроме метода ACTION_SYNC
-visit_id | Идентификатор визита | кроме метода ACTION_SYNC
-internal_visit_id | Внутренний идентификатор визита | кроме метода ACTION_SYNC
-install_id | ИД установки | кроме метода ACTION_SYNC
-photosCounter | Количество сделанных фото | при status != ERROR_VISIT_ID_INCORRECT и методе != ACTION_SYNC
-scenesCounter | Количество сцен | при status != ERROR_VISIT_ID_INCORRECT и методе != ACTION_SYNC
-notDetectedPhotosCounter | Количество фото, по которым не получены данные | при status != ERROR_VISIT_ID_INCORRECT и методе != ACTION_SYNC
-notDetectedScenesCounter | Количество сцен, по которым не получены данные | при status != ERROR_VISIT_ID_INCORRECT и методе != ACTION_SYNC
-report | Отчет | при status == RESULT_OK и методе != ACTION_SYNC
+### Getting Images from "report"
 
-### Получение изображений из report
+In new versions of the Android OS (9 and later), to get the image file path, you must use `image_uri` instead of `image_path`.
 
-В новых версиях ОС Android (9 и новее) для получения пути файла изображения вместо image_path необходимо использовать image_uri. 
-Пример получения изображение:
+The example of getting image:
 
-```kotlin
+```swift
 private fun readBitmapFromUri(uri: Uri): Bitmap? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
         val source = ImageDecoder.createSource(this.contentResolver, uri)
@@ -105,7 +107,7 @@ private fun readBitmapFromUri(uri: Uri): Bitmap? {
 }
 ```
 
-```kotlin
+```swift
 val photosJSON = json.getJSONObject("report").getJSONObject("photos")
 val photoNamesList = ArrayList<String>()
 for ( i in 0 until photosJSON.length()) {
@@ -117,28 +119,29 @@ val arrayOfBitmap = photoNamesList.map {
 }
 ```
 
-### Статусы 
+### Statuses
 
-Статус  | Описание
-------------- | -------------
-RESULT_OK | Успешно
-RESULT_INPROGRESS | Данные в обработке
-RESULT_INPROGRESS_OFFLINE | Данные в обработке (приложение в режиме оффлайн)
-RESULT_EMPTY | Пустой отчет
-ERROR_NOVISIT | Визита не существует
-ERROR_READONLY_VISIT | Визита только для чтения
-ERROR_INCORRECT_INPUT_PARAMS | Неверные входные параметры
-ERROR_VISIT_ID_INCORRECT | Неорректный ИД визита
-ERROR_AUTH | Ошибка авторизации
-ERROR_VISIT_ID_INCORRECT | Неорректный ИД визита
-ERROR_PHOTO | Фото с ошибкой
-ERROR_BUSY | Метод уже выполняется
-ERROR_CANT_LOAD_VISIT | Невозможно загрузить визит, так как отсуствует интернет
+Possible statuses of the error response field are given below.
 
-### Пример обработки ответа
+| **Status** | **Description** |
+|------------------------|--------------------------|
+| RESULT_OK  | Successfully. |
+| RESULT_INPROGRESS | Data in processing. |
+| RESULT_INPROGRESS_OFFLINE | Data in processing (offline application mode). |
+| RESULT_EMPTY | Blank report. |
+| ERROR_NOVISIT | The visit does not exist. |
+| ERROR_READONLY_VISIT | The visit is read-only. |
+| ERROR_INCORRECT_INPUT_PARAMS | Invalid input parameters. |
+| ERROR_VISIT_ID_INCORRECT | Invalid visit ID. |
+| ERROR_AUTH | Authorisation error. |
+| ERROR_PHOTO | Photo with an error. |
+| ERROR_BUSY | Method is already running. |
+| ERROR_CANT_LOAD_VISIT | Unable to load visit due to the lack of internet connection. |
 
-```java
-    @Override
+### Example of Processing a Response
+
+```swift
+@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -194,26 +197,29 @@ ERROR_CANT_LOAD_VISIT | Невозможно загрузить визит, та
     }
 ```
 
-## Broadcast-сообщение
+## Broadcast Message
 
-При вызове метода visit и создании фото запускается фоновый процесс передачи фото и получения отчетов, который по завершении формирует broadcast сообщение **com.intrtl.app.BROADCAST_VISIT_COMPLETED**.
+When you call the `com.intrtl.app.ACTION_VISIT` method and a user takes a photo, the background process of transferring 
+photos and receiving reports is launched, which, upon completion, generates a broadcast message 
+`com.intrtl.app.BROADCAST_VISIT_COMPLETED`. It passes the recognition report to the third-party application.
 
-### Содержимое broadcast-сообщения
+### Broadcast Message Content
 
-Поле  | Описание
-------------- | -------------
-visit_id | ИД визита
-internal_visit_id | внутренний ИД визита
-user_id | ИД пользователя
-store_id | ИД торговой точки
-total_photos | общее количество фото (не входят фото плохого качества)
-completed_photos | количество обработанных фото
-result | URI (строка) файла с [отчетом](#пример-отчета-поле-result-в-broadcast-и-getdata-в-onactivityresult)
+| **Field** | **Description** |
+|---------------|-------------------------------------|
+| **visit_id**  | The ID of the visit. |
+| **internal_visit_id** | The inner ID of the visit. |
+| **user_id**   | The ID of the user. |
+| **store_id**  | The ID of the store. |
+| **task_id**   | The ID of the task on the portal. |
+| **total_photos** | Total number of photos (does not include poor quality photos). |
+| **completed_photos** | Number of processed photos. | 
+| **result**    | URI (string) of the file with the report. |
 
-### Пример обработки broadcast-сообщения
+### Broadcast Message Processing Example
 
-```java
-BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+```swift
+new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle extras = intent.getExtras();
@@ -228,10 +234,12 @@ BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
     }
 };
 
-this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADCAST_VISIT_COMPLETED"));
+this.registerReceiver(shareShelfBroadcast, new IntentFilter("com.intrtl.app.BROADCAST_VISIT_COMPLETED"));
 ```
 
-## Пример отчета (поле result в broadcast и getData() в onActivityResult)
+### Sample report 
+
+The content example of the **result** field in broadcast and **getData()** in onActivityResult.
 
 ```json
 {
@@ -249,7 +257,7 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
                 "error": {
                     "code": "RESULT_OK",
                     "codeInt": 1,
-                    "message": "Успешно обработан"
+                    "message": "Successfully processed"
                 },
                 "products": [],
                 "scene_id": "5fba8e1114ed8-7381-SCENE-000001",
@@ -267,8 +275,8 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
                 "id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
                 "price": "",
                 "price_type": "",
-                "name": "Activia Пит с дыней и земляникой, Бутылка, .290",
-                "category_name": "Питьевой йогурт"
+                "name": "Activia Drink. with Melon and Strawberry, Bottle, .290",
+                "category_name": "Drinking yoghurt"
             },        
             {
                 "external_id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
@@ -278,214 +286,44 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
                 "id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
                 "price": "",
                 "price_type": "",
-                "name": "Activia Пит злаки-семена, Стакан, .250",
-                "category_name": "Питьевой йогурт"
+                "name": "Activia Drink.  cereals-seeds, Glass, .250",
+                "category_name": "Drinking yoghurt"
             }
         ],
         "share_shelf": {
             "share_shelf_by_visit": [
                 {
-                    "value": 10,
-                    "value_previous": 10
+                    "value": 0,
+                    "value_previous": 0
                 }
             ],
-            "share_shelf_by_macrocategories": [
-                {
-                    "product_macro_category_id": "5e52367cb9dca-4987",
-                    "product_macro_category_name": "BABY FOOD",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": 0
-                },
-                {
-                    "product_macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
-                    "product_macro_category_name": "Modern Dairy",
-                    "value": 17,
-                    "value_previous": 0,
-                    "facing": 0
-                }
-            ],
-            "share_shelf_by_categories": [
-                {
-                    "product_category_id": "5e52367cb9dca-4987",
-                    "macro_category_id": "5e52367cb9dca-4987",
-                    "product_category_name": "BABY FOOD",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": "0"
-                },
-                {
-                    "product_category_id": "15bc3f11-4146-11e8-8479-000d3a29f071",
-                    "macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
-                    "product_category_name": "BABY_MD",
-                    "value": 4,
-                    "value_previous": 0,
-                    "facing": "0"
-                }
-            ],
-            "share_shelf_by_brands": [
-                {
-                    "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                    "product_category_id": "5e52367cb9dca-4987",
-                    "brand_name": "Агуша",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": "0",
-                    "is_own": 0
-                },
-                {
-                    "brand_id": "86c15f23-8b3a-4dcf-a2e4-b2aba9c1041d",
-                    "product_category_id": "15bc3f11-4146-11e8-8479-000d3a29f071",
-                    "brand_name": "Tema",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": "0",
-                    "is_own": 1
-                }
-            ],
-            "share_shelf_type": "facing",
-            "share_shelf_name": "12_1"
+            "share_shelf_by_brands": [],
+            "share_shelf_by_categories": []
         },
-        "share_shelf_by_metrics": [
-            {
-                "share_shelf_by_visit": [
-                    {
-                        "value": 10,
-                        "value_previous": 10
-                    }
-                ],
-                "share_shelf_by_macrocategories": [
-                    {
-                        "product_macro_category_id": "5e52367cb9dca-4987",
-                        "product_macro_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": 0
-                    }
-                ],
-                "share_shelf_by_categories": [
-                    {
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "macro_category_id": "5e52367cb9dca-4987",
-                        "product_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0"
-                    }
-                ],
-                "share_shelf_by_brands": [
-                    {
-                        "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "brand_name": "Агуша",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0",
-                        "is_own": 0                    
-                    }
-                ],
-                "share_shelf_type": "facing",
-                "share_shelf_name": "12_1"
-            },
-            {
-                "share_shelf_by_visit": [
-                    {
-                        "value": 0,
-                        "value_previous": 0
-                    }
-                ],
-                "share_shelf_by_macrocategories": [
-                    {
-                        "product_macro_category_id": "5e52367cb9dca-4987",
-                        "product_macro_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": 0
-                    }
-                ],
-                "share_shelf_by_categories": [
-                    {
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "macro_category_id": "5e52367cb9dca-4987",
-                        "product_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0"
-                    }
-                ],
-                "share_shelf_by_brands": [
-                    {
-                        "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "brand_name": "Агуша",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0",
-                        "is_own": 0
-                    }
-                ],
-                "share_shelf_type": "column_cm",
-                "share_shelf_name": "ailet_metrica_stolb_sm"
-            }
-        ],
         "result": {
             "visit_id": "VISITID1",
             "total_photos": 1,
             "sended_photos": 1,
             "code": "RESULT_OK",
             "codeInt": 1,
-            "message": "Успешно обработан"
+            "message": "Successfully processed"
         }
     },
     "status": "RESULT_OK"
 }
 ```
 
-## Пример взаимодействия
+## Integration Examples
 
-- Вызовать приложение Ailet с методом visit 
-- Выполнить визит с несколькими фото
-- Выйти из приложения Ailet
-- Проверить результат, если RESULT_INPROGRESS, то необходимо ожидать бродкаст сообщение о готовности, если RESULT_OK, то отчет содержит готовые данные
-- При получении бродкаста со статусом RESULT_OK обработать отчет, он содержит готовые данные, так же можно вызвать приложение Ailet с методом report или summaryReport
-
-## Возможные проблемы при интеграции
-
-### Особенности Android 11
-
-Если в проекте используется targetSdkVersion 30, то может возникнуть проблема с вызовом приложение Ailet, для ее решения есть несколько сопособов:
-
-- добавить queries в AndroidManifest (предпочтительный вариант)
-
-    ```xml
-    <queries>
-        <package android:name="com.intrtl.app" />
-    </queries>
-    ```
-
-- добавить queries в AndroidManifest 
-
-    ```xml
-    <queries>
-        <intent>
-            <action android:name="com.intrtl.app.ACTION_VISIT" />
-        </intent>
-        <intent>
-            <action android:name="com.intrtl.app.ACTION_REPORT" />
-        </intent>
-        <intent>
-            <action android:name="com.intrtl.app.ACTION_SUMMARY_REPORT" />
-        </intent>
-        <intent>
-            <action android:name="com.intrtl.app.ACTION_SYNC" />
-        </intent>
-    </queries>
-    ```
-
-- добавить QUERY_ALL_PACKAGES в AndroidManifest 
+* **Step 1:** Call the Ailet application with the `visit` method.
+* **Step 2:** Perform a visit with multiple photos.
+* **Step 3:** Exit the Ailet application.
+* **Step 4:** Check the result:
   
-    ```xml
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-    ```
+    `RESULT_INPROGRESS` - wait for a broadcast message about readiness.
 
-- понизить targetSdkVersion до версии 29
+    `RESULT_OK` - the report is ready.
+
+* **Step 5:** When receiving a broadcast with the RESULT_OK status, process the report.
+  You can also call the Ailet app with the `REPORT` or the`SUMMARY_Report` methods.
+
