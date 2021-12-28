@@ -1,55 +1,74 @@
 # Integrate irLib into project
 
 - [Integrate irLib into project](#integrate-irlib-into-project)
-  - [Include irLib using Maven](#include-irlib-using-maven)
-  - [Manual include irLib](#manual-include-irlib)
-  - [Include OpenCV](#include-opencv)
-  - [Required dependencies](#required-dependencies)
-  - [If project use androidX](#if-project-use-androidx)
-  - [Export local base functionality](#export-local-base-functionality)
-  - [Using Multiportal functionality](#using-multiportal-functionality)
-    - [Init](#init)
-    - [Switch portal](#switch-portal)
-    - [setPortal results](#setportal-results)
+  - [Подключение используя Maven (GitHub)](#подключение-используя-maven-github)
+    - [Создание GitHub personal access token](#создание-github-personal-access-token)
+  - [Подключение вручную irLib](#подключение-вручную-irlib)
+  - [Подключение OpenCV](#подключение-opencv)
+  - [Необходимые зависимости](#необходимые-зависимости)
+  - [Если в проекте используется androidX](#если-в-проекте-используется-androidx)
+  - [Подключение экспорта](#подключение-экспорта)
+  - [Методы](#методы)
+    - [Метод init](#метод-init)
+    - [Метод start](#метод-start)
+    - [Метод reports](#метод-reports)
+    - [Метод showSummaryReport](#метод-showsummaryreport)
+  - [Использование типа визита (visitType)](#использование-типа-визита-visittype)
+  - [Использование мультипортальности](#использование-мультипортальности)
+    - [Инициализация](#инициализация)
+    - [Метод setPortal](#метод-setportal)
 
-## Include irLib using Maven
+## Подключение используя Maven (GitHub)
 
-Update build.gradle (Project) with
+Добавте в build.gradle (Project)
 
-```gradle
-maven { url "https://maven.intrtl.com/artifactory/irlib" }
+```gradle 
+ maven {
+  url = 'https://maven.pkg.github.com/intrtl/irlib'
+  credentials {
+    username "имя пользователя GitHub"
+    password "GitHub personal access token"
+  }
+}
 ```
 
-Update build.gradle (App) with
+### Создание GitHub personal access token
+
+- В правом верхнем углу любой страницы щелкните фотографию своего профиля и нажмите «Settings» .
+- В левой боковой панели нажмите «Developer settings»
+- В левой боковой панели нажмите «Personal access tokens» и затем чтобы создать новый токен нажмите «Generate new token»
+- Задайте scope ``read:packages``
+
+Добавте в build.gradle (App)
 
 ```gradle
 implementation 'com.intrtl:lib:+'
 ```
 
-or
+или
 
 ```gradle
-implementation 'com.intrtl:lib:1.119'
+implementation 'com.intrtl:lib:1.128.4'
 ```
 
-## Manual include irLib
+## Подключение вручную irLib
 
-In Android Studio open **File - Project Structure - Dependencies**, press **+** and select **Import .JAR/.AAR Package**, import *ir-lib.aar*. Then in **Declared Dependencies** press **+** and select **3. Module Dependency**, select *ir-lib*, then **Apply** changes or press **OK**.
+В Android Studio откройте пункт **File - Project Structure - Dependencies**, нажмите **+** и выбирите **Import .JAR/.AAR Package**, импортируйте *ir-lib.aar*. Затем нажмите **Declared Dependencies**, затем **+** и выбирите **3. Module Dependency**, выбирете *ir-lib*, затем **Apply** или **OK**.
 
-## Include OpenCV
+## Подключение OpenCV
 
-In Android Studio open **File - Project Structure - Dependencies**, in **Modules** press **+** (New Module) and select **Import .JAR/.AAR Package**, import *openCVLibrary320.aar* library.
+В Android Studio откройте **File - Project Structure - Dependencies**, в разделе **Modules** нажмите **+** (New Module) и выбирите **Import .JAR/.AAR Package**, импортируйте библиотеку *openCVLibrary320.aar*.
 
 <img src="https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_1.png" width="700"><br/>
 <img src="https://gitlab.intrtl.com/examples/irlib-examples/-/raw/master/Android/IrLibExample/images/add_opencv_2.png" width="700">
 
-Add this line in build.gradle in app level module in dependency section
+Добавте в build.gradle (app) зависимость.
 
 ```gradle
 implementation project(path: ':openCVLibrary320')
 ```
 
-## Required dependencies
+## Необходимые зависимости
 
 build.gradle (App) 
 
@@ -102,7 +121,7 @@ allprojects {
 }
 ```
 
-## If project use androidX
+## Если в проекте используется androidX
 
 Update gradle.properties with
 
@@ -111,7 +130,7 @@ android.useAndroidX=true
 android.enableJetifier=true
 ```
 
-## Export local base functionality
+## Подключение экспорта
 
 If you need export base (for IR support) please add next lines into *Manifest*
 
@@ -127,7 +146,7 @@ If you need export base (for IR support) please add next lines into *Manifest*
 </provider>
 ```
 
-and create file *provider_paths* in **res/xml** folder
+создайте файл *provider_paths* в папке **res/xml**
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -136,24 +155,112 @@ and create file *provider_paths* in **res/xml** folder
 </paths>
 ```
 
-## Using Multiportal functionality
+## Методы
 
-### Init
-If you need using more than one portal, set to **true** multiportal parameter in init:
+Метод  | Описание
+--- | ---
+[init](#метод-init) | Инициализация библиотеки, авторизация и загрузка справочников
+[start](#метод-start) | Старт визита
+[reports](#метод-reports) | Возвращает отчет по указанному визиту
+[showSummaryReport](#метод-showsummaryreport) | Сводный отчет по указанному визиту
+[setPortal](#метод-setportal) | Установка активного портала
+
+### Метод init
+Параметр  | Тип | Обязательно | Описание
+--- | :-: | :-: | ---
+user_login | String | + | Имя пользователя
+user_pass | String | + | Пароль пользователя
+external_user_id | String | | Идентификатор пользователя
+broadcast | String | | Идентификатор бродкаста
+isMultiportal | Boolean | | Если true то будет использована мультипортальность
+
+
+Результат | Описание
+--- | ---
+RESULT_OK | Инициализация выполнена успешно
+ERROR_BUSY | Метод уже выполняется
+ERROR_NO_INET | Отсутствует интернет, невозможно провести авторизацию
+ERROR_AUTH | Ошибка авторизации
+ERROR | Ошибка выполнения метода
+
+### Метод start
+Параметр  | Тип | Обязательно | Описание
+--- | :-: | :-: | ---
+externalStoreId | String | + | Идентификатор магазина 
+externalVisitId | String | + | Идентификатор визита
+externalSessionId | String | | Идентификатор задачи
+externalSessionName | String | | Название задачи (выводится в интерфейсе съемки)
+externalSceneGroup | Int | | Идентификатор группы сцен
+visitType | String | | Типа визита (before, after)
+
+
+Результат | Описание
+--- | ---
+RESULT_OK  | Запуск визита выполнен успешно
+ERROR_BUSY  | Метод уже выполняется
+ERROR_EMPTY_PORTAL  | Если не был установлен портал в мультипортальном режиме 
+ERROR_VISIT_ID_INCORRECT | Пустой идентификатор визита
+ERROR_STORE_ID_INCORRECT | Пустой идентификатор торговой точки
+ERROR_EMPTY_SESSION_ID  | Отсутствует идентификтор задачи при устновленом названии задачи (externalSessionName)
+ERROR_INCORRECT_SESSION_NAME  | Название задачи не совпадает с ранее указанным
+ERROR_TOKEN | Отсутствует токен (пользователь не авторизован)
+ERROR | Ошибка выполнения метода
+
+### Метод reports
+Параметр  | Тип | Обязательно | Описание
+--- | :-: | :-: | ---
+externalVisitId | String | + | Идентификатор визита
+visitType | String | | Типа визита (before, after)
+
+Результат | Описание
+--- | ---
+Json String  | Отчет в json формате
+
+
+### Метод showSummaryReport
+Параметр  | Тип | Обязательно | Описание
+--- | :-: | :-: | ---
+externalVisitId | String | + | Идентификатор визита
+visitType | String | | Типа визита (before, after)
+
+Результат | Описание
+--- | ---
+RESULT_OK  | Вызов сводного отчета выполнен успешно
+ERROR_NOVISIT | Отсутсвует визит с указанным идентификатором
+ERROR_VISIT_ID_INCORRECT | Пустой идентификатор визита
+
+## Использование типа визита (visitType)
+
+Параметр visitType может задавать тип визита, в данный момент используются следующие значения:
+- before - визит сделанный до
+- after - визит сделанный после
+
+В случае использования visitType с одним externalVisitId создается два визита с одинаковым externalVisitId, которые связанны между собой. Это позволяет указывать при интеграции один визит, разделяя по типу "до" и "после".
+
+## Использование мультипортальности
+
+### Инициализация
+Для использования мультипортальности без переавторизации пользователя установите флаг мультипортальности метода init в **true**. При использовании мультипортальности визит осуществляется в портал, устаноленный методом **setPortal**, при этом синхронизация данных выполняется для всех порталов пользователя.
+
 ```java
 ir.init("user", "pass", "notificationID", true);
 ```
-### Switch portal
-For switch portal use **setPortal** function with portal ID as parameter:
+### Метод setPortal
+
+Метод используется для установки активного портала.
+
+Параметр  | Тип | Обязательно | Описание
+--- | :-: | :-: | ---
+portalId | String | + | Идентификатор портала
+
+ Результат | Описание 
+---|---
+RESULT_OK | Установка портала успешна
+ERROR_NOT_MULTIPORTAL_MODE  | Установка портала в не мультипортальном режиме
+ERROR_PORTAL_INCORRECT  | Некорректный идентификатор портала
+ERROR_EMPTY_PORTAL  | Пустой идентификатор портала
+
+Пример использования метода **setPortal**:
 ```java
 ir.setPortal("demoPortal");
 ```
-
-### setPortal results
-
-| Result | Description |
-|---|---|
-| RESULT_OK | Switch portal success |
-| ERROR_NOT_MULTIPORTAL_MODE  | Set portal ID in non multiportal mode |
-| ERROR_PORTAL_INCORRECT  | Incorrect portal ID or portal not associated with user |
-| ERROR_EMPTY_PORTAL  | Portal ID is null and using multiportal mode |
