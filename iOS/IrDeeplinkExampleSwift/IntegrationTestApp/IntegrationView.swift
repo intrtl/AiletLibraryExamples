@@ -52,7 +52,13 @@ struct IntegrationView: View {
                     Text(LocalizedStringKey(stringLiteral: "RESULT")).font(.headline).frame(width: UIScreen.main.bounds.width, height: nil, alignment: .center)
 
                 }.offset(x: 0, y: 0)
-                Text(viewModel.requestAnswer).frame(minWidth: UIScreen.main.bounds.width, minHeight: 20, alignment: .topLeading)
+                if #available(iOS 15.0, *) {
+                    Text(viewModel.requestAnswer).frame(minWidth: UIScreen.main.bounds.width, minHeight: 20, alignment: .topLeading)
+                        .textSelection(.enabled)
+                } else {
+                    TextField("", text: .constant(viewModel.requestAnswer)).frame(minWidth: UIScreen.main.bounds.width, minHeight: 20, alignment: .topLeading)
+                    Text(viewModel.requestAnswer).frame(minWidth: UIScreen.main.bounds.width, minHeight: 20, alignment: .topLeading)
+                }
             }
             .navigationBarTitle("Deeplinks Test")
             .onTapGesture {
