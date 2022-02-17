@@ -20,7 +20,13 @@ allprojects {
         jcenter()
         maven { url 'https://maven.google.com/' }
         maven { url 'https://jitpack.io' }
-        maven { url "https://maven.intrtl.com/artifactory/irlib" }
+        maven {
+            url = 'https://maven.pkg.github.com/intrtl/irlib'
+            credentials {
+                username "github_user"
+                password "github_token"
+            }
+        }
     }
 }
 
