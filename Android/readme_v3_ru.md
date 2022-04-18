@@ -3,7 +3,7 @@
 - [1. Integrate irLib into project](#1-integrate-irlib-into-project)
   - [1.1. Подключение используя Maven (GitHub)](#11-подключение-используя-maven-github)
     - [1.1.1. Создание GitHub personal access token](#111-создание-github-personal-access-token)
-  - [1.2. Методы](#12-методы)
+  - [1.2. Методы (Класс IntRtl, Deprecated)](#12-методы-класс-intrtl-deprecated)
 
 ## 1.1. Подключение используя Maven (GitHub)
 
@@ -43,7 +43,9 @@ implementation 'com.ailet.android:lib:3.0.5'
 implementation 'com.ailet.android:lib-feature-techsupport-intercom:3.0.0'
 ```
 
-## 1.2. Методы
+## 1.2. Методы (Класс IntRtl, Deprecated)
+
+В текущей версии библиотеки используется режим совместимости с методами класса IntRtl. Методы позоволяют использовать библиотеку без дополнительно доработки приложения.
 
 Метод  | Описание
 --- | ---
