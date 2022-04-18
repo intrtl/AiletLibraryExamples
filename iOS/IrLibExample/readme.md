@@ -3,6 +3,7 @@
 - [Integrate irLib into project](#integrate-irlib-into-project)
   - [Include irLib using Cocoapods](#include-irlib-using-cocoapods)
   - [Configure target](#configure-target)
+  - [Import headers](#import-headers)
   - [Using Multiportal functionality](#using-multiportal-functionality)
     - [Init](#init)
     - [Switch portal](#switch-portal)
@@ -26,17 +27,20 @@ pod 'IRLib'
 
 Set **Requires full screen** flag to True.
 
+## Import headers
+
+```objectivec
+#import <Realm/Realm.h> // Optional, but required when use C++ code (.mm)
+#import <IrLib/IrLib.h>
+```
+
 ## Using Multiportal functionality
 
 ### Init
+
 If you need using more than one portal, set to **YES** isMultiportal parameter in init:
+
 ```objectivec
-
-#import <Realm/Realm.h> // Optional, but required when use C++ code (.mm)
-#import <IrLib/IrLib.h>
-
-...
-
 long res = [IrView init:@"username"
                password:@"password"
              guestToken:@"your-guest-token"
