@@ -31,6 +31,12 @@ Set **Requires full screen** flag to True.
 ### Init
 If you need using more than one portal, set to **YES** isMultiportal parameter in init:
 ```objectivec
+
+#import <Realm/Realm.h> // Optional, but required when use C++ code (.mm)
+#import <IrLib/IrLib.h>
+
+...
+
 long res = [IrView init:@"username"
                password:@"password"
              guestToken:@"your-guest-token"
