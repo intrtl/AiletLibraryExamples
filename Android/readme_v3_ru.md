@@ -38,7 +38,7 @@ allprojects {
 
 ```gradle
 // библиотека Ailet
-implementation 'com.ailet.android:lib:3.0.5'
+implementation 'com.ailet.android:lib:3.0.6'
 // не обязательно: модуль техподдержки
 implementation 'com.ailet.android:lib-feature-techsupport-intercom:3.0.0'
 ```
