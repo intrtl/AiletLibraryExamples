@@ -56,7 +56,7 @@ dependencyResolutionManagement {
 ### 1.1.3. Добавьте в build.gradle модуля две зависимости:
 
 ```groovy
-def ailetLibVersion = '3.0.12'
+def ailetLibVersion = '3.1.0'
 // библиотека Ailet
 implementation "com.ailet.android:lib:$ailetLibVersion"
 // необязательно: модуль техподдержки
