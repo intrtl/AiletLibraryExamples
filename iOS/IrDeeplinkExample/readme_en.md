@@ -157,7 +157,7 @@ Photos in visit are required (there are no tasks or required tasks contain any w
 
 Photos in visit are not required (there are any required tasks with required photos):
 
-| Данные в визите | Статус (код) | Отчеты |
+| Visit data | Status (code) | Available reports |
 |---|:-:|---|
 | Visit has photos, not all photos are processed, visit has answers for questions | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement, perfect_store |
 | Visit has photos, not all photos are processed, no answers for questions  | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement |
