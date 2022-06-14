@@ -244,197 +244,444 @@ this.registerReceiver(broadcastReceiver, new IntentFilter("com.intrtl.app.BROADC
     "store_id": "1",
     "user_id": "USERID1",
     "report": {
+        "result": {
+            "visit_id": "q",
+            "total_photos": 2,
+            "sended_photos": 2,
+            "code": "RESULT_INPROGRESS",
+            "codeInt": 14,
+            "message": "Данные в обработке"
+        },
         "photos": {
-            "5fba8e1114ed8-7381-PHOTO-000001": {
+            "627e94940a021-9c4538fd-PHOTO-000001": {
+                "products": [],
+                "scene_type": "Твин/Тандем: Зона A’",
                 "error": {
                     "code": "RESULT_OK",
                     "codeInt": 1,
                     "message": "Успешно обработан"
                 },
+                "scene_id": "627e94940a021-9c4538fd-SCENE-000001",
+                "image_path": "/data/user/0/com.intrtl.lib2test/files/files/a/ac/ac0/ac0b/ac0be/ac0be330c6d6e78b803e0f8cbaf6fb9d.jpg",
+                "image_url": "https://dairy.intrtl.tech/api/photo_raw/2022/05/13/627e94940a021-9c4538fd/2022-05-13-17-25-58-4668-o.jpg"
+            },
+            "627e94940a021-9c4538fd-PHOTO-000003": {
                 "products": [],
-                "scene_id": "5fba8e1114ed8-7381-SCENE-000001",
-                "task_id": "TASKID1",
-                "scene_type": "TG",
-                "image_path": "/data/user/0/com.intrtl.app/app_Images/5fba8e1114ed8-7381-PHOTO-000001-ROTATED.jpg"
+                "scene_type": "Твин/Тандем: Зона A’",
+                "error": {
+                    "code": "RESULT_OK",
+                    "codeInt": 1,
+                    "message": "Успешно обработан"
+                },
+                "scene_id": "627e94940a021-9c4538fd-SCENE-000001",
+                "image_path": "/data/user/0/com.intrtl.lib2test/files/files/6/64/644/6448/6448f/6448f32805274d437f18f7b24b5a7297.jpg",
+                "image_url": "https://dairy.intrtl.tech/api/photo_raw/2022/05/13/627e94940a021-9c4538fd/2022-05-13-17-30-49-5861-o.jpg"
             }
         },
         "assortment_achievement": [
             {
-                "external_id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
+                "id": "5d63e7081283c-5118",
+                "external_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
                 "facing_fact": 0,
                 "facing_plan": 1,
-                "facing_real": 0,
-                "id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
-                "price": "",
-                "price_type": "",
-                "name": "Activia Пит с дыней и земляникой, Бутылка, .290",
-                "category_name": "Питьевой йогурт"
-            },        
+                "price": 0,
+                "price_type": 0,
+                "price_range_max": 0,
+                "price_range_min": 0,
+                "price_status": 0,
+                "name": "ACTIVIA ложковый йогурт ГРАНАТ-КРАСНЫЙ ЧАЙ, формованный стакан, .170",
+                "category_name": "Modern Dairy"
+            },
             {
-                "external_id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
+                "id": "b76ced83-790d-4226-8f39-b0351af77bbd",
+                "external_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
                 "facing_fact": 0,
                 "facing_plan": 1,
-                "facing_real": 0,
-                "id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
-                "price": "",
-                "price_type": "",
-                "name": "Activia Пит злаки-семена, Стакан, .250",
-                "category_name": "Питьевой йогурт"
+                "price": 0,
+                "price_type": 0,
+                "price_range_max": 0,
+                "price_range_min": 0,
+                "price_status": 0,
+                "name": "Activia Другое Пит, Бутылка, .290",
+                "category_name": "Modern Dairy"
+            }
+        ],
+        "assortment_achievement_by_metrics": [
+            {
+                "products": [
+                    {
+                        "id": "5d63e7081283c-5118",
+                        "external_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "facing_fact": 0,
+                        "facing_plan": 1,
+                        "price": 0,
+                        "price_type": 0,
+                        "price_range_max": 0,
+                        "price_range_min": 0,
+                        "price_status": 0,
+                        "name": "ACTIVIA ложковый йогурт ГРАНАТ-КРАСНЫЙ ЧАЙ, формованный стакан, .170",
+                        "category_name": "Modern Dairy"
+                    },
+                    {
+                        "id": "b76ced83-790d-4226-8f39-b0351af77bbd",
+                        "external_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "facing_fact": 0,
+                        "facing_plan": 1,
+                        "price": 0,
+                        "price_type": 0,
+                        "price_range_max": 0,
+                        "price_range_min": 0,
+                        "price_status": 0,
+                        "name": "Activia Другое Пит, Бутылка, .290",
+                        "category_name": "Modern Dairy"
+                    }
+                ],
+                "assortment_achievement_name": "FilterTwoGroupScene"
+            },
+            {
+                "products": [
+                    {
+                        "id": "5cee51d262c55-7223",
+                        "external_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "facing_fact": 3,
+                        "facing_plan": 0,
+                        "price": 79,
+                        "price_type": 1,
+                        "price_range_max": 0,
+                        "price_range_min": 0,
+                        "price_status": 0,
+                        "name": "ACTIMEL Функциональный напиток МАНГО-МАТЕ-ЖЕНЬШЕНЬ, Бутылка, .100",
+                        "category_name": "Modern Dairy"
+                    }
+                ],
+                "assortment_achievement_name": "FilterGroupScene"
             }
         ],
         "share_shelf": {
             "share_shelf_by_visit": [
                 {
-                    "value": 10,
-                    "value_previous": 10
+                    "plan": 0,
+                    "percent": 0,
+                    "value": 89,
+                    "value_previous": 80,
+                    "numerator": 8,
+                    "denominator": 9
                 }
             ],
             "share_shelf_by_macrocategories": [
                 {
-                    "product_macro_category_id": "5e52367cb9dca-4987",
-                    "product_macro_category_name": "BABY FOOD",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": 0
-                },
-                {
-                    "product_macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
-                    "product_macro_category_name": "Modern Dairy",
-                    "value": 17,
-                    "value_previous": 0,
-                    "facing": 0
+                    "product_macro_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                    "product_macro_category_name": "Tradi Dairy",
+                    "value": 9,
+                    "percent": 88.9,
+                    "matched": 8
                 }
             ],
             "share_shelf_by_categories": [
                 {
-                    "product_category_id": "5e52367cb9dca-4987",
-                    "macro_category_id": "5e52367cb9dca-4987",
-                    "product_category_name": "BABY FOOD",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": "0"
-                },
-                {
-                    "product_category_id": "15bc3f11-4146-11e8-8479-000d3a29f071",
-                    "macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
-                    "product_category_name": "BABY_MD",
-                    "value": 4,
-                    "value_previous": 0,
-                    "facing": "0"
+                    "macro_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                    "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                    "product_category_name": "Tradi Dairy",
+                    "value": 9,
+                    "percent": 88.9,
+                    "matched": 8
                 }
             ],
             "share_shelf_by_brands": [
                 {
-                    "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                    "product_category_id": "5e52367cb9dca-4987",
-                    "brand_name": "Агуша",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": "0",
-                    "is_own": 0
+                    "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                    "brand_id": "b7967cd8-77ea-41c5-bcc4-b69e8a65c223",
+                    "brand_name": "Prostokvashino",
+                    "is_own": 1,
+                    "value": 8,
+                    "percent": 88.9
                 },
                 {
-                    "brand_id": "86c15f23-8b3a-4dcf-a2e4-b2aba9c1041d",
-                    "product_category_id": "15bc3f11-4146-11e8-8479-000d3a29f071",
-                    "brand_name": "Tema",
-                    "value": 0,
-                    "value_previous": 0,
-                    "facing": "0",
-                    "is_own": 1
+                    "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                    "brand_id": "a45f430d-9e3b-11e7-a5c2-000d3a250e47",
+                    "brand_name": "Другое",
+                    "is_own": 0,
+                    "value": 1,
+                    "percent": 11.1
                 }
             ],
             "share_shelf_type": "facing",
-            "share_shelf_name": "12_1"
+            "share_shelf_name": "Tradi Dairy_милютина"
         },
         "share_shelf_by_metrics": [
             {
                 "share_shelf_by_visit": [
                     {
-                        "value": 10,
-                        "value_previous": 10
+                        "plan": 0,
+                        "percent": 0,
+                        "value": 89,
+                        "value_previous": 80,
+                        "numerator": 8,
+                        "denominator": 9
                     }
                 ],
                 "share_shelf_by_macrocategories": [
                     {
-                        "product_macro_category_id": "5e52367cb9dca-4987",
-                        "product_macro_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": 0
+                        "product_macro_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "product_macro_category_name": "Tradi Dairy",
+                        "value": 9,
+                        "percent": 88.9,
+                        "matched": 8
                     }
                 ],
                 "share_shelf_by_categories": [
                     {
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "macro_category_id": "5e52367cb9dca-4987",
-                        "product_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0"
+                        "macro_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "product_category_name": "Tradi Dairy",
+                        "value": 9,
+                        "percent": 88.9,
+                        "matched": 8
                     }
                 ],
                 "share_shelf_by_brands": [
                     {
-                        "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "brand_name": "Агуша",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0",
-                        "is_own": 0                    
+                        "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "brand_id": "b7967cd8-77ea-41c5-bcc4-b69e8a65c223",
+                        "brand_name": "Prostokvashino",
+                        "is_own": 1,
+                        "value": 8,
+                        "percent": 88.9
+                    },
+                    {
+                        "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "brand_id": "a45f430d-9e3b-11e7-a5c2-000d3a250e47",
+                        "brand_name": "Другое",
+                        "is_own": 0,
+                        "value": 1,
+                        "percent": 11.1
                     }
                 ],
                 "share_shelf_type": "facing",
-                "share_shelf_name": "12_1"
+                "share_shelf_name": "Tradi Dairy_милютина"
             },
             {
                 "share_shelf_by_visit": [
                     {
+                        "plan": 0,
+                        "percent": 0,
                         "value": 0,
-                        "value_previous": 0
+                        "value_previous": 0,
+                        "numerator": 0,
+                        "denominator": 103
                     }
                 ],
                 "share_shelf_by_macrocategories": [
                     {
-                        "product_macro_category_id": "5e52367cb9dca-4987",
-                        "product_macro_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": 0
+                        "product_macro_category_id": "60dc6900aa1ae-2303",
+                        "product_macro_category_name": "Baby&Kids ambient",
+                        "value": 1,
+                        "percent": 0,
+                        "matched": 0
+                    },
+                    {
+                        "product_macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "product_macro_category_name": "Modern Dairy",
+                        "value": 94,
+                        "percent": 0,
+                        "matched": 0
+                    },
+                    {
+                        "product_macro_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "product_macro_category_name": "Tradi Dairy",
+                        "value": 8,
+                        "percent": 0,
+                        "matched": 0
                     }
                 ],
                 "share_shelf_by_categories": [
                     {
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "macro_category_id": "5e52367cb9dca-4987",
-                        "product_category_name": "BABY FOOD",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0"
+                        "macro_category_id": "60dc6900aa1ae-2303",
+                        "product_category_id": "60dc6900aa1ae-2303",
+                        "product_category_name": "Baby&Kids ambient",
+                        "value": 1,
+                        "percent": 0,
+                        "matched": 0
+                    },
+                    {
+                        "macro_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "product_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "product_category_name": "Modern Dairy",
+                        "value": 94,
+                        "percent": 0,
+                        "matched": 0
+                    },
+                    {
+                        "macro_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
+                        "product_category_name": "Tradi Dairy",
+                        "value": 8,
+                        "percent": 0,
+                        "matched": 0
                     }
                 ],
                 "share_shelf_by_brands": [
                     {
-                        "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                        "product_category_id": "5e52367cb9dca-4987",
-                        "brand_name": "Агуша",
-                        "value": 0,
-                        "value_previous": 0,
-                        "facing": "0",
-                        "is_own": 0
+                        "product_category_id": "60dc6900aa1ae-2303",
+                        "brand_id": "86c15f23-8b3a-4dcf-a2e4-b2aba9c1041d",
+                        "brand_name": "Tema",
+                        "is_own": 1,
+                        "value": 1,
+                        "percent": 100
+                    },
+                    {
+                        "product_category_id": "df9e03dd-e7a2-45d6-8e4d-fa80a03ecc5e",
+                        "brand_id": "7591ae4b-84bc-4061-a518-6ae939a4ed6b",
+                        "brand_name": "Activia",
+                        "is_own": 1,
+                        "value": 28,
+                        "percent": 29.8
                     }
                 ],
-                "share_shelf_type": "column_cm",
-                "share_shelf_name": "ailet_metrica_stolb_sm"
+                "share_shelf_type": "facing",
+                "share_shelf_name": "12_1"
             }
         ],
-        "result": {
-            "visit_id": "VISITID1",
-            "total_photos": 1,
-            "sended_photos": 1,
-            "code": "RESULT_OK",
-            "codeInt": 1,
-            "message": "Успешно обработан"
+        "perfectstore": {
+            "tasks": [
+                {
+                    "kpis": [
+                        {
+                            "name": "OSA SKU all",
+                            "metric_type": "osa_sku",
+                            "matrix_type": "general",
+                            "plan_value": 25,
+                            "fact_value": 4,
+                            "percentage": 0.16,
+                            "score_value": 0
+                        },
+                        {
+                            "name": "OSA Facing all",
+                            "metric_type": "osa_facing",
+                            "matrix_type": "FilterOneScene",
+                            "plan_value": 26,
+                            "fact_value": 8,
+                            "percentage": 0.30769232,
+                            "score_value": 0
+                        }
+                    ],
+                    "questions": [],
+                    "id": "624312c514e54-7fe3ff5f",
+                    "name": "Portovaya19_task_all",
+                    "percentage": 1,
+                    "total_score": 60
+                },
+                {
+                    "kpis": [],
+                    "questions": [
+                        {
+                            "index": 1,
+                            "type": "select",
+                            "name": "Категория распологается в радиусе 3-х метров от кассы или на основной полке непосредственно за спиной продавца",
+                            "answers": [
+                                {
+                                    "index": 2,
+                                    "name": "НЕТ - Категория распологается в радиусе 3-х метров от кассы или на основной полке непосредственно за спиной продавца",
+                                    "point": 0
+                                }
+                            ]
+                        },
+                        {
+                            "index": 2,
+                            "type": "text",
+                            "name": "Категория распологается в радиусе 3-х метров от кассы или на основной полке непосредственно за спиной продавца 22",
+                            "answers": [
+                                {
+                                    "index": 0,
+                                    "name": "а",
+                                    "point": 0
+                                }
+                            ]
+                        },
+                        {
+                            "index": 3,
+                            "type": "text",
+                            "name": "Категория распологается в радиусе 3-х метров от кассы или на основной полке непосредственно за спиной продавца 22",
+                            "answers": [
+                                {
+                                    "index": 0,
+                                    "name": "5",
+                                    "point": 0
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "624312c514e54-3cff9776",
+                    "name": "Task_port_with_quest",
+                    "percentage": 0,
+                    "total_score": 0
+                },
+                {
+                    "kpis": [
+                        {
+                            "name": "OSA SKU task1",
+                            "metric_type": "osa_sku",
+                            "matrix_type": "general",
+                            "plan_value": 11,
+                            "fact_value": 2,
+                            "percentage": 0.18181819,
+                            "score_value": 2
+                        },
+                        {
+                            "name": "OSA Facing task1",
+                            "metric_type": "osa_facing",
+                            "matrix_type": "FilterOneScene",
+                            "plan_value": 10,
+                            "fact_value": 5,
+                            "percentage": 0.5,
+                            "score_value": 2
+                        }
+                    ],
+                    "questions": [
+                        {
+                            "index": 1,
+                            "type": "select",
+                            "name": "Вопрос с одним вариантом",
+                            "answers": [
+                                {
+                                    "index": 1,
+                                    "name": "11",
+                                    "point": 0
+                                }
+                            ]
+                        },
+                        {
+                            "index": 2,
+                            "type": "multiselect",
+                            "name": "Вопрос с множ. выбором",
+                            "answers": [
+                                {
+                                    "index": 1,
+                                    "name": "test1",
+                                    "point": 0
+                                }
+                            ]
+                        },
+                        {
+                            "index": 3,
+                            "type": "text",
+                            "name": "Вопрос со свободным ответом",
+                            "answers": [
+                                {
+                                    "index": 0,
+                                    "name": "п",
+                                    "point": 0
+                                }
+                            ]
+                        }
+                    ],
+                    "id": "624312c514e54-ff774568",
+                    "name": "Portovaya19_task_1",
+                    "percentage": 0.7522503,
+                    "total_score": 164
+                }
+            ],
+            "total_visit_score": 224
         }
     },
     "status": "RESULT_OK"
