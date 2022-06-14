@@ -241,77 +241,7 @@ this.registerReceiver(shareShelfBroadcast, new IntentFilter("com.intrtl.app.BROA
 
 The content example of the **result** field in broadcast and **getData()** in onActivityResult.
 
-```json
-{
-    "photosCounter": 1,
-    "scenesCounter": 1,
-    "notDetectedPhotosCounter": 0,
-    "notDetectedScenesCounter": 0,
-    "local_visit_id": "5fba8e1114ed8-7381",
-    "visit_id": "VISITID1",
-    "store_id": "1",
-    "user_id": "USERID1",
-    "report": {
-        "photos": {
-            "5fba8e1114ed8-7381-PHOTO-000001": {
-                "error": {
-                    "code": "RESULT_OK",
-                    "codeInt": 1,
-                    "message": "Successfully processed"
-                },
-                "products": [],
-                "scene_id": "5fba8e1114ed8-7381-SCENE-000001",
-                "task_id": "TASKID1",
-                "scene_type": "TG",
-                "image_path": "/data/user/0/com.intrtl.app/app_Images/5fba8e1114ed8-7381-PHOTO-000001-ROTATED.jpg"
-            }
-        },
-        "assortment_achievement": [
-            {
-                "external_id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
-                "facing_fact": 0,
-                "facing_plan": 1,
-                "facing_real": 0,
-                "id": "141e9f56-d7ed-4137-9c68-fbe61dfb0e36",
-                "price": "",
-                "price_type": "",
-                "name": "Activia Drink. with Melon and Strawberry, Bottle, .290",
-                "category_name": "Drinking yoghurt"
-            },        
-            {
-                "external_id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
-                "facing_fact": 0,
-                "facing_plan": 1,
-                "facing_real": 0,
-                "id": "CD0B91D9-A93A-4A40-ACEB-346CE90B8A0A",
-                "price": "",
-                "price_type": "",
-                "name": "Activia Drink.  cereals-seeds, Glass, .250",
-                "category_name": "Drinking yoghurt"
-            }
-        ],
-        "share_shelf": {
-            "share_shelf_by_visit": [
-                {
-                    "value": 0,
-                    "value_previous": 0
-                }
-            ],
-            "share_shelf_by_brands": [],
-            "share_shelf_by_categories": []
-        },
-        "result": {
-            "visit_id": "VISITID1",
-            "total_photos": 1,
-            "sended_photos": 1,
-            "code": "RESULT_OK",
-            "codeInt": 1,
-            "message": "Successfully processed"
-        }
-    },
-    "status": "RESULT_OK"
-}
-```
+[Sample report](https://github.com/intrtl/AiletLibraryExamples/blob/master/Android/IrIntentExample/report_exaple_en.json)
 
 ## Integration Examples
 
