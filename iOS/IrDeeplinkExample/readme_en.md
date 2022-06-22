@@ -11,6 +11,8 @@ below.
     - [Response Parameters](#response-parameters)
     - [Response Statuses](#response-statuses)
     - [Response Example](#response-example)
+      - [Response without task_id](without_task_id_response.json)
+      - [Response with task_id](with_task_id_response.json)
 
 ## Generating URL
 
@@ -140,217 +142,35 @@ The response to a request for report results using the **report** method comes i
 | IR\_ERROR\_AUTH                 | 13 | Authentication error.                                  |
 | IR\_ERROR\_NOVISIT              | 17 | There is no visit with such ID in the application.         |
 
+### Status and available reports depending on tasks in visit, photos and their obligation.
+
+Photos in visit are required (there are no tasks or required tasks contain any with photos required):
+
+| Visit data | Status (code) | Available reports |
+|---|:-:|---|
+| Visit has photos, not all photos are processed, visit has answers for questions | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement, perfect_store |
+| Visit has photos, not all photos are processed, no answers for questions  | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement |
+| No photos, visit has answers for questions | 2 | visit_stats, perfect_store |
+| No photos, no answers for questions | 2 | visit_stats |
+| Visit has photos, all photos are processed, visit has answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
+| Visit has photos, all photos are processed, no answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
+
+Photos in visit are not required (there are any required tasks with required photos):
+
+| Visit data | Status (code) | Available reports |
+|---|:-:|---|
+| Visit has photos, not all photos are processed, visit has answers for questions | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement, perfect_store |
+| Visit has photos, not all photos are processed, no answers for questions  | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement |
+| No photos, visit has answers for questions | 1 | visit_stats, perfect_store |
+| No photos, no answers for questions | 2 | visit_stats |
+| Visit has photos, all photos are processed, visit has answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
+| Visit has photos, all photos are processed, no answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
+
+
 ### Response Example
+### Without task_id
+[Response without task_id](without_task_id_response.json)
 
-**Without task_id:**
+### With task_id
+[Response with task_id](with_task_id_response.json)
 
-```json
-    {
-        "status": "IR_RESULT_OK",
-        "scenesCounter": 1,
-        "photosCounter": 1,
-        "report": {
-            "photos": {
-                "602cb5b7098ee-9451": {
-                    "scene_id": "602cb5b7098b0-1403",
-                    "scene_type": "Not recognized in the main photo",
-                    "image_path": "/Documents/14310/2021-02-17-10-20-39-rn-o.jpg",
-                    "image_url": "https://.../2021-02-17-06-20-40-4132-o.jpg",
-                    "error": {
-                        "codeInt": 1,
-                        "message": "Successfully processed",
-                        "code": 1
-                    },
-                    "products": [
-                        {
-                            "facing": 2,
-                            "price_type": 0,
-                            "category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                            "price": "46",
-                            "external_id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
-                            "width": {
-                                "cm": 16
-                            },
-                            "category_name": "Dairy",
-                            "facing_group": 2,
-                            "name": "Agusha Puree apple-raspberry-rosehip, doypack, .090"
-                        },                    
-                        {
-                            "facing": 1,
-                            "price_type": 0,
-                            "category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                            "price": "0",
-                            "external_id": "",
-                            "width": {
-                                "cm": 18
-                            },
-                            "category_name": "Dairy",
-                            "facing_group": 1,
-                            "name": "Other product (package), LP, .250"
-                        }
-                    ]
-                }
-            },
-            "result": {
-                "sended_photos": 1,
-                "code": 1,
-                "message": "Successfully processed",
-                "total_photos": 1,
-                "codeInt": 1,
-                "internal_visit_id": "602cb5b408cda-4745",
-                "visit_id": "q"
-            },
-            "assortment_achievement": [
-                {
-                    "id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
-                    "external_id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
-                    "facing_plan": 0,
-                    "brand_name": "Agusha",
-                    "facing_real": 2,
-                    "facing_fact": 2,
-                    "price": "46",
-                    "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                    "price_type": false,
-                    "category_name": "Dairy",
-                    "product_category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                    "name": "Agusha Puree apple-raspberry-rosehip, doypack, .090"
-                },                   
-                {
-                    "price_type": false,
-                    "brand_name": "Other",
-                    "product_category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                    "id": "cedbc3f4-636e-11e7-965b-000d3a250e47",
-                    "facing_real": 1,
-                    "price": "0",
-                    "category_name": "Dairy",
-                    "facing_plan": 0,
-                    "facing_fact": 1,
-                    "name": "Other product (package), LP, .250",
-                    "brand_id": "cc2b6315-5356-11e7-94af-000d3a250e47"
-                }
-            ],
-            "share_shelf": {
-                "share_shelf_by_categories": [],
-                "share_shelf_by_visit": [
-                    {
-                        "visit_id": "602cb5b408cda-4745",
-                        "value": 0,
-                        "value_previous": 0
-                    }
-                ],
-                "share_shelf_by_brands": []
-            },
-            "custom": [],
-            "visit_stats": {
-                "photo_deleted": [],
-                "photo_retake": [],
-                "photo": {
-                    "retake": 0,
-                    "sent": 1,
-                    "deleted": 0,
-                    "wait": 0,
-                    "created": 1,
-                    "completed": 1,
-                    "uncompressed": 0
-                },
-                "photo_wait": []
-            }
-        },
-        "notDetectedPhotosCounter": 0,
-        "notDetectedScenesCounter": 0
-    }
-```
-
-**With task_id:**
-
-```json
-    {
-        "status": "IR_RESULT_OK",
-        "scenesCounter": 1,
-        "photosCounter": 1,
-        "task_id": "TASKID1",
-        "report": {
-            "photos": {
-                "602cb5b7098ee-9451": {
-                    "scene_id": "602cb5b7098b0-1403",
-                    "scene_type": "Not recognized in the main photo",
-                    "image_path": "/Documents/14310/2021-02-17-10-20-39-rn-o.jpg",
-                    "image_url": "https://.../2021-02-17-06-20-40-4132-o.jpg",
-                    "error": {
-                        "codeInt": 1,
-                        "message": "Successfully processed",
-                        "code": 1
-                    },
-                    "products": [
-                        {
-                            "facing": 2,
-                            "price_type": 0,
-                            "category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                            "price": "46",
-                            "external_id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
-                            "width": {
-                                "cm": 16
-                            },
-                            "category_name": "Dairy",
-                            "facing_group": 2,
-                            "name": "Agusha Puree apple-raspberry-rosehip, doypack, .090"
-                        }
-                    ]
-                }
-            },
-            "result": {
-                "sended_photos": 1,
-                "code": 1,
-                "message": "Successfully processed",
-                "total_photos": 1,
-                "codeInt": 1,
-                "internal_visit_id": "602cb5b408cda-4745",
-                "visit_id": "q"
-            },
-            "assortment_achievement": [
-                {
-                    "id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
-                    "external_id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
-                    "facing_plan": 0,
-                    "brand_name": "Agusha",
-                    "facing_real": 2,
-                    "facing_fact": 2,
-                    "price": "46",
-                    "brand_id": "60b9c6c6-c681-42ea-b93c-019766c0fd0d",
-                    "price_type": false,
-                    "category_name": "Dairy",
-                    "product_category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                    "name": "Agusha Puree apple-raspberry-rosehip, doypack, .090"
-                }
-            ],
-            "share_shelf": {
-                "share_shelf_by_categories": [],
-                "share_shelf_by_visit": [
-                    {
-                        "visit_id": "602cb5b408cda-4745",
-                        "value": 0,
-                        "value_previous": 0
-                    }
-                ],
-                "share_shelf_by_brands": []
-            },
-            "custom": [],
-            "visit_stats": {
-                "photo_deleted": [],
-                "photo_retake": [],
-                "photo": {
-                    "retake": 0,
-                    "sent": 1,
-                    "deleted": 0,
-                    "wait": 0,
-                    "created": 1,
-                    "completed": 1,
-                    "uncompressed": 0
-                },
-                "photo_wait": []
-            }
-        },
-        "notDetectedPhotosCounter": 0,
-        "notDetectedScenesCounter": 0
-    }
-```
