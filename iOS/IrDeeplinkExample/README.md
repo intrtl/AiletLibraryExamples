@@ -1,6 +1,6 @@
-# Взаимодействие с приложением Intelligence Retail с помощью deeplinks.
+# Взаимодействие с приложением Ailet с помощью deeplinks.
 
-- [Взаимодействие с приложением Intelligence Retail с помощью deeplinks.](#взаимодействие-с-приложением-intelligence-retail-с-помощью-deeplinks)
+- [Взаимодействие с приложением Ailet с помощью deeplinks.](#взаимодействие-с-приложением-ailet-с-помощью-deeplinks)
   - [Вызов метода](#вызов-метода)
     - [Создание URL](#создание-url)
     - [Параметры вызова:](#параметры-вызова)
@@ -63,15 +63,15 @@ UIApplication.shared.open(url, options: [:]) { (completed) in
 
 | Содержимое task_id | Наличие задач | Поведение в зависимости от метода|
 | --- | :-: | --- |
-| ID задачи, отсутствующей на портале IR | не имеет значения | **visit** - откроется съемка визита с учетом указанной задачи<br>**report**, **summaryReport** - отчет по всему визиту |
-| ID задачи на портале IR | есть | **visit** - откроется карточка указанной задачи<br>**report**, **summaryReport** - отчет в разрезе указанной задачи |
-| ID задачи на портале IR | нет | **visit** - откроется съемка визита с учетом указанной задачи<br> **report**, **summaryReport** - отчет по всему визиту |
+| ID задачи, отсутствующей на портале Ailet | не имеет значения | **visit** - откроется съемка визита с учетом указанной задачи<br>**report**, **summaryReport** - отчет по всему визиту |
+| ID задачи на портале Ailet | есть | **visit** - откроется карточка указанной задачи<br>**report**, **summaryReport** - отчет в разрезе указанной задачи |
+| ID задачи на портале Ailet | нет | **visit** - откроется съемка визита с учетом указанной задачи<br> **report**, **summaryReport** - отчет по всему визиту |
 | нет | есть | **visit** - откроется карточка торговой точки со списком задач<br>**report**, **summaryReport** - отчет по всему визиту |
 | нет | нет | **visit** - откроется съемка визита<br>**report**, **summaryReport** - отчет по всему визиту |
 
 ## Результат выполнения метода
 
-Для передачи результатов отчёта приложение Intelligence Retail открывает url вида `{ваша_кастомная_url_схема}:?report={значение_в_виде_json}`.  Кастомная url схема передается через параметр `back_url_scheme`, описанный выше. Подробнее про использование url схем можно прочитать [в документации Apple](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app?language=swift).
+Для передачи результатов отчёта приложение Ailet открывает url вида `{ваша_кастомная_url_схема}:?report={значение_в_виде_json}`.  Кастомная url схема передается через параметр `back_url_scheme`, описанный выше. Подробнее про использование url схем можно прочитать [в документации Apple](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app?language=swift).
 
 Для обработки результатов отчета используйте метод `scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)` в `SceneDelegate` для **iOS 13 и выше и использовании SwiftUI** или `application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])` в `AppDelegate` во всех остальных случаях.
 Ответ приходит в ключе "result" виде JSON, в котором есть следующие значения:
