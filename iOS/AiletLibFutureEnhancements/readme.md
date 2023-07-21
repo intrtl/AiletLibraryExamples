@@ -10,7 +10,8 @@ Use `AiletInteractionManager` methods to work with Ailet features.
 
 Call `setup` method to load all the necessary for further work data. You will get result asynchronously in a completion closure. 
 
-##### Swift:
+<details>
+<summary>##### Swift</summary>
 In Swift you will receive the result in Result and AiletError enums.
 ```swift
 AiletInteractionManager.setup(
@@ -30,6 +31,7 @@ AiletInteractionManager.setup(
     }
 )
 ```
+</details>
 ##### Obj-C:
 In Obj-C you will have to use nullable NSError to handle the result.
 ```objectivec
