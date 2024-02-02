@@ -18,7 +18,7 @@ below.
 
 Generate a valid URL in any convenient way. Below is the example of the possible URL format: 
 
-`intellingenceretail:?param1=value1&param2=value2`
+`intelligenceretail:?param1=value1&param2=value2`
 
 For example, you can do this with `URLComponents` and then open it via 
 `UIApplication.shared.open` (see the code sample below).
