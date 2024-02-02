@@ -19,7 +19,7 @@
 
 ## Вызов метода
 ### Создание URL
-Сгенерируйте URL вида `intellingenceretail:?param1=value1&param2=value2` любым удобным для вас способом, например через `URLComponents` и откройте его через UIApplication.shared.open:
+Сгенерируйте URL вида `intelligenceretail:?param1=value1&param2=value2` любым удобным для вас способом, например через `URLComponents` и откройте его через UIApplication.shared.open:
 ```swift
 var components = URLComponents()
 components.scheme = "intelligenceretail"
