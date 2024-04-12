@@ -65,7 +65,7 @@ Some of the parameters are required only when using the corresponding [method](#
 | **visit**         | Creation/edition of a visit. It opens the photo shooting screen. The "Back" button will not be available until the user receives reports on all photos of the visit. If there is no Internet connection and the user has unconfirmed photos, the Ailet app will open your application with the *[IR_ERROR_NO_INET](#response-statuses)* status. | method, login, password, user\_id, visit\_id, store\_id, task\_id |
 | **report**        | A report for a visit. It opens your application via URL with a report as JSON string in the *report* parameter. | method, login, password, user\_id, visit\_id, task\_id, back\_url\_scheme |
 | **summaryReport** | Opens a screen with a summary report.                                                                      | method, login, password, user\_id, visit\_id, task\_id          |
-| **sync**          | Launches a background process of sending photos and receiving results.                                     | method, login, password, user\_id                               |
+| **sync**          | Launches a background process of sending photos and receiving results. If there is date to send and sync process is started successfully the method returns *[IR_RESULT_OK](#response-statuses)* status. If there is no data to sync (all photos are sent, reports for the photos and visits are received) the method returns *[IR_RESULT_EMPTY](#response-statuses)* status.                                     | method, login, password, user\_id                               |
 
 ## Receiving Report Results
 
@@ -132,8 +132,8 @@ The response to a request for report results using the **report** method comes i
 
 | **Value** | **Code** | **Description**    |
 |----------------------|:----:|-------------------------|
-| IR\_RESULT\_OK                  | 1  | Report successfully created.                           |
-| IR\_RESULT\_EMPTY               | 2  | No data to get the report with set parameters. Check correctness of data by outlet/visit. In case the report was requested by all visits, contact tech support |
+| IR\_RESULT\_OK                  | 1  | Report successfully created.*                           |
+| IR\_RESULT\_EMPTY               | 2  | No data to get the report with set parameters. Check correctness of data by outlet/visit. In case the report was requested by all visits, contact tech support ** |
 | IR\_RESULT\_INPROGRESS          | 16 | Report is being processed.                             |
 | IR\_ERROR\_NO\_INET             | 6  |  No internet connection.                                |
 | IR\_ERROR\_TOKEN                | 7  |  Authentication error: Incorrect token.                 |
@@ -141,6 +141,10 @@ The response to a request for report results using the **report** method comes i
 | IR\_ERROR\_VISIT\_ID\_INCORRECT | 12 | Incorrect visit id received from external application. |
 | IR\_ERROR\_AUTH                 | 13 | Authentication error.                                  |
 | IR\_ERROR\_NOVISIT              | 17 | There is no visit with such ID in the application.         |
+
+*In sync method this status means that there is a data for sync (any photos to send or reports to receive) and sync process started successfully.
+
+** In sync method this status means that there is no data fot sync (all photos are sent and reports are received). The status for sync method is not an error.
 
 ### Status and available reports depending on tasks in visit, photos and their obligation.
 
