@@ -3,7 +3,7 @@ Starting from `5.10` version new asynchronous API is available and preferrable t
 Use `IRInteractManager` for making calls via new API. Detailed documentation of new methods and classes is available for [Swift](IrLibSwift-docs-swift.md) and [Objective-C](IrLibSwift-docs-objc.md)
 
 # Legacy API compatibility
-You can continue to use old synchronous API using `IRLib` framework, though new async API is more preferrable, reliable and convinient. 
+You can continue to use old synchronous API using `IRLib` framework, though new async API is more preferrable, reliable and convenient. 
 
 # Installation
 If you want to use new asynchronous API, the only framework is needed for you is `IrLibSwift`, whether you're working on a swift or obj-c project.
