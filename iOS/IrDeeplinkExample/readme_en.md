@@ -32,6 +32,7 @@ components.queryItems = [URLQueryItem(name: "method", value: methodName),
                          URLQueryItem(name: "user_id", value: userId),
                          URLQueryItem(name: "store_id", value: storeId),
                          URLQueryItem(name: "visit_id", value: visitId),
+                         URLQueryItem(name: "task_id", value: taskId),
                          URLQueryItem(name: "back_url_scheme", value: "integrationtestapp")]
 let url = components.url!
 UIApplication.shared.open(url, options: [:]) { (completed) in
@@ -54,8 +55,8 @@ Some of the parameters are required only when using the corresponding [method](#
 | **password** | User password on the Ailet server. | yes |
 | **user\_id** | The external identifier of the user; required for those using external IDs.| no |
 | **store\_id**| The identifier of the store (POS); required when using the **visit**  method. | yes\* |
-| **visit\_id**| The identifier of the visit; required when using the following methods: **visit**, **report**, **summaryReport**.| yes\* |
-| **task\_id** | The identifier of the task: used in the following methods: **visit**, **report**, **summaryReport**. | no |
+| **visit\_id**| The identifier of the visit; required when using the following methods: **visit**, **report**, **summaryReport**, **showVisitReport**.| yes\* |
+| **task\_id** | The identifier of the task: used in the following methods: **visit**, **report**, **summaryReport**, **showVisitReport**. | no |
 | **back\_url\_scheme** | Custom URL value for your app. This parameter is required only for the **report** method.| yes\* |
 
 ### Methods
@@ -65,7 +66,9 @@ Some of the parameters are required only when using the corresponding [method](#
 | **visit**         | Creation/edition of a visit. It opens the photo shooting screen. The "Back" button will not be available until the user receives reports on all photos of the visit. If there is no Internet connection and the user has unconfirmed photos, the Ailet app will open your application with the *[IR_ERROR_NO_INET](#response-statuses)* status. | method, login, password, user\_id, visit\_id, store\_id, task\_id |
 | **report**        | A report for a visit. It opens your application via URL with a report as JSON string in the *report* parameter. | method, login, password, user\_id, visit\_id, task\_id, back\_url\_scheme |
 | **summaryReport** | Opens a screen with a summary report.                                                                      | method, login, password, user\_id, visit\_id, task\_id          |
+| **showVisitReport** | Opens the visit report screen: with `task_id` it opens task-level results, without `task_id` it opens store details with task list if tasks for the store are available or summary report if it's not. | method, login, password, user\_id, visit\_id, task\_id |
 | **sync**          | Launches a background process of sending photos and receiving results. If there is date to send and sync process is started successfully the method returns *[IR_RESULT_OK](#response-statuses)* status. If there is no data to sync (all photos are sent, reports for the photos and visits are received) the method returns *[IR_RESULT_EMPTY](#response-statuses)* status.                                     | method, login, password, user\_id                               |
+| **syncCatalogs**  | Starts authorization and downloads catalogs required for app usage. Returns *[IR_RESULT_OK](#response-statuses)* to the client app on success. Repeated calls load catalogs updates. | method, login, password, user\_id |
 
 ## Receiving Report Results
 

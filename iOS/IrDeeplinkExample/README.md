@@ -41,13 +41,13 @@ UIApplication.shared.open(url, options: [:]) { (completed) in
 
 | Параметр | Обязательно | Описание |
 | --- | --- | --- |
-| method | Да | Наименование метода (visit, report, summaryReport, sync) |
+| method | Да | Наименование метода (visit, report, summaryReport, showVisitReport, sync, syncCatalogs) |
 | login | Да | Логин пользователя |
 | password | Да | Пароль пользователя |
 | user_id | Да для пользователей, использующих внешний id | внешний идентификатор пользователя |
 | store_id | Да для метода visit | идентификатор торговой точки |
-| visit_id | Да для методов visit, report, summaryReport | идентификатор визита |
-| task_id | Нет  | идентификатор задачи, используется в методах visit, report, summaryReport |
+| visit_id | Да для методов visit, report, summaryReport, showVisitReport | идентификатор визита |
+| task_id | Нет  | идентификатор задачи, используется в методах visit, report, summaryReport, showVisitReport |
 | back_url_scheme | Да для метода report и если необходим возврат в вызывающее приложение | значение кастомной URL схемы вашего приложения |
 
 ### Описание методов 
@@ -57,7 +57,9 @@ UIApplication.shared.open(url, options: [:]) { (completed) in
 | visit | Создание/редактирование визита. Открывает экран в режиме съёмки. Пока пользователь не получит отчеты по всем фото из визита, кнопка Назад не будет работать. При отсутствии соединения с интернетом и отсутствия у пользователя неподтвержденных фото, приложение откроет стороннее приложение со статусом IR_ERROR_NO_INET  | method, login, password, user_id, visit_id, store_id, task_id |
 | report | Отчет по визиту. Открывает ваше приложение через URL с отчетом в виде JSON-строки в параметре "report". | method, login, password, user_id, task_id, visit_id, back_url_scheme |
 | summaryReport | Открытие экрана со сводным отчётом. | method, login, password, user_id, visit_id, task_id |
+| showVisitReport | Открытие экрана отчёта по визиту: при `task_id` открывает отчёт по задаче, без `task_id` открывает экран тоговой точки со списком задач или сводный отчёт, если задач в торговой точке нет. | method, login, password, user_id, visit_id, task_id |
 | sync | Запуск фонового процесса передачи фото и получения результатов. В случае наличия данных для отправления и успешного запуска процесса синхронизации метод возвращает статус IR_RESULT_OK. В случае отсутствия данных для синхронизация (все фото отправлены, отчёты для фото и визитов получены) метод вернёт статус IR_RESULT_EMPTY. | method, login, password, user_id |
+| syncCatalogs | Запускает авторизацию и загрузку необходимых для работы справочников. Возвращает в приложение-клиент статус IR_RESULT_OK в случае успешного завершения. При повторном вызове метода загружает обновления по справочникам.  | method, login, password, user_id |
 
 ### Поведение методов в зависимости от параметра task_id
 
@@ -92,12 +94,13 @@ UIApplication.shared.open(url, options: [:]) { (completed) in
 |---|:-:|---|
 | IR_RESULT_OK | 1 | Успешно* |
 | IR_RESULT_EMPTY | 2 | Нет данных** |
-| IR_RESULT_INPROGRESS | 16 | Данные в обработке |
+| IR_ERROR | 5 | Неизвестная ошибка |
 | IR_ERROR_NO_INET | 6 | Отсутствует интернет |
 | IR_ERROR_TOKEN | 7 | Ошибка токена |
 | IR_ERROR_STORE_ID_INCORRECT | 10 | Некорректный ИД ТТ|
 | IR_ERROR_VISIT_ID_INCORRECT | 12 | Некорректный ИД визита |
 | IR_ERROR_AUTH | 13 | Ошибка авторизации |
+| IR_RESULT_INPROGRESS | 16 | Данные в обработке |
 | IR_ERROR_NOVISIT | 17 | Отсутствует визит с указанным ИД |
 
 *В методе sync статус IR_RESULT_OK означает наличие неотправленных данных и успешный запуск синхронизации.
