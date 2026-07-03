@@ -60,14 +60,37 @@ This method authorizes user and downloads all initial data required for further 
 
 #### Parameters
 
-- `username`: The username for the account. *(NSString. Required.)*
-- `password`: The password for the account *(NSString. Required.)*
-- `guestToken`: A token used for API access. Must be received from company support manager. *(NSString. Required.)*
-- `externalUserId`: additional user id, if there are multiple users under one login. *(NSString. Optional. Default is nil)*
-- `notification`: prefix String for receiving notifications on photo recognitions updates. Currently this parameter exists only for backward compatibility with legacy classes. Don't pass anything and use `IRNotification` class for subscription on photo update. *(NSString. Optional. Default is nil.)* 
-- `domainName`: if user has multiple projects to log in, you can use this parameter to login on specific project. This doesn't work with multiportal mode on. *(NSString. Optional. Default is nil.)* 
-- `isMultiportal`: pass `true` to activate multiportal mode, when IrLibSwift authorizes for every project available for user. *(BOOL. Optional. Default is `false`.)* 
-- `completion`: Block that asynchronously returns result of setup method. If NSError is nil inside block, the method succeded. *(IRResultObjcCompletion. Optional. Default is nil.)* 
+**username**  
+_(NSString, required)_  
+The username for the account.
+
+**password**  
+_(NSString, required)_  
+The password for the account.
+
+**guestToken**  
+_(NSString, required)_  
+A token used for API access. Must be received from company support manager.
+
+**externalUserId**  
+_(NSString, optional, default is nil)_  
+Additional user id, if there are multiple users under one login.
+
+**notification**  
+_(NSString, optional, default is nil)_  
+Prefix String for receiving notifications on photo recognitions updates. Currently this parameter exists only for backward compatibility with legacy classes. Don't pass anything and use `IRNotification` class for subscription on photo update.
+
+**domainName**  
+_(NSString, optional, default is nil)_  
+If user has multiple projects to log in, you can use this parameter to login on specific project. This doesn't work with multiportal mode on.
+
+**isMultiportal**  
+_(BOOL, optional, default is `false`)_  
+Pass `true` to activate multiportal mode, when IrLibSwift authorizes for every project available for user.
+
+**completion**  
+_(IRResultObjcCompletion, optional, default is nil)_  
+Block that asynchronously returns result of setup method. If NSError is nil inside block, the method succeded.
 
 #### Return Value
 
@@ -115,10 +138,21 @@ Presents the IrLibSwift camera from the passed `UIViewController` for a specific
 
 ##### Parameters
 
-- `presentingVC`: The `UIViewController` to present the camera from. *(UIViewController, required)*
-- `externalStoreId`: The ID of the store to perform the shooting for. *(NSString, required)*
-- `externalVisitId`: The ID of the visit to perform the shooting for. This visit ID must be unique for every store and every day of shooting. *(NSString, required)*
-- `error`: Pointer to an `NSError` object. If an error occurs, it will be populated with the error details. *(NSError, optional)*
+**presentingVC**  
+_(UIViewController, required)_  
+The `UIViewController` to present the camera from.
+
+**externalStoreId**  
+_(NSString, required)_  
+The ID of the store to perform the shooting for.
+
+**externalVisitId**  
+_(NSString, required)_  
+The ID of the visit to perform the shooting for. This visit ID must be unique for every store and every day of shooting.
+
+**error**  
+_(NSError, optional)_  
+Pointer to an `NSError` object. If an error occurs, it will be populated with the error details.
 
 ##### Return Value
 
@@ -161,9 +195,17 @@ Asynchronously downloads all the data required for a summary report and presents
 
 ##### Parameters
 
-- `presentingViewController`: The `UIViewController` where the summary report `UIViewController` will be presented from. *(UIViewController, required)*
-- `visitId`: The ID of the visit to generate the summary report for. *(NSString, required)*
-- `completion`: Block that asynchronously returns an `NSError` if the summary report cannot be generated or presented. If successful, the block will return `nil` error. *(void (^)(NSError *), optional)*
+**presentingViewController**  
+_(UIViewController, required)_  
+The `UIViewController` where the summary report `UIViewController` will be presented from.
+
+**visitId**  
+_(NSString, required)_  
+The ID of the visit to generate the summary report for.
+
+**completion**  
+_(void (^)(NSError *), optional)_  
+Block that asynchronously returns an `NSError` if the summary report cannot be generated or presented. If successful, the block will return `nil` error.
 
 ##### Examples
 
@@ -227,8 +269,13 @@ Returns a report for a specific visit existing locally in IrLibSwift.
 
 ##### Parameters
 
-- `visitId`: The ID of the visit to generate a report for. *(NSString, required)*
-- `error`: Pointer to an `NSError` object. If an error occurs, it will be populated with the error details. *(NSError **, optional)*
+**visitId**  
+_(NSString, required)_  
+The ID of the visit to generate a report for.
+
+**error**  
+_(NSError **, optional)_  
+Pointer to an `NSError` object. If an error occurs, it will be populated with the error details.
 
 ##### Return Value
 
@@ -271,8 +318,13 @@ Only for multiportal mode. IrLibSwift will throw an error if this method is call
 
 ##### Parameters
 
-- `portalId`: The root domain. Don't pass 'dairy.intrtl.com', pass 'dairy'. *(NSString, required)*
-- `error`: Pointer to an `NSError` object. If an error occurs, it will be populated with the error details. *(NSError **, optional)*
+**portalId**  
+_(NSString, required)_  
+The root domain. Don't pass 'dairy.intrtl.com', pass 'dairy'.
+
+**error**  
+_(NSError **, optional)_  
+Pointer to an `NSError` object. If an error occurs, it will be populated with the error details.
 
 ##### Return Value
 
