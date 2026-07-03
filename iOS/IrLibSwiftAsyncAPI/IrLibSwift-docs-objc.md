@@ -123,12 +123,13 @@ This method does not return a value but calls the completion handler with the re
 
 
 ## Start shooting
-**startShootingIn:externalStoreId:externalVisitId:error:**
+**startShootingIn:externalStoreId:externalVisitId:taskId:error:**
 
 ```objective-c
 + (BOOL)startShootingIn:(UIViewController *)presentingVC
         externalStoreId:(NSString *)externalStoreId
         externalVisitId:(NSString *)externalVisitId
+                 taskId:(NSString *_Nullable)taskId
                   error:(NSError *_Nullable __autoreleasing *_Nullable)error;
 ```
 
@@ -144,11 +145,16 @@ The `UIViewController` to present the camera from.
 
 **externalStoreId**  
 _(NSString, required)_  
-The ID of the store to perform the shooting for.
+The ID of the store to make shooting for. When creating a new visit, the visit is linked to this store. When resuming an existing visit by `externalVisitId`, the stored visit is returned as-is — `externalStoreId` is not used to look up the visit and is not validated against the visit's store. The client is responsible for passing a consistent store and visit ID pair.
 
 **externalVisitId**  
 _(NSString, required)_  
-The ID of the visit to perform the shooting for. This visit ID must be unique for every store and every day of shooting.
+The ID of the visit to make shooting for. The client is responsible for the ID to be unique. If a local visit with the ID already exists, it is resumed; otherwise a new visit is created. A resumed visit may be non-editable if the portal visit edit period has expired.
+
+**taskId**  
+_(NSString, optional)_  
+_available from 6.4.1 IrLibSwift version_.  
+The ID of the task template to use for shooting. If the template exists, depending on the portal setting `other.features.skip_task_details`, the method will open either the task details screen or the camera screen.
 
 **error**  
 _(NSError, optional)_  
