@@ -45,28 +45,62 @@ Use `IRInteractManager` class for communicate with IrLibSwift framework.
 # Methods
 
 ## Setup
-`setup(username:password:guestToken:externalUserId:notification:domainName:isMultiportal:completion:)`
+```swift
+func setup(
+    username: String,
+    password: String,
+    guestToken: String,
+    externalUserId: String?,
+    notification: String? = nil,
+    domainName: String? = nil,
+    isMultiportal: Bool = false,
+    completion: ((Result<Void, IRError>) -> Void)?
+)
+```
 
-#### Description
+### Description
 
 This method authorizes user and downloads all initial data required for further work with IrLibSwift.
 
-#### Parameters
+### Parameters
 
-- `username`: The username for the account. *(String. Required.)*
-- `password`: The password for the account *(String. Required.)*
-- `guestToken`: A token used for API access. Must be received from company support manager. *(String. Required.)*
-- `externalUserId`: additional user id, if there are multiple users under one login. *(String. Optional. Default is nil)*
-- `notification`: prefix String for receiving notifications on photo recognitions updates. Currently this parameter exists only for backward compatibility with legacy classes. Don't pass anything and use `IRNotification` class for subscription on photo update. *(String. Optional. Default is nil.)* 
-- `domainName`: if user has multiple projects to log in, you can use this parameter to login on specific project. This doesn't work with multiportal mode on. *(String. Optional. Default is nil.)* 
-- `isMultiportal`: pass `true` to activate multiportal mode, when IrLibSwift authorizes for every project available for user. *(Bool. Optional. Default is `false`.)* 
-- `completion`: A completion handler that asynchronously returns result of setup method (`Result<Void, IRError>`). *(IRResultCompletion. Optional. Default is nil.)* 
+**username**  
+_(String, required)_  
+The username for the account.
 
-#### Return Value
+**password**  
+_(String, required)_  
+The password for the account.
+
+**guestToken**  
+_(String, required)_  
+A token used for API access. Must be received from company support manager.
+
+**externalUserId**  
+_(String, optional, default is nil)_  
+Additional user id, if there are multiple users under one login.
+
+**notification**  
+_(String, optional, default is nil)_  
+Prefix String for receiving notifications on photo recognitions updates. Currently this parameter exists only for backward compatibility with legacy classes. Don't pass anything and use `IRNotification` class for subscription on photo update.
+
+**domainName**  
+_(String, optional, default is nil)_  
+If user has multiple projects to log in, you can use this parameter to login on specific project. This doesn't work with multiportal mode on.
+
+**isMultiportal**  
+_(Bool, optional, default is `false`)_  
+Pass `true` to activate multiportal mode, when IrLibSwift authorizes for every project available for user.
+
+**completion**  
+_(IRResultCompletion, optional, default is nil)_  
+A completion handler that asynchronously returns result of setup method (`Result<Void, IRError>`).
+
+### Return Value
 
 This method does not return a value but calls the completion handler with the result of the setup operation.
 
-#### Examples
+### Examples
 
 <details>
   <summary>Click to expand the `setup` method usage examples</summary>
@@ -114,23 +148,42 @@ IRInteractManager.setup(
 
 
 ## Start shooting
-`startShooting(in:externalStoreId:externalVisitId:)`
+```swift
+func startShooting(
+  in: UIViewController, 
+  externalStoreId: String, 
+  externalVisitId: String,
+  taskId: String?
+)
+```
 
-#### Description
+### Description
 
 Presents the IrLibSwift camera from the passed `UIViewController`.
 
-#### Parameters
+### Parameters
 
-- `in presentingVC`: UIViewController to present the camera from. *(UIViewController, required)*
-- `externalStoreId`: The ID of the store to make the shooting for *(String, required)*
-- `externalVisitId`: The ID of the visit to make the shooting for. This visit ID must be unique for every store and every day of shooting *(String, required)*
+**in**  
+_(UIViewController, required)_  
+UIViewController to present Camera from. 
 
-#### Throws
+**externalStoreId**  
+_(String, required)_  
+The ID of the store to make shooting for. When creating a new visit, the visit is linked to this store. When resuming an existing visit by `externalVisitId`, the stored visit is returned as-is — `externalStoreId` is not used to look up the visit and is not validated against the visit's store. The client is responsible for passing a consistent store and visit ID pair.
 
+**externalVisitId**  
+_(String, required)_  
+The ID of the visit to make shooting for. The client is responsible for the ID to be unique. If a local visit with the ID already exists, it is resumed; otherwise a new visit is created. A resumed visit may be non-editable if the portal visit edit period has expired. 
+
+**taskId**  
+_(String?, optional)_  
+_available from 6.4.1 IrLibSwift version_.  
+The ID of the task template to use for shooting. If the template exists, depending on the portal setting `other.features.skip_task_details`, the method will open either the task details screen or the camera screen. 
+
+### Throws  
 Throws an [`IRError`](#irerror) if something goes wrong during the process.
 
-#### Examples
+### Examples  
 
 <details>
   <summary>Click to expand the `startShooting` method usage examples</summary>
@@ -150,23 +203,37 @@ do {
 
 ## Show report
 
-`showSummaryReport(in:visitId:completion:)`
+```swift
+func showSummaryReport(
+    in presentingViewController: UIViewController,
+    visitId: String,
+    completion: ((Result<Void, IRError>) -> Void)?
+)
+```
 
-##### Description
+### Description
 
 Asynchronously downloads all the data required for a summary report and presents a `UIViewController` with the report.
 
-##### Parameters
+### Parameters
 
-- `in presentingViewController`: The `UIViewController` where the summary report `UIViewController` will be presented from *(UIViewController, required)*
-- `visitId`: The ID of a visit to generate the summary report for. *(String, required)*
-- `completion`: A callback function that asynchronously returns `Result<Void, IRError>`. It returns `.success` if the `UIViewController` is presented successfully, and `.failure` with [`IRError`](#irerror) in case of any error. *(IRResultCompletion, optional)*
+**in presentingViewController**  
+_(UIViewController, required)_  
+The `UIViewController` where the summary report `UIViewController` will be presented from.
 
-#### Return Value
+**visitId**  
+_(String, required)_  
+The ID of a visit to generate the summary report for.
+
+**completion**  
+_(IRResultCompletion, optional)_  
+A callback function that asynchronously returns `Result<Void, IRError>`. It returns `.success` if the `UIViewController` is presented successfully, and `.failure` with [`IRError`](#irerror) in case of any error.
+
+### Return Value
 
 This method does not return a value but calls the completion handler with the result of the showing report.
 
-##### Examples
+### Examples
 
 <details>
 <summary>Click here to see `showSummaryReport` usage examples</summary>
@@ -189,17 +256,23 @@ IRInteractManager.showSummaryReport(
 
 ## Force client-server data synchronization
 
-`syncData(completion:)`
+```swift
+func syncData(
+    completion: IRResultCompletion?
+)
+```
 
-##### Description
+### Description
 
 Checks if any data is not uploaded or downloaded and forces a restart of all requests. 
 
-##### Parameters
+### Parameters
 
-- `completion`: A callback function that asynchronously returns `.success` when data synchronization is finished (including when there is no data to sync). It returns `.failure` with [`IRError`](#irerror) if any errors occur during synchronization. *(IRResultCompletion, optional)*
+**completion**  
+_(IRResultCompletion, optional)_  
+A callback function that asynchronously returns `.success` when data synchronization is finished (including when there is no data to sync). It returns `.failure` with [`IRError`](#irerror) if any errors occur during synchronization.
 
-##### Examples
+### Examples
 <details>
 <summary>Click here to expand `syncData` method usage examples</summary>
 
@@ -217,17 +290,19 @@ IRInteractManager.syncData { result in
 
 ## Use reports data in your app
 
-`reports() -> [IRVisitReport]`
+```swift
+func reports() throws -> [IRVisitReport]
+```
 
-##### Description
+### Description
 
 Returns an array with a report for all visits existing locally in IrLibSwift.
 
-##### Return Value
+### Return Value
 
 An array of `IRVisitReport`.
 
-##### Examples
+### Examples
 
 <details>
 <summary>Click here to expand `reports` method usage examples</summary>
@@ -241,25 +316,31 @@ for report in visitReports {
 </details>
 
 ## Retrieve report data for specific visit
-`report(visitId:) throws -> IRReport`
+```swift
+func report(
+    visitId: String
+) throws -> IRReport
+```
 
-##### Description
+### Description
 
 Returns a report for a specific visit existing locally in IrLibSwift.
 
-##### Parameters
+### Parameters
 
-- `visitId`: The ID of the visit to generate a report for *(String, required)*.
+**visitId**  
+_(String, required)_  
+The ID of the visit to generate a report for.
 
-##### Return Value
+### Return Value
 
 An instance of `IRReport` class representing data for the specified visit.
 
-##### Throws
+### Throws
 
 Throws an error if the report cannot be generated for the specified visit.
 
-##### Examples
+### Examples
 
 <details>
 <summary>Click here to expand `report` method usage examples</summary>
@@ -278,25 +359,31 @@ do {
 
 ## Multiportal mode: update active project
 
-`updateActivePortal(_:) throws`
+```swift
+func updateActivePortal(
+    _ portalId: String
+) throws
+```
 
-##### Description
+### Description
 
 Sets the active project to work with.
 
-##### Important
+### Important
 
 Only for multiportal mode. IrLibSwift will throw an error if this method is called without activating multiportal mode in `setup` method.
 
-##### Parameters
+### Parameters
 
-- `portalId`: The root domain. Don't pass 'dairy.intrtl.com', pass 'dairy'. *(String, required)*
+**portalId**  
+_(String, required)_  
+The root domain. Don't pass 'dairy.intrtl.com', pass 'dairy'.
 
-##### Throws
+### Throws
 
 Throws an [`IRError`](#irerror) if `portalId` is in an incorrect format or if a project with such `portalId` has not been authorized during the `setup` method.
 
-##### Examples
+### Examples
 
 <details>
 <summary>Click here to expand `updateActivePortal` method usage examples</summary>
@@ -312,7 +399,9 @@ do {
 
 ## Get IrLibSwift version
 
-`frameworkVersion() -> String`
+```swift
+func frameworkVersion() -> String
+```
 
 ##### Description
 
