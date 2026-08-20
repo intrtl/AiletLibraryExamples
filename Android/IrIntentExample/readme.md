@@ -4,7 +4,7 @@ You can call the Ailet app from your app with an Android Intent and skip the Ail
 
 **Requirement:** the Ailet app (`com.intrtl.app`) is installed on the device.
 
-To [integrate the Ailet library](../library/readme.md), use a separate guide.
+To [integrate the Ailet library](https://github.com/intrtl/AiletLibV3Example/blob/main/readme.md), use a separate guide.
 
 - [What you need](#what-you-need)
 - [How to call a method](#how-to-call-a-method)
