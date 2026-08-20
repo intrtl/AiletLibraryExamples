@@ -1,183 +1,245 @@
-# Interaction with the Ailet App Using Deeplinks
+# Integration via iOS deeplink
 
-To use Deeplink API functionality you need to follow the steps described
-below.
+You can call the Ailet app from your app with the `intelligenceretail` URL scheme and skip the Ailet library.
 
-- [Interaction with the Ailet App Using Deeplinks](#interaction-with-the-ailet-app-using-deeplinks)
-  - [Generating URL](#generating-url)
-  - [Request Parameters](#request-parameters)
-    - [Methods](#methods)
-  - [Receiving Report Results](#receiving-report-results)
-    - [Response Parameters](#response-parameters)
-    - [Response Statuses](#response-statuses)
-    - [Response Example](#response-example)
-      - [Response without task_id](without_task_id_response.json)
-      - [Response with task_id](with_task_id_response.json)
+**Requirement:** the Ailet app is installed on the device.
 
-## Generating URL
+To [integrate the Ailet library](../library/readme.md), use a separate guide.
 
-Generate a valid URL in any convenient way. Below is the example of the possible URL format: 
+- [What you need](#what-you-need)
+- [How to call a method](#how-to-call-a-method)
+  - [Methods](#methods)
+  - [Call parameters](#call-parameters)
+  - [Method call example](#method-call-example)
+  - [How task_id changes screens](#how-task_id-changes-screens)
+- [How to get the response](#how-to-get-the-response)
+  - [Response data format](#response-data-format)
+  - [Statuses](#statuses)
+  - [Which reports arrive in the response](#which-reports-arrive-in-the-response)
+  - [How to handle the response in SceneDelegate](#how-to-handle-the-response-in-scenedelegate)
+  - [How to handle the response in AppDelegate](#how-to-handle-the-response-in-appdelegate)
+  - [How to handle the response in SwiftUI](#how-to-handle-the-response-in-swiftui)
+- [How to start synchronization](#how-to-start-synchronization)
+- [Scenario example](#scenario-example)
+- [Report examples](#report-examples)
 
-`intelligenceretail:?param1=value1&param2=value2`
+## What you need
 
-For example, you can do this with `URLComponents` and then open it via 
-`UIApplication.shared.open` (see the code sample below).
+- The Ailet app is installed on the device.
+- Your app has a registered URL scheme. Ailet returns the result to it through the `back_url_scheme` parameter.
+
+To [register a URL scheme](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app?language=swift), add it to `Info.plist`:
+
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>yourappscheme</string>
+        </array>
+    </dict>
+</array>
+```
+
+To check that Ailet is installed with `canOpenURL`, add the `intelligenceretail` scheme to `LSApplicationQueriesSchemes`:
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>intelligenceretail</string>
+</array>
+```
+
+## How to call a method
+
+To call an Ailet method:
+
+1. Build a URL with the `intelligenceretail` scheme and the required parameters.
+2. Open the URL with `UIApplication.shared.open`.
+
+URL format: `intelligenceretail:?param1=value1&param2=value2`.
+
+### Methods
+
+| Method | What it does | How it returns a result |
+| --- | --- | --- |
+| `visit` | Creates or edits a visit and opens shooting. The Back button stays disabled until reports exist for every photo. If there is no internet and no unconfirmed photos, Ailet returns `IR_ERROR_NO_INET` | Returns to your app via `back_url_scheme` |
+| `report` | Returns a visit report | JSON in the `result` query parameter |
+| `summaryReport` | Opens a summary report | Screen in Ailet |
+| `showVisitReport` | With `task_id`, opens the task report. Without `task_id`, opens the store card with the task list, or the summary report if there are no tasks | Screen in Ailet |
+| `sync` | Starts background photo upload and report download | `IR_RESULT_OK` if there was data in the queue. `IR_RESULT_EMPTY` if there is nothing to send |
+| `syncCatalogs` | Authorizes the user and downloads catalogs. A repeat call pulls updates | `IR_RESULT_OK` |
+
+### Call parameters
+
+| Parameter | Required | Methods | Description |
+| --- | --- | --- | --- |
+| `method` | Yes | All | Method name: `visit`, `report`, `summaryReport`, `showVisitReport`, `sync`, `syncCatalogs` |
+| `login` | Yes | All | User login |
+| `password` | Yes | All | User password |
+| `user_id` | Yes if sign-in uses an external ID | All | External user ID |
+| `store_id` | Yes | `visit` | Store ID |
+| `visit_id` | Yes | `visit`, `report`, `summaryReport`, `showVisitReport` | Visit ID |
+| `task_id` | No | `visit`, `report`, `summaryReport`, `showVisitReport` | Task ID |
+| `back_url_scheme` | Yes for `report`, and if you need a return to your app | `report`; for a return — the other methods | Your app URL scheme |
+
+### Method call example
 
 ```swift
 var components = URLComponents()
 components.scheme = "intelligenceretail"
-components.queryItems = [URLQueryItem(name: "method", value: methodName),
-                         URLQueryItem(name: "login", value: login),
-                         URLQueryItem(name: "password", value: password),
-                         URLQueryItem(name: "user_id", value: userId),
-                         URLQueryItem(name: "store_id", value: storeId),
-                         URLQueryItem(name: "visit_id", value: visitId),
-                         URLQueryItem(name: "task_id", value: taskId),
-                         URLQueryItem(name: "back_url_scheme", value: "integrationtestapp")]
-let url = components.url!
-UIApplication.shared.open(url, options: [:]) { (completed) in
-    // Handle completion if needed
+components.queryItems = [
+    URLQueryItem(name: "method", value: methodName),
+    URLQueryItem(name: "login", value: login),
+    URLQueryItem(name: "password", value: password),
+    URLQueryItem(name: "user_id", value: userId),
+    URLQueryItem(name: "store_id", value: storeId),
+    URLQueryItem(name: "visit_id", value: visitId),
+    URLQueryItem(name: "task_id", value: taskId),
+    URLQueryItem(name: "back_url_scheme", value: "yourappscheme")
+]
+guard let url = components.url else { return }
+UIApplication.shared.open(url, options: [:]) { completed in
+    // whether the URL opened
 }
 ```
 
-Make a valid request to Ailet server API with specifying of the generated URL.
+### How task_id changes screens
 
-## Request Parameters
+The table covers `visit`, `report`, and `summaryReport`. `showVisitReport` behavior is in the [Methods](#methods) table.
 
-Some of the parameters are required only when using the corresponding [method](#methods).
+| `task_id` value | Tasks on the Ailet portal | Behavior |
+| --- | --- | --- |
+| ID of a task that is not on the portal | Does not matter | **visit** — visit shooting for the specified task. **report**, **summaryReport** — report for the whole visit |
+| ID of a portal task | Yes | **visit** — card of the specified task. **report**, **summaryReport** — report for that task |
+| ID of a portal task | No | **visit** — visit shooting for the specified task. **report**, **summaryReport** — report for the whole visit |
+| None | Yes | **visit** — store card with the task list. **report**, **summaryReport** — report for the whole visit |
+| None | No | **visit** — visit shooting. **report**, **summaryReport** — report for the whole visit |
 
-\* - *parameters that are required for individual methods*.
+## How to get the response
 
-| **Parameters** | **Description**        | **Required** |
-|--------------|--------------------------|:-------:|
-| **method**   | Request method name (see the list of available methods in the table [below](#methods)). | yes |
-| **login**    | User login on the Ailet server. | yes |
-| **password** | User password on the Ailet server. | yes |
-| **user\_id** | The external identifier of the user; required for those using external IDs.| no |
-| **store\_id**| The identifier of the store (POS); required when using the **visit**  method. | yes\* |
-| **visit\_id**| The identifier of the visit; required when using the following methods: **visit**, **report**, **summaryReport**, **showVisitReport**.| yes\* |
-| **task\_id** | The identifier of the task: used in the following methods: **visit**, **report**, **summaryReport**, **showVisitReport**. | no |
-| **back\_url\_scheme** | Custom URL value for your app. This parameter is required only for the **report** method.| yes\* |
+To return a result, Ailet opens a URL of your scheme:
 
-### Methods
-
-| **Name**      | **Description**     | **Parameters**   |
-|------------------|------------------------------------------|-----------------------------------|
-| **visit**         | Creation/edition of a visit. It opens the photo shooting screen. The "Back" button will not be available until the user receives reports on all photos of the visit. If there is no Internet connection and the user has unconfirmed photos, the Ailet app will open your application with the *[IR_ERROR_NO_INET](#response-statuses)* status. | method, login, password, user\_id, visit\_id, store\_id, task\_id |
-| **report**        | A report for a visit. It opens your application via URL with a report as JSON string in the *report* parameter. | method, login, password, user\_id, visit\_id, task\_id, back\_url\_scheme |
-| **summaryReport** | Opens a screen with a summary report.                                                                      | method, login, password, user\_id, visit\_id, task\_id          |
-| **showVisitReport** | Opens the visit report screen: with `task_id` it opens task-level results, without `task_id` it opens store details with task list if tasks for the store are available or summary report if it's not. | method, login, password, user\_id, visit\_id, task\_id |
-| **sync**          | Launches a background process of sending photos and receiving results. If there is date to send and sync process is started successfully the method returns *[IR_RESULT_OK](#response-statuses)* status. If there is no data to sync (all photos are sent, reports for the photos and visits are received) the method returns *[IR_RESULT_EMPTY](#response-statuses)* status.                                     | method, login, password, user\_id                               |
-| **syncCatalogs**  | Starts authorization and downloads catalogs required for app usage. Returns *[IR_RESULT_OK](#response-statuses)* to the client app on success. Repeated calls load catalogs updates. | method, login, password, user\_id |
-
-## Receiving Report Results
-
-To transmit the results of the report requested by the **[report](#methods)** method, 
-the Ailet app opens URL that can be of the following type: `{your_custom_URL_scheme}:?report={value_in_json}`. 
-
-Custom URL scheme being sent via *back\_url\_scheme parameter*, that has been
-described [earlier](#request-parameters). For more info on using URL schemes see [Apple
-Documentation](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app?language=swift).
-
-To process report results use the following method in `SceneDelegate` for **iOS 13** and higher while using **SwiftUI**:
-
-`scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>)` 
-
-In all other cases, use the following method in `AppDelegate`:
-
-`application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])` 
-
-**Code Samples**
-
-**Code Sample for iOS 13 or higher and SwiftUI:**
-
-```swift
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard 
-            let url = URLContexts.first?.url,
-            let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-            let reportQueryItem = components.queryItems?.filter({ $0.name == "result" }).first,
-            let report = reportQueryItem.value
-            else { return }
-        // Do something with report string.
-    }
+```text
+yourappscheme://?result={json}
 ```
 
-**Code Sample for iOS Below 13 or without SwiftUI:**
+Pass the scheme in `back_url_scheme`. JSON in the query parameter arrives percent-encoded. `URLComponents` decodes it.
+
+The return query parameter is `result`. The `report` field is inside the JSON, not in the URL parameter name.
+
+### Response data format
+
+See the [report examples](#report-examples).
+
+| Key | Type | Required | Description |
+| --- | --- | --- | --- |
+| `status` | `String` | Yes | Method execution status |
+| `photosCounter` | `Int` | No | Number of photos in the visit. If `task_id` is passed — in the task |
+| `scenesCounter` | `Int` | No | Number of scenes in the visit. If `task_id` is passed — in the task |
+| `notDetectedScenesCounter` | `Int` | No | Number of scenes that have at least one unrecognized photo |
+| `notDetectedPhotosCounter` | `Int` | No | Number of photos with no report, including unsent ones. If `task_id` is passed — in the task |
+| `report` | JSON | No | Visit report. If `task_id` is passed — task report |
+
+### Statuses
+
+| Status | Code | Description |
+| --- | --- | --- |
+| `IR_RESULT_OK` | 1 | The method completed successfully. For `sync`: there was data in the queue, synchronization started |
+| `IR_RESULT_EMPTY` | 2 | No data. For `sync`: nothing to send — photos already uploaded, reports received |
+| `IR_ERROR` | 5 | Unknown error |
+| `IR_ERROR_NO_INET` | 6 | No internet |
+| `IR_ERROR_TOKEN` | 7 | Token error |
+| `IR_ERROR_STORE_ID_INCORRECT` | 10 | Invalid store ID |
+| `IR_ERROR_VISIT_ID_INCORRECT` | 12 | Invalid visit ID |
+| `IR_ERROR_AUTH` | 13 | Authorization error |
+| `IR_RESULT_INPROGRESS` | 16 | Data is still being processed |
+| `IR_ERROR_NOVISIT` | 17 | Visit with the specified ID was not found |
+
+### Which reports arrive in the response
+
+The contents of the `report` field depend on photos, answers to questions, and whether shooting is mandatory.
+
+Photos are mandatory if the visit has no tasks, or if a mandatory task requires shooting:
+
+| Visit data | Status | Reports |
+| --- | --- | --- |
+| Photos exist, not all processed, answers exist | `IR_RESULT_INPROGRESS` (16) | `visit_stats`, `photos`, `share_shelf`, `share_shelf_by_metrics`, `custom`, `assortment_achievement`, `perfect_store` |
+| Photos exist, not all processed, no answers | `IR_RESULT_INPROGRESS` (16) | `visit_stats`, `photos`, `share_shelf`, `share_shelf_by_metrics`, `custom`, `assortment_achievement` |
+| No photos, answers exist | `IR_RESULT_EMPTY` (2) | `visit_stats`, `perfect_store` |
+| No photos, no answers | `IR_RESULT_EMPTY` (2) | `visit_stats` |
+| Photos exist, all sent, answers exist | `IR_RESULT_OK` (1) | `visit_stats`, `assortment_achievement`, `share_shelf`, `share_shelf_by_metrics`, `custom`, `photos`, `perfect_store` |
+| Photos exist, all sent, no answers | `IR_RESULT_OK` (1) | `visit_stats`, `assortment_achievement`, `share_shelf`, `share_shelf_by_metrics`, `custom`, `photos`, `perfect_store` |
+
+If shooting is not mandatory (no mandatory task requires photos), the rows match except one: no photos, but answers exist → status `IR_RESULT_OK` (1), not `IR_RESULT_EMPTY` (2). The report set is the same: `visit_stats`, `perfect_store`.
+
+### How to handle the response in SceneDelegate
+
+To handle the response in an app with scenes (iOS 13 and later), implement the method in `SceneDelegate`:
 
 ```swift
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        guard 
-            let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-            let reportQueryItem = components.queryItems?.filter({ $0.name == "result" }).first,
-            let report = reportQueryItem.value
-        else { return false }
-        // Do something with report string.
-        return true
-    }
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    guard
+        let url = URLContexts.first?.url,
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+        let result = components.queryItems?.first(where: { $0.name == "result" })?.value
+    else { return }
+    // parse JSON from result
+}
 ```
 
-### Response Parameters
+### How to handle the response in AppDelegate
 
-The response to a request for report results using the **report** method comes in the `result` key in the form of a JSON structure containing the following fields:
+To handle the response in an app without scenes, implement the method in `AppDelegate`:
 
-| **Key**                  | **Type** | **Required** | **Description**   |
-|---------------------------------|-------|:-------------:|-----------------------------|
-| photosCounter            | int      | no           | Number of photos in visit                                       |
-| sceneCounter             | Int      | no           | Number of scenes in visit                                       |
-| notDetectedPhotosCounter | Int      | no           | Number of non-recognized photos                                 |
-| notDetectedScenesCounter | Int      | no           | Number of non-recognized scenes                                 |
-| nonValidPhotosCounter    | Int      | no           | Number of unconfirmed photos with errors                        |
-| status                   | String   | yes          | Response status. See possible values of error types in [Response Statuses](#response-statuses). |
-| report                   | JSON     | no           | Report contents. See the example of report with or without specifying *"task\_id"* [below](#response-example).|
+```swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+    guard
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+        let result = components.queryItems?.first(where: { $0.name == "result" })?.value
+    else { return false }
+    // parse JSON from result
+    return true
+}
+```
 
-### Response Statuses
+### How to handle the response in SwiftUI
 
-| **Value** | **Code** | **Description**    |
-|----------------------|:----:|-------------------------|
-| IR\_RESULT\_OK                  | 1  | Report successfully created.*                           |
-| IR\_RESULT\_EMPTY               | 2  | No data to get the report with set parameters. Check correctness of data by outlet/visit. In case the report was requested by all visits, contact tech support ** |
-| IR\_RESULT\_INPROGRESS          | 16 | Report is being processed.                             |
-| IR\_ERROR\_NO\_INET             | 6  |  No internet connection.                                |
-| IR\_ERROR\_TOKEN                | 7  |  Authentication error: Incorrect token.                 |
-| IR\_ERROR\_STORE\_ID\_INCORRECT | 10 |  Incorrect store ID received from external application. |
-| IR\_ERROR\_VISIT\_ID\_INCORRECT | 12 | Incorrect visit id received from external application. |
-| IR\_ERROR\_AUTH                 | 13 | Authentication error.                                  |
-| IR\_ERROR\_NOVISIT              | 17 | There is no visit with such ID in the application.         |
+To handle the response in SwiftUI, use `.onOpenURL`:
 
-*In sync method this status means that there is a data for sync (any photos to send or reports to receive) and sync process started successfully.
+```swift
+.onOpenURL { url in
+    guard
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+        let result = components.queryItems?.first(where: { $0.name == "result" })?.value
+    else { return }
+    // parse JSON from result
+}
+```
 
-** In sync method this status means that there is no data fot sync (all photos are sent and reports are received). The status for sync method is not an error.
+## How to start synchronization
 
-### Status and available reports depending on tasks in visit, photos and their obligation.
+Background tasks on iOS do not live long. If the visit ran offline, synchronization may not finish on its own.
 
-Photos in visit are required (there are no tasks or required tasks contain any with photos required):
+To force photo upload and report download:
 
-| Visit data | Status (code) | Available reports |
-|---|:-:|---|
-| Visit has photos, not all photos are processed, visit has answers for questions | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement, perfect_store |
-| Visit has photos, not all photos are processed, no answers for questions  | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement |
-| No photos, visit has answers for questions | 2 | visit_stats, perfect_store |
-| No photos, no answers for questions | 2 | visit_stats |
-| Visit has photos, all photos are processed, visit has answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
-| Visit has photos, all photos are processed, no answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
+1. Call the `sync` method.
+2. If the status is `IR_RESULT_OK`, synchronization started: there was data in the queue.
+3. If the status is `IR_RESULT_EMPTY`, there is nothing to send: photos already uploaded, reports received.
 
-Photos in visit are not required (there are any required tasks with required photos):
+## Scenario example
 
-| Visit data | Status (code) | Available reports |
-|---|:-:|---|
-| Visit has photos, not all photos are processed, visit has answers for questions | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement, perfect_store |
-| Visit has photos, not all photos are processed, no answers for questions  | 16 | visit_stats, photos, share_shelf, share_shelf_by_metrics, custom, assortment_achievement |
-| No photos, visit has answers for questions | 1 | visit_stats, perfect_store |
-| No photos, no answers for questions | 2 | visit_stats |
-| Visit has photos, all photos are processed, visit has answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
-| Visit has photos, all photos are processed, no answers for questions | 1 | visit_stats, assortment_achievement, share_shelf, share_shelf_by_metrics, custom, photos, perfect_store |
+To get a visit report:
 
+1. Register your app URL scheme in `Info.plist`.
+2. Open Ailet with the `visit` method.
+3. Take photos and leave Ailet.
+4. Read `status` in the `result` parameter.
+5. If the status is `IR_RESULT_INPROGRESS`, call `sync` and wait for the next return.
+6. If the status is `IR_RESULT_OK`, parse the report JSON.
+7. To open the report or the summary report, call `report` or `summaryReport`.
 
-### Response Example
-### Without task_id
-[Response without task_id](without_task_id_response.json)
+## Report examples
 
-### With task_id
-[Response with task_id](with_task_id_response.json)
-
+See the [report example without task_id](without_task_id_response.json) and the [report example with task_id](with_task_id_response.json).
