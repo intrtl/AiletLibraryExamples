@@ -4,7 +4,7 @@ You can call the Ailet app from your app with an Android Intent and skip the Ail
 
 **Requirement:** the Ailet app (`com.intrtl.app`) is installed on the device.
 
-To [integrate the Ailet library](https://github.com/intrtl/AiletLibV3Example/blob/main/readme.md), use a separate guide.
+To [integrate the Ailet library](../library/readme.md), use a separate guide.
 
 - [What you need](#what-you-need)
 - [How to call a method](#how-to-call-a-method)
@@ -252,7 +252,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
 The same JSON arrives in the broadcast `result` field and in `getData()` in `onActivityResult`.
 
-[Report example](https://github.com/intrtl/AiletLibV3Example/blob/main/report_example.json)
+[Report example](../library/report_exaple.json)
 
 ## Scenario example
 
