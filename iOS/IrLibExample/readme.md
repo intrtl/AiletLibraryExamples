@@ -1,63 +1,120 @@
-# Integrate irLib into project
+[![Latest Release](https://img.shields.io/badge/latest%20release-6.5.4-brightgreen)](https://github.com/intrtl/specs)
 
-- [Integrate irLib into project](#integrate-irlib-into-project)
-  - [Include irLib using Cocoapods](#include-irlib-using-cocoapods)
-  - [Configure target](#configure-target)
-  - [Import headers](#import-headers)
-  - [Using Multiportal functionality](#using-multiportal-functionality)
-    - [Init](#init)
-    - [Switch portal](#switch-portal)
-    - [setPortal results](#setportal-results)
+# Integrating the Ailet library
 
-## Include irLib using Cocoapods
+The Ailet library embeds visit shooting, reports, and synchronization into your iOS app.
 
-Add in podfile header:
+Framework: `IrLibSwift`. API client: `IRInteractManager`. From version 5.10 this is an asynchronous API.
 
-```
+`IrLibSwift` is enough for the asynchronous API. You need it in both Swift and Objective-C projects.
+
+To call Ailet without the library, use [integration via iOS deeplink](../deeplink/readme.md).
+
+See the [Swift method reference](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md) and the [Objective-C method reference](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-objc.md).
+
+- [Scenario example](#scenario-example)
+- [What you need](#what-you-need)
+- [How to install with CocoaPods](#how-to-install-with-cocoapods)
+- [How to update the framework](#how-to-update-the-framework)
+- [How to initialize the library](#how-to-initialize-the-library)
+- [How to start shooting](#how-to-start-shooting)
+- [How to get a report](#how-to-get-a-report)
+- [Synchronous API](#synchronous-api)
+
+## Scenario example
+
+To run a visit and get a report:
+
+1. Add `IrLibSwift` with CocoaPods.
+2. Call `IRInteractManager.setup(...)`.
+3. Call `IRInteractManager.startShooting(...)`.
+4. Request the report with `IRInteractManager.report(visitId:)` or subscribe to `IRNotification`.
+
+## What you need
+
+- CocoaPods.
+- An initial authorization token (`guestToken`). The Ailet team issues it.
+
+## How to install with CocoaPods
+
+To [install with CocoaPods](https://cocoapods.org), add the repositories, `use_frameworks!`, and the `IrLibSwift` pod to the `Podfile`:
+
+```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/intrtl/specs'
+
+use_frameworks!
+
+target 'YourTarget' do
+  pod 'IrLibSwift'
+end
 ```
 
-And in podfile target section:
-```
-pod 'IRLib'
-```
+Then run this in the project directory:
 
-## Configure target
-
-Set **Requires full screen** flag to True.
-
-## Import headers
-
-```objectivec
-#import <Realm/Realm.h> // Optional, but required when use C++ code (.mm)
-#import <IrLib/IrLib.h>
+```bash
+pod install
 ```
 
-## Using Multiportal functionality
+## How to update the framework
 
-### Init
+To update an already installed `IrLibSwift`, run this in the project directory:
 
-If you need using more than one portal, set to **YES** isMultiportal parameter in init:
-
-```objectivec
-long res = [IrView init:@"username"
-               password:@"password"
-             guestToken:@"your-guest-token"
-           notification:@"notificationID"
-          isMultiportal:YES];
-```
-### Switch portal
-For switch portal use **setPortal** function with portal ID as parameter:
-```objectivec
-[IrView setPortal: @"demoPortal"];
+```bash
+pod update IrLibSwift --repo-update
 ```
 
-### setPortal results
+## How to initialize the library
 
-| Result | Code | Description |
-|---|:-:|---|
-| IR_RESULT_OK | 1 | Switch portal success |
-| IR_ERROR_NOT_MULTIPORTAL_MODE  | 23 |Set portal ID in non multiportal mode |
-| IR_ERROR_PORTAL_INCORRECT  | 24 | Incorrect portal ID or portal not associated with user |
-| IR_ERROR_EMPTY_PORTAL  | 25 | Portal ID is null and using multiportal mode |
+To start work, call [`setup`](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md#setup). The method authorizes the user and downloads data the library needs.
+
+```swift
+IRInteractManager.setup(
+    username: "user123",
+    password: "securePassword",
+    guestToken: "guestToken123"
+) { result in
+    switch result {
+    case .success:
+        // the library is ready
+    case .failure(let error):
+        // handle IRError
+    }
+}
+```
+
+## How to start shooting
+
+To open the Ailet camera, call [`startShooting`](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md#start-shooting):
+
+```swift
+do {
+    try IRInteractManager.startShooting(
+        in: viewController,
+        externalStoreId: "store123",
+        externalVisitId: "visit456"
+    )
+} catch {
+    // handle IRError
+}
+```
+
+## How to get a report
+
+To get a local visit report, call [`report(visitId:)`](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md#retrieve-report-data-for-specific-visit):
+
+```swift
+do {
+    let report = try IRInteractManager.report(visitId: "visit123")
+} catch {
+    // handle the error
+}
+```
+
+To receive photo recognition updates, subscribe to [`IRNotification`](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md#subscribe-for-notifications) through `NotificationCenter`.
+
+The full list of methods, parameters, and classes is in the [Swift reference](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md).
+
+## Synchronous API
+
+The synchronous API remains in the `IRLib` framework. For a new integration, add only `IrLibSwift`.
