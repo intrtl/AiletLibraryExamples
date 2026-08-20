@@ -252,7 +252,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
 The same JSON arrives in the broadcast `result` field and in `getData()` in `onActivityResult`.
 
-[Report example](../library/report_exaple.json)
+[Report example](https://github.com/intrtl/AiletLibV3Example/blob/main/report_example.json)
 
 ## Scenario example
 
