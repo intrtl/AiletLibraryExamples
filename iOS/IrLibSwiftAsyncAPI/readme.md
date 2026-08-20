@@ -8,7 +8,7 @@ Framework: `IrLibSwift`. API client: `IRInteractManager`. From version 5.10 this
 
 `IrLibSwift` is enough for the asynchronous API. You need it in both Swift and Objective-C projects.
 
-To call Ailet without the library, use [integration via iOS deeplink](../deeplink/readme.md).
+To call Ailet without the library, use [integration via iOS deeplink](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrDeeplinkExample/readme.md).
 
 See the [Swift method reference](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-swift.md) and the [Objective-C method reference](https://github.com/intrtl/AiletLibraryExamples/blob/master/iOS/IrLibSwiftAsyncAPI/IrLibSwift-docs-objc.md).
 
