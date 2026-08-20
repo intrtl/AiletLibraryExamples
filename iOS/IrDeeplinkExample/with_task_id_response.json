@@ -7,12 +7,12 @@
         "photos": {
             "602cb5b7098ee-9451": {
                 "scene_id": "602cb5b7098b0-1403",
-                "scene_type": "Не распознано на основном фото",
+                "scene_type": "Not recognized on the main photo",
                 "image_path": "/Documents/14310/2021-02-17-10-20-39-rn-o.jpg",
                 "image_url": "https://.../2021-02-17-06-20-40-4132-o.jpg",
                 "error": {
                     "codeInt": 1,
-                    "message": "Успешно обработан",
+                    "message": "Processed successfully",
                     "code": 1
                 },
                 "products": [
@@ -27,7 +27,7 @@
                         },
                         "category_name": "Dairy",
                         "facing_group": 2,
-                        "name": "Агуша Пюре яблоко-малина-шиповник, doypack, .090"
+                        "name": "Agusha puree apple-raspberry-rosehip, doypack, .090"
                     }
                 ]
             }
@@ -35,7 +35,7 @@
         "result": {
             "sended_photos": 1,
             "code": 1,
-            "message": "Успешно обработан",
+            "message": "Processed successfully",
             "total_photos": 1,
             "codeInt": 1,
             "internal_visit_id": "602cb5b408cda-4745",
@@ -46,7 +46,7 @@
                 "id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
                 "external_id": "006AA8BA-C9D0-49DD-93B2-666E71A407A1",
                 "facing_plan": 0,
-                "brand_name": "Агуша",
+                "brand_name": "Agusha",
                 "facing_real": 2,
                 "facing_fact": 2,
                 "price": "46",
@@ -54,7 +54,7 @@
                 "price_type": false,
                 "category_name": "Dairy",
                 "product_category_id": "8f0f1b83-8368-40f2-a908-1adeddc7923d",
-                "name": "Агуша Пюре яблоко-малина-шиповник, doypack, .090"
+                "name": "Agusha puree apple-raspberry-rosehip, doypack, .090"
             }
         ],
         "share_shelf": {
@@ -99,14 +99,14 @@
                 {
                     "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
                     "brand_id": "a45f430d-9e3b-11e7-a5c2-000d3a250e47",
-                    "brand_name": "Другое",
+                    "brand_name": "Other",
                     "is_own": 0,
                     "value": 1,
                     "percent": 11.1
                 }
             ],
             "share_shelf_type": "facing",
-            "share_shelf_name": "Tradi Dairy_милютина"
+            "share_shelf_name": "Tradi Dairy_milyutina"
         },
         "share_shelf_by_metrics": [
             {
@@ -151,14 +151,14 @@
                     {
                         "product_category_id": "df44a7b9-58ff-4a95-a2fc-9a6d1015ce35",
                         "brand_id": "a45f430d-9e3b-11e7-a5c2-000d3a250e47",
-                        "brand_name": "Другое",
+                        "brand_name": "Other",
                         "is_own": 0,
                         "value": 1,
                         "percent": 11.1
                     }
                 ],
                 "share_shelf_type": "facing",
-                "share_shelf_name": "Tradi Dairy_милютина"
+                "share_shelf_name": "Tradi Dairy_milyutina"
             },
             {
                 "share_shelf_by_visit": [
@@ -268,7 +268,7 @@
                           "id": 1,
                           "index": 1,
                           "type": "select",
-                          "name": "Сколько касс в магазине",
+                          "name": "How many checkouts are in the store",
                           "required": true,
                           "answers": [
                               {                                
@@ -282,7 +282,7 @@
                           "id": 2,
                           "index": 2,
                           "type": "multiselect",
-                          "name": "Сколько доп. мест продаж в магазине ",
+                          "name": "How many additional sales locations are in the store ",
                           "required": false,
                           "answers": [
                               {
@@ -292,7 +292,7 @@
                               },
                               {
                                   "index": 3,
-                                  "name": "есть, но не выставлен ассортимент производителя",
+                                  "name": "exists, but the manufacturer's assortment is not displayed",
                                   "point": 1
                               }
                           ]
@@ -301,12 +301,12 @@
                           "id": 3,
                           "index": 2,
                           "type": "text",
-                          "name": "вопрос?",
+                          "name": "question?",
                           "required": true,
                           "answers": [
                               {
                                   "index": 1,
-                                  "name": "ответ",
+                                  "name": "answer",
                                   "point": 2
                               }
                           ]
