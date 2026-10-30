@@ -4,7 +4,7 @@ You can call the Ailet app from your app with an Android Intent and skip the Ail
 
 **Requirement:** the Ailet app (`com.intrtl.app`) is installed on the device.
 
-**On-device** recognition is available in the **Ailet Offline 4.23** build and later, package `tech.jedai.offline`.
+**On-device** recognition is available in the **Ailet Offline 4.23** build and later, package `com.ailet.app.offline`.
 
 To [integrate the Ailet library](../library/readme.md), use a separate guide.
 
@@ -38,7 +38,7 @@ To [integrate the Ailet library](../library/readme.md), use a separate guide.
 
 - The Ailet app is installed on the device.
 - The project declares the `com.intrtl.app` package.
-- For on-device, the project declares the `tech.jedai.offline` package and Ailet Offline **4.23** or later is installed.
+- For on-device, the project declares the `com.ailet.app.offline` package and Ailet Offline **4.23** or later is installed.
 
 To open the Ailet app on Android 11 and later (`targetSdkVersion` 30 and higher), add a `<queries>` block to `AndroidManifest.xml`:
 
@@ -52,7 +52,7 @@ For Ailet Offline, declare the build package:
 
 ```xml
 <queries>
-    <package android:name="tech.jedai.offline" />
+    <package android:name="com.ailet.app.offline" />
 </queries>
 ```
 
@@ -107,7 +107,7 @@ startActivityForResult(intent, ACTIVITY_RESULT_START_IR_VISIT);
 
 ```java
 Intent intent = new Intent("com.ailet.ACTION_SYNC_PALOMNA");
-intent.setPackage("tech.jedai.offline");
+intent.setPackage("com.ailet.app.offline");
 intent.putExtra("login", user);
 intent.putExtra("password", password);
 intent.putStringArrayListExtra("external_ids", externalIds);
@@ -337,14 +337,14 @@ To get a report without internet, follow the [recommended call order](#recommend
 
 ## On-device recognition
 
-Starting with version **4.23**, the Ailet Offline build recognizes photos on the device and returns a report without internet. The app package is `tech.jedai.offline`.
+Starting with version **4.23**, the Ailet Offline build recognizes photos on the device and returns a report without internet. The app package is `com.ailet.app.offline`.
 
 The same build still supports `com.intrtl.app.ACTION_VISIT`, `com.intrtl.app.ACTION_REPORT`, `com.intrtl.app.ACTION_SUMMARY_REPORT`, and `com.intrtl.app.ACTION_SYNC`.
 
 ### Build and settings
 
 - Install Ailet Offline **4.23** or later.
-- Declare the `tech.jedai.offline` package in `<queries>`.
+- Declare the `com.ailet.app.offline` package in `<queries>`.
 - In the portal mobile settings (`/api/v1/md/mobile_settings/`), on-device recognition is enabled and these lists are filled:
   - `other.offline_models.android` — models;
   - `other.offline_classes.android` — classes.
@@ -426,7 +426,7 @@ The widget for `on-device` comes from the visit on-device widget. The widget for
 
 Prepare data on the device first, then shoot the visit. Account sign-in happens inside the call.
 
-1. Install Ailet Offline **4.23+** and declare the `tech.jedai.offline` package in `<queries>`.
+1. Install Ailet Offline **4.23+** and declare the `com.ailet.app.offline` package in `<queries>`.
 2. While the device has a network, call `com.ailet.ACTION_SYNC_PALOMNA` at least once a day and pass the route stores. On Wi-Fi the download starts immediately.
 3. Call `ACTION_VISIT` and take photos. After a successful `ACTION_SYNC_PALOMNA`, shooting works without internet.
 4. Read the `code`, `codeInt`, `source`, and `message` extras and the report file. Or wait for the broadcast and read the same JSON from the `result` extra.
@@ -454,7 +454,7 @@ For Ailet Offline:
 
 ```xml
 <queries>
-    <package android:name="tech.jedai.offline" />
+    <package android:name="com.ailet.app.offline" />
 </queries>
 ```
 
