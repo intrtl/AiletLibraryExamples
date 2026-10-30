@@ -18,8 +18,7 @@
             "sended_photos": 2,
             "code": "RESULT_INPROGRESS",
             "codeInt": 14,
-            "message": "Data in processing",
-            "source": "online"
+            "message": "Data in processing"
         },
         "photos": {
             "627e94940a021-9c4538fd-PHOTO-000001": {
@@ -451,11 +450,6 @@
                 }
             ],
             "total_visit_score": 224
-        },
-        "visit_stats": {
-            "photo": {
-                "completed_on_device": 0
-            }
         }
     },
     "status": "RESULT_OK"
